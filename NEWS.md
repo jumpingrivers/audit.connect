@@ -1,3 +1,7 @@
+# connecttest 0.1.0 _2022-09-20_
+
+-   Adds tests for deployment of Rmd files as PDFs and Word documents, knitted on Connect server
+
 # connecttest 0.0.3 _2022-09-20_
 
 -   Removes unused imports
