@@ -1,3 +1,5 @@
+^config-uat\.yml$
+
 ^\.gitlab-ci\.yml$
 ^\.lintr$
 ^.*\.Rproj$

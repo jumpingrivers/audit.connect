@@ -1,3 +1,6 @@
+# connecttest 0.2.0 _2022-09-24_
+-   feat: Complete refactoring to use R6 classes
+
 # connecttest 0.1.0 _2022-09-20_
 
 -   Adds tests for deployment of Rmd files as PDFs and Word documents, knitted on Connect server

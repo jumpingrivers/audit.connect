@@ -1,20 +1,23 @@
 Type: Package
 Package: connecttest
-Title: Connect UAT testing scripts
-Version: 0.1.0
+Title: Posit Connect Health Check
+Version: 0.2.0
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
-Description: Testing whether data scientists can do what they expect in
-    Posit Connect.
+Description: Posit Connect Health Check. Deploys various content types to
+    assess whether Connect is functioning correctly.
 License: file LICENSE
 Depends: 
     R (>= 4.0.0)
 Imports: 
+    cli,
     connectapi,
-    magrittr,
-    rsconnect (>= 0.8.27)
+    purrr,
+    R6,
+    rsconnect (>= 0.8.27),
+    stringr,
+    yaml
 Suggests:
-    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
