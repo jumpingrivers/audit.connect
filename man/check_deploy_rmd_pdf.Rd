@@ -112,13 +112,13 @@ The objects of this class are cloneable with this method.
 }
 }
 \section{Super classes}{
-\code{connecttest::logger} -> \code{connecttest::base_check} -> \code{check_deploy_rmd_doc}
+\code{connecttest::logger} -> \code{connecttest::base_check} -> \code{check_deploy_rmd_word}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-check_deploy_rmd_doc-check}{\code{check_deploy_rmd_doc$check()}}
-\item \href{#method-check_deploy_rmd_doc-clone}{\code{check_deploy_rmd_doc$clone()}}
+\item \href{#method-check_deploy_rmd_word-check}{\code{check_deploy_rmd_doc$check()}}
+\item \href{#method-check_deploy_rmd_word-clone}{\code{check_deploy_rmd_doc$clone()}}
 }
 }
 \if{html}{\out{
@@ -133,18 +133,18 @@ The objects of this class are cloneable with this method.
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-check_deploy_rmd_doc-check"></a>}}
-\if{latex}{\out{\hypertarget{method-check_deploy_rmd_doc-check}{}}}
+\if{html}{\out{<a id="method-check_deploy_rmd_word-check"></a>}}
+\if{latex}{\out{\hypertarget{method-check_deploy_rmd_word-check}{}}}
 \subsection{Method \code{check()}}{
-Checks deployment of an R Markdown document with Word Doc output
+Checks deployment of an R Markdown document with Word Docx output
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{check_deploy_rmd_doc$check()}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-check_deploy_rmd_doc-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-check_deploy_rmd_doc-clone}{}}}
+\if{html}{\out{<a id="method-check_deploy_rmd_word-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-check_deploy_rmd_word-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

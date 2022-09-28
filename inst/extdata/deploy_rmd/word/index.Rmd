@@ -1,6 +1,6 @@
 ---
 title: "UAT Example Doc"
-output: pdf_document
+output: word_document
 ---
 
 ```{r setup, include=FALSE}

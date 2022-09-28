@@ -1,3 +1,10 @@
+# connecttest 0.2.1 _2022-09-28_
+-   feat: Add in quarto test
+-   bug: Don't assume a lack of `stop()`, means success
+-   refactor: Create standard `cleanup_` functions
+-   internal: Change doc -> Word to match {knitr} naming
+-   internal: Use the generated .Rmd file from RStudio for tests
+
 # connecttest 0.2.0 _2022-09-24_
 -   feat: Complete refactoring to use R6 classes
 

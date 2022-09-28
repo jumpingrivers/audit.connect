@@ -1,7 +1,6 @@
 # utility functions for testing Rmd -> HTML|PDF|Doc deployment
 deploy_rmd = function(rmd_dir, suppress = suppressMessages) {
   tmp_dir = tempdir()
-  on.exit(unlink(tmp_dir))
 
   file.copy(rmd_dir, tmp_dir, recursive = TRUE)
   app_dir = file.path(tmp_dir, basename(rmd_dir))
@@ -27,8 +26,12 @@ push_to_connect = function(bundle_dir, deploy_name, suppress) {
 
   # If deploy not successful, content not created
   content = suppress(connectapi::deploy(client, bundle, name = deploy_name))
-  on.exit(if (exists("content")) suppress(connectapi::content_delete(content, force = TRUE)),
-          add = TRUE)
+  on.exit(cleanup_rmd(bundle_dir, content, suppress))
   suppress(connectapi::poll_task(content))
   return(invisible(NULL))
+}
+
+cleanup_rmd = function(bundle_dir, content, suppress) {
+  if (exists("content")) suppress(connectapi::content_delete(content, force = TRUE))
+  fs::dir_delete(bundle_dir)
 }

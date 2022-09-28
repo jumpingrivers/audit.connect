@@ -49,7 +49,7 @@ base_check = R6::R6Class(
         has_passed = NA
       } else {
         res = try(check, silent = TRUE)
-        has_passed = !inherits(res, "try-error")
+        has_passed = !inherits(res, "try-error") && isTRUE(res)
       }
       self$stop_logger(has_passed)
       return(invisible(self))

@@ -1,5 +1,0 @@
----
-output:
-  word_document: default
----
-Hello world

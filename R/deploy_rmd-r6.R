@@ -45,10 +45,10 @@ check_deploy_rmd_html = R6::R6Class(
 #' @rdname check_deploy_rmd_pdf
 #' @export
 check_deploy_rmd_doc = R6::R6Class(
-  "check_deploy_rmd_doc",
+  "check_deploy_rmd_word",
   inherit = base_check,
   public = list(
-    #' @description  Checks deployment of an R Markdown document with Word Doc output
+    #' @description  Checks deployment of an R Markdown document with Word Docx output
     check = function() {
       rmd_dir = system.file("extdata", private$group, private$short,
                             package = "connecttest", mustWork = TRUE)
@@ -57,8 +57,8 @@ check_deploy_rmd_doc = R6::R6Class(
     }
   ),
   private = list(
-    context = "Rmd to Doc deployment",
-    short = "doc",
+    context = "Rmd to Word deployment",
+    short = "word",
     group = "deploy_rmd"
   )
 )

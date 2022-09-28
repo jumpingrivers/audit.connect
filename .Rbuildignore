@@ -11,5 +11,6 @@ _files$
 ^CONTRIBUTING\.md$
 ^CODEOWNERS$
 docs
-/rsconnect/
+rsconnect/
 ^connecttest\.Rproj$
+/rsconnect/
