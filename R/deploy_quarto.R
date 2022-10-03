@@ -4,9 +4,11 @@ deploy_quarto = function(quarto_dir, suppress = suppressMessages) {
   dir.create(tmp_dir, showWarnings = FALSE)
 
   file.copy(file.path(quarto_dir, "index.qmd"), tmp_dir)
-  has_deployed = suppress(quarto::quarto_publish_doc(file.path(tmp_dir, "index.qmd"),
+  has_deployed = suppressMessages(quarto::quarto_publish_doc(file.path(tmp_dir, "index.qmd"),
                              render = "server",
-                             server = Sys.getenv("CONNECT_SERVER")))
+                             server = Sys.getenv("CONNECT_SERVER"),
+                             launch.browser = FALSE,
+                             logLevel = "quiet"))
   return(invisible(has_deployed))
 }
 
