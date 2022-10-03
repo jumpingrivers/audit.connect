@@ -1,3 +1,6 @@
+# connecttest 0.2.1 _2022-10-03_
+-   feat: Add in pins test
+
 # connecttest 0.2.0 _2022-09-24_
 -   feat: Complete refactoring to use R6 classes
 
