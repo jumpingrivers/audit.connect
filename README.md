@@ -1,4 +1,4 @@
-# connecttest
+# jrHealthCheckConnect
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -10,7 +10,7 @@ This checks that a variety of applications can be deployed to a Posit Connect Se
 Running the test is straightforward
 
 ``` r
-library("connecttest")
+library("jrHealthCheckConnect")
 check()
 ```
 To skip, set the appropriate value in `config-uat.yml`. This file can be auto-generated

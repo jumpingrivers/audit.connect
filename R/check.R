@@ -13,7 +13,7 @@ check = function(dir = ".", file = "config-uat.yml") {
 }
 
 init_r6_checks = function(dir, file) {
-  exports = getNamespaceExports("connecttest")
+  exports = getNamespaceExports("jrHealthCheckConnect")
   check_exports = exports[stringr::str_starts(exports, "check_")]
   r6_inits = lapply(check_exports, init_r6_check, dir = dir, file = file)
   r6_inits

@@ -9,7 +9,7 @@ check_deploy_quarto_html = R6::R6Class(
     #' @description Checks deployment of Quarto document with HTML output
     check = function() {
       quarto_dir = system.file("extdata", private$group, private$short,
-                               package = "connecttest", mustWork = TRUE)
+                               package = "jrHealthCheckConnect", mustWork = TRUE)
       private$checker(deploy_quarto(quarto_dir))
       return(invisible(NULL))
     }

@@ -9,7 +9,7 @@ check_deploy_rmd_pdf = R6::R6Class(
     #' @description Checks deployment of an R Markdown document with PDF output
     check = function() {
       rmd_dir = system.file("extdata", private$group, private$short,
-                            package = "connecttest", mustWork = TRUE)
+                            package = "jrHealthCheckConnect", mustWork = TRUE)
       private$checker(deploy_rmd(rmd_dir))
       return(invisible(NULL))
     }
@@ -30,7 +30,7 @@ check_deploy_rmd_html = R6::R6Class(
     #' @description Checks deployment of an R Markdown document with HTML output
     check = function() {
       rmd_dir = system.file("extdata", private$group, private$short,
-                            package = "connecttest", mustWork = TRUE)
+                            package = "jrHealthCheckConnect", mustWork = TRUE)
       private$checker(deploy_rmd(rmd_dir))
       return(invisible(NULL))
     }
@@ -51,7 +51,7 @@ check_deploy_rmd_doc = R6::R6Class(
     #' @description  Checks deployment of an R Markdown document with Word Docx output
     check = function() {
       rmd_dir = system.file("extdata", private$group, private$short,
-                            package = "connecttest", mustWork = TRUE)
+                            package = "jrHealthCheckConnect", mustWork = TRUE)
       private$checker(deploy_rmd(rmd_dir))
       return(invisible(NULL))
     }

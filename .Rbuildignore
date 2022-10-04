@@ -12,5 +12,5 @@ _files$
 ^CODEOWNERS$
 docs
 rsconnect/
-^connecttest\.Rproj$
+^jrHealthCheckConnect\.Rproj$
 /rsconnect/
