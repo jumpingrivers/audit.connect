@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.4 _2022-10-03_
+-   feat: Testing flask APIs
+
 # jrHealthCheckConnect 0.2.3 _2022-10-03_
 
 -   internal: Rename package {connecttest} -> {jrHealthCheckConnect}
