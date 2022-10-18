@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.5 _2022-10-18_
+-   feat: Summarise key variables at the start of the test
+
 # jrHealthCheckConnect 0.2.4 _2022-10-03_
 -   feat: Testing flask APIs
 

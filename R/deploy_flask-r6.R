@@ -8,8 +8,12 @@ check_deploy_python_flask = R6::R6Class(
   public = list(
     #' @description Checks deployment of Quarto document with HTML output
     check = function() {
-      python_dir = dir = system.file("extdata", private$group, private$short,
-                               package = "jrHealthCheckConnect", mustWork = TRUE)
+      if (isFALSE(.connect$rsconnect_python)) {
+        cli::cli_alert_info("rsconnect-python missing. Skipping Python test.")
+        return(invisible(NULL))
+      }
+      dir = system.file("extdata", private$group, private$short,
+                        package = "jrHealthCheckConnect", mustWork = TRUE)
       private$checker(deploy_flask(dir))
       return(invisible(NULL))
     }

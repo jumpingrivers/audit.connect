@@ -7,6 +7,8 @@
 #' @param file config file name
 #' @export
 check = function(dir = ".", file = "config-uat.yml") {
+  summarise_setup()
+  cli::cli_h2("Starting checks")
   r6_inits = init_r6_checks(dir = dir, file = file)
   lapply(r6_inits, function(r6) r6$check())
   purrr::map_dfr(r6_inits, ~.x$get_log())
