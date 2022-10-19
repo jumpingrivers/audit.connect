@@ -1,3 +1,7 @@
+# jrHealthCheckConnect 0.2.6 _2022-10-19_
+
+-  feat: Add in quarto to PDF & quarto to docx tests
+
 # jrHealthCheckConnect 0.2.5 _2022-10-18_
 -   feat: Summarise key variables at the start of the test
 
