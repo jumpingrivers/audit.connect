@@ -5,20 +5,37 @@
 
 This checks that a variety of applications can be deployed to a Posit Connect Server.
 
+## Installation
+
+To install the R package, run
+
+``` r
+install.packages("jrHealthCheckConnect")
+```
+For python based deployment, the python package, `rsconnect-python` is required
+
+``` bash
+pip install rsconnect-python
+```
+
 ## Usage
 
 Running the test is straightforward
 
 ``` r
 library("jrHealthCheckConnect")
-check()
+check(server = "https://rsc.jumpingrivers.cloud/", token = "API_TOKEN")
 ```
+Alternatively, you can set environmental variables, `CONNECT_SERVER` and `CONNECT_API_KEY` in your
+`.Renviron` file.
+
 To skip, set the appropriate value in `config-uat.yml`. This file can be auto-generated
 via
 
 ``` r
 create_config()
 ```
+If a test is missing in the config, the default value is TRUE.
 
 ## Creating a test
 

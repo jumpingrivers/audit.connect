@@ -1,15 +1,15 @@
 # Note: storing variables in .connect as in the (near) future, we'll want to pass
 # keys / servers as variables
-summarise_setup = function() {
+summarise_setup = function(server, token) {
   cli::cli_h2("Summary jrHealthCheckConnect v{packageVersion('jrHealthCheckConnect')}")
-  check_server()
-  check_api_key()
+  check_server(server)
+  check_api_key(token)
   check_rsconnect_python()
   return(invisible(NULL))
 }
 
-check_server = function() {
-  server = set_key("connect_server", Sys.getenv("CONNECT_SERVER", NA))
+check_server = function(server) {
+  server = set_key("connect_server", get_value("CONNECT_SERVER", server))
   if (is.na(server)) {
     cli::cli_abort("CONNECT_SERVER is missing")
   }
@@ -27,8 +27,8 @@ check_server = function() {
   return(invisible(NULL))
 }
 
-check_api_key = function() {
-  value = set_key("connect_api_key", Sys.getenv("CONNECT_API_KEY", NA))
+check_api_key = function(token) {
+  value = set_key("connect_api_key", get_value("CONNECT_API_KEY", token))
   if (is.na(value)) {
     cli::cli_abort("CONNECT_API_KEY missing")
   }
@@ -45,9 +45,4 @@ check_rsconnect_python = function() {
     cli::cli_alert_warning("Install: pip install rsconnect-python")
   }
   return(invisible(NULL))
-}
-
-set_key = function(name, value) {
-  .connect[[name]] = value
-  return(invisible(value))
 }

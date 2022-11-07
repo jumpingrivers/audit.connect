@@ -1,6 +1,8 @@
 
 deploy_pins = function(suppress = suppressMessages) {
-  board = suppress(pins::board_rsconnect(auth = "envvar", versioned = TRUE))
+  board = suppress(pins::board_rsconnect(auth = "manual", versioned = TRUE,
+                                         server = get_server(),
+                                         key = get_token()))
 
   tmp_env = new.env()
   utils::data("mtcars", package = "datasets", envir = tmp_env)

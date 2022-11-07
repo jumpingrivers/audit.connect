@@ -4,9 +4,13 @@
 \alias{check}
 \title{Run UAT Checks}
 \usage{
-check(dir = ".", file = "config-uat.yml")
+check(server = NULL, token = NULL, dir = ".", file = "config-uat.yml")
 }
 \arguments{
+\item{server}{RSC server. If NULL, use the ENV variable CONNECT_SERVER}
+
+\item{token}{RSC api token. If NULL, use the ENV variable CONNECT_API_KEY}
+
 \item{dir}{directory location of the the config file}
 
 \item{file}{config file name}

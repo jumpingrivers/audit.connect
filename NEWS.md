@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.8 _2022-11-07_
+-  feat: Pass tokens & server as arguments
+
 # jrHealthCheckConnect 0.2.7 _2022-10-21_
 -  feat: Deploy streamlit applications
 

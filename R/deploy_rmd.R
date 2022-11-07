@@ -21,7 +21,7 @@ get_deploy_name = function(rmd_path) {
 
 push_to_connect = function(bundle_dir, deploy_name, suppress) {
   # Need: CONNECT_API_KEY and CONNECT_SERVER
-  client = suppress(connectapi::connect())
+  client = suppress(connectapi::connect(server = get_server(), api_key = get_token()))
   bundle = suppress(connectapi::bundle_dir(bundle_dir))
 
   # If deploy not successful, content not created

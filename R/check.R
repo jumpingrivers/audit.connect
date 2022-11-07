@@ -3,15 +3,20 @@
 #' This functions runs all UAT tests.
 #' To skip tests, set check to `no` in the config yaml file.
 #' See `create_config()`
+#' @param server RSC server. If NULL, use the ENV variable CONNECT_SERVER
+#' @param token RSC api token. If NULL, use the ENV variable CONNECT_API_KEY
 #' @param dir directory location of the the config file
 #' @param file config file name
+#' @importFrom rlang .data
 #' @export
-check = function(dir = ".", file = "config-uat.yml") {
-  summarise_setup()
+check = function(server = NULL, token = NULL,
+                 dir = ".", file = "config-uat.yml") {
+  summarise_setup(server, token)
   cli::cli_h2("Starting checks")
   r6_inits = init_r6_checks(dir = dir, file = file)
   lapply(r6_inits, function(r6) r6$check())
-  purrr::map_dfr(r6_inits, ~.x$get_log())
+  results = purrr::map_dfr(r6_inits, ~.x$get_log())
+  dplyr::arrange(results, .data$group, .data$short)
 }
 
 init_r6_checks = function(dir, file) {

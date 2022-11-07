@@ -11,16 +11,16 @@ deploy_python = function(python_dir,
     processx::run("rsconnect",
                   args = c("deploy",
                            rsconnect_type,
-                           "--server", Sys.getenv("CONNECT_SERVER"),
-                           "--api-key", Sys.getenv("CONNECT_API_KEY"),
+                           "--server", get_server(),
+                           "--api-key", get_token(),
                            "--new",
                            "--title", title,
                            tmp_dir)))
 
   content = processx::run("rsconnect",
                           args = c("content", "search",
-                                   "--server", Sys.getenv("CONNECT_SERVER"),
-                                   "--api-key", Sys.getenv("CONNECT_API_KEY"),
+                                   "--server", get_server(),
+                                   "--api-key", get_token(),
                                    "--title-contains", title))
   guid = jsonlite::fromJSON(content$stdout)$guid
   # Redoing on.exit to clean-up content
@@ -32,7 +32,7 @@ cleanup_python = function(tmp_dir, guid = NULL) {
   fs::dir_delete(tmp_dir)
   # map in case we make multiple mistakes
   if (!is.null(guid)) {
-    purrr::map(guid, jrApiRStudio::delete_content)
+    purrr::map(guid, ~jrApiRStudio::delete_content(.x, server = get_server(), token = get_token()))
   }
   return(invisible(NULL))
 }

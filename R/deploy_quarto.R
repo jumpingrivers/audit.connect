@@ -4,10 +4,12 @@ deploy_quarto = function(quarto_dir, suppress = suppressMessages) {
   dir.create(tmp_dir, showWarnings = FALSE)
 
   file.copy(file.path(quarto_dir, "index.qmd"), tmp_dir)
+  # quarto uses rsconnect::accounts. So, looks up the server in list of accounts
   has_deployed = suppress(quarto::quarto_publish_doc(file.path(tmp_dir, "index.qmd"),
                              render = "server",
-                             server = Sys.getenv("CONNECT_SERVER"),
+                             server = get_server(),
                              launch.browser = FALSE,
+                             forceUpdate = TRUE,
                              logLevel = "quiet"))
   return(invisible(has_deployed))
 }
@@ -18,6 +20,6 @@ cleanup_quarto = function(tmp_dir) {
   dcf_contents = read.dcf(dcf)
   url = dcf_contents[1, "url"]
   guid = stringr::str_match_all(url, "content/(.*)/")[[1]][, 2]
-  suppressMessages(jrApiRStudio::delete_content(guid))
+  suppressMessages(jrApiRStudio::delete_content(guid, server = get_server(), token = get_token()))
   fs::dir_delete(tmp_dir)
 }
