@@ -1,12 +1,16 @@
-deploy_flask = function(python_dir, suppress = suppressMessages) {
+deploy_python = function(python_dir,
+                         suppress = suppressMessages,
+                         rsconnect_type = c("api", "streamlit")) {
+  rsconnect_type = match.arg(rsconnect_type)
   tmp_dir = file.path(tempdir(), "python")
-  on.exit(cleanup_flask(tmp_dir))
+  on.exit(cleanup_python(tmp_dir))
   dir.create(tmp_dir, showWarnings = FALSE)
   file.copy(file.path(python_dir, c("app.py", "requirements.txt")), tmp_dir)
-  title = paste0("Python-flask-", Sys.Date())
+  title = paste("Python", rsconnect_type, Sys.Date(), sep = "-")
   has_deployed = suppress(
     processx::run("rsconnect",
-                  args = c("deploy", "api",
+                  args = c("deploy",
+                           rsconnect_type,
                            "--server", Sys.getenv("CONNECT_SERVER"),
                            "--api-key", Sys.getenv("CONNECT_API_KEY"),
                            "--new",
@@ -17,15 +21,14 @@ deploy_flask = function(python_dir, suppress = suppressMessages) {
                           args = c("content", "search",
                                    "--server", Sys.getenv("CONNECT_SERVER"),
                                    "--api-key", Sys.getenv("CONNECT_API_KEY"),
-                                   "--content-type", "python-api",
                                    "--title-contains", title))
   guid = jsonlite::fromJSON(content$stdout)$guid
   # Redoing on.exit to clean-up content
-  on.exit(cleanup_flask(tmp_dir, guid = guid))
+  on.exit(cleanup_python(tmp_dir, guid = guid))
   return(invisible(has_deployed$status == 0))
 }
 
-cleanup_flask = function(tmp_dir, guid = NULL) {
+cleanup_python = function(tmp_dir, guid = NULL) {
   fs::dir_delete(tmp_dir)
   # map in case we make multiple mistakes
   if (!is.null(guid)) {

@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.7 _2022-10-21_
+-  feat: Deploy streamlit applications
+
 # jrHealthCheckConnect 0.2.6 _2022-10-19_
 
 -  feat: Add in quarto to PDF & quarto to docx tests
