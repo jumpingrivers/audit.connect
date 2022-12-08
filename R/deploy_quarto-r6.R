@@ -72,3 +72,27 @@ check_deploy_quarto_pdf = R6::R6Class(
     group = "deploy_quarto"
   )
 )
+
+#' R6 classes
+#'
+#' Check classes
+#' @export
+check_deploy_quarto_beamer = R6::R6Class(
+  "check_deploy_quarto_beamer",
+  inherit = base_check,
+  public = list(
+    #' @param account Connect username
+    check = function(account = NULL) {
+      if (is.null(account)) account = get_username()
+      quarto_dir = system.file("extdata", private$group, private$short,
+                               package = "jrHealthCheckConnect", mustWork = TRUE)
+      private$checker(deploy_quarto(quarto_dir))
+      return(invisible(NULL))
+    }
+  ),
+  private = list(
+    context = "qmd to beamer deployment",
+    short = "beamer",
+    group = "deploy_quarto"
+  )
+)

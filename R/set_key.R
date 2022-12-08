@@ -1,5 +1,9 @@
 set_key = function(name, value) {
   .connect[[name]] = value
+  if (is.null(value) || nchar(value) == 0L) {
+    error_msg = paste0("Missing ", name)
+    stop(error_msg, call. = FALSE)
+  }
   return(invisible(value))
 }
 

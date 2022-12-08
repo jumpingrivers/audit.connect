@@ -17,7 +17,7 @@ deploy_quarto = function(quarto_dir, account, suppress = suppressMessages) {
 
 cleanup_quarto = function(tmp_dir) {
   fnames = list.files(tmp_dir, recursive = TRUE, full.names = TRUE)
-  dcf = fnames[stringr::str_detect(fnames, "test.dcf")]
+  dcf = fnames[stringr::str_detect(fnames, "/(.*)\\.dcf$")]
   dcf_contents = read.dcf(dcf)
   url = dcf_contents[1, "url"]
   guid = stringr::str_match_all(url, "content/(.*)/")[[1]][, 2]

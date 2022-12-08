@@ -27,6 +27,7 @@ check_server_url_structure = function(server) {
   if (isFALSE(end_slash)) {
     cli::cli_abort("The server URL should end with a `/`: {server}")
   }
+  cli::cli_alert_info("Server: {cli::col_green(server)}")
 
   start_address = stringr::str_starts(server, pattern = "http")
   if (isFALSE(start_address)) {

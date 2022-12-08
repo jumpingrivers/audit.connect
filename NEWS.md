@@ -1,3 +1,9 @@
+# jrHealthCheckConnect 0.2.10 _2022-12-20_
+-  feat: quarto test: quarto to beamer
+-  fix: individual python tests now use ENV variables
+-  fix: Merge conflict broke deploy flask
+
+
 # jrHealthCheckConnect 0.2.9 _2022-11-07_
 -  feat: Perform a basic API call to check token
 -  feat: Retrieve and display R/Python/Quarto versions
