@@ -1,4 +1,3 @@
-
 deploy_pins = function(suppress = suppressMessages) {
   board = suppress(pins::board_rsconnect(auth = "manual", versioned = TRUE,
                                          server = get_server(),

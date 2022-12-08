@@ -1,3 +1,9 @@
+# jrHealthCheckConnect 0.2.9 _2022-11-07_
+-  feat: Perform a basic API call to check token
+-  feat: Retrieve and display R/Python/Quarto versions
+-  feat: Automatically register account using token 
+-  chore: Remove additional blank lines / EOL whitespace
+
 # jrHealthCheckConnect 0.2.8 _2022-11-07_
 -  feat: Pass tokens & server as arguments
 

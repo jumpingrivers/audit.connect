@@ -12,9 +12,9 @@ check_deploy_python_flask = R6::R6Class(
         cli::cli_alert_info("rsconnect-python missing. Skipping Python test.")
         return(invisible(NULL))
       }
-      dir = system.file("extdata", private$group, private$short,
-                        package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_flask(dir))
+      python_dir = system.file("extdata", private$group, private$short,
+                               package = "jrHealthCheckConnect", mustWork = TRUE)
+      private$checker(deploy_python(python_dir, rsconnect_type = "api"))
       return(invisible(NULL))
     }
   ),

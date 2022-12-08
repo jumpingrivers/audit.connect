@@ -10,21 +10,39 @@ summarise_setup = function(server, token) {
 
 check_server = function(server) {
   server = set_key("connect_server", get_value("CONNECT_SERVER", server))
+  check_server_url_structure(server)
+  check_server_accessibility(server)
+  return(invisible(NULL))
+}
+
+# The server structure is really picky: we are using {rsconnect}, {connectapi}, python deployment
+# Solution: enforce one URL structure
+# This pkg likely won't work if the url is https://example.com/myrsc/
+# But I don't have that structure to test, so ...
+check_server_url_structure = function(server) {
   if (is.na(server)) {
     cli::cli_abort("CONNECT_SERVER is missing")
   }
-  cli::cli_alert_info("Server: {server}")
+  end_slash = stringr::str_ends(server, pattern = "/")
+  if (isFALSE(end_slash)) {
+    cli::cli_abort("The server URL should end with a `/`: {server}")
+  }
 
+  start_address = stringr::str_starts(server, pattern = "http")
+  if (isFALSE(start_address)) {
+    cli::cli_abort("The server URL should start with 'http': {server}")
+  }
+  cli::cli_alert_info("Server: {cli::col_green(server)}")
+  return(invisible(NULL))
+}
+
+check_server_accessibility = function(server) {
   resp = try(httr::GET(server), silent = TRUE)
   if (inherits(resp, "try-error")) {
     cli::cli_abort("Can not access {server}")
   }
-  status_code = httr::status_code(resp)
-  if (stringr::str_starts(status_code, "2", negate = TRUE)) {
-    cli::cli_abort("Server status code is {status_code}")
-  }
-  cli::cli_alert_info("Server accessible: {cli::symbol$tick}")
-  return(invisible(NULL))
+  check_api_status_code(resp)
+  cli::cli_alert_info("Server accessible: {cli::col_green(cli::symbol$tick)}")
 }
 
 check_api_key = function(token) {
@@ -32,12 +50,13 @@ check_api_key = function(token) {
   if (is.na(value)) {
     cli::cli_abort("CONNECT_API_KEY missing")
   }
-  cli::cli_alert_info("API KEY: {cli::symbol$tick}")
+  cli::cli_alert_info("API KEY: {cli::col_green(cli::symbol$tick)}")
   return(invisible(NULL))
 }
+
 check_rsconnect_python = function() {
   value = set_key("rsconnect_python", as.logical(nchar(Sys.which("rsconnect")) > 0))
-  sym = ifelse(value, cli::symbol$tick, cli::symbol$cross) #nolint
+  sym = ifelse(value, cli::col_green(cli::symbol$tick), cli::col_red(cli::symbol$cross)) #nolint
   cli::cli_alert_info("rsconnect-python: {sym}")
   if (isFALSE(value)) {
     cli::cli_alert_warning("rsconnect-python not installed")

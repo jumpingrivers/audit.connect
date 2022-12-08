@@ -1,4 +1,4 @@
-deploy_quarto = function(quarto_dir, suppress = suppressMessages) {
+deploy_quarto = function(quarto_dir, account, suppress = suppressMessages) {
   tmp_dir = file.path(tempdir(), "quarto")
   on.exit(cleanup_quarto(tmp_dir))
   dir.create(tmp_dir, showWarnings = FALSE)
@@ -7,7 +7,8 @@ deploy_quarto = function(quarto_dir, suppress = suppressMessages) {
   # quarto uses rsconnect::accounts. So, looks up the server in list of accounts
   has_deployed = suppress(quarto::quarto_publish_doc(file.path(tmp_dir, "index.qmd"),
                              render = "server",
-                             server = get_server(),
+                             server = get_server(clean = TRUE),
+                             account = account,
                              launch.browser = FALSE,
                              forceUpdate = TRUE,
                              logLevel = "quiet"))

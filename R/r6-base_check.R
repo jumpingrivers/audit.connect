@@ -14,6 +14,7 @@ base_check = R6::R6Class(
     context = NA,
     group = NA,
     short = NA,
+    account = NA,
     #' @description Set parameters for config file location
     #' @param dir directory location of the the config file
     #' @param file config file name
@@ -31,8 +32,8 @@ base_check = R6::R6Class(
     }
   ),
   private = list(
-    dir = NULL,
-    file = NULL,
+    dir = "-",
+    file = "-",
     # Assume TRUE, unless explicitly FALSE
     skip_test = function() {
       config_path = file.path(private$dir, private$file)

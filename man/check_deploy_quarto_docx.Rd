@@ -38,9 +38,16 @@ Check classes
 \subsection{Method \code{check()}}{
 Checks deployment of Quarto document with Docx output
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{check_deploy_quarto_docx$check()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{check_deploy_quarto_docx$check(account = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{account}}{Connect username}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-check_deploy_quarto_docx-clone"></a>}}

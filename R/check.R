@@ -12,6 +12,11 @@
 check = function(server = NULL, token = NULL,
                  dir = ".", file = "config-uat.yml") {
   summarise_setup(server, token)
+  user_details = summarise_user(get_server(), get_token())
+  summarise_versions(get_server(), get_token())
+
+  register_uat_user(get_server(), get_token(), account = user_details$username)
+
   cli::cli_h2("Starting checks")
   r6_inits = init_r6_checks(dir = dir, file = file)
   lapply(r6_inits, function(r6) r6$check())
@@ -21,7 +26,7 @@ check = function(server = NULL, token = NULL,
 
 init_r6_checks = function(dir, file) {
   exports = getNamespaceExports("jrHealthCheckConnect")
-  check_exports = exports[stringr::str_starts(exports, "check_")]
+  check_exports = sort(exports[stringr::str_starts(exports, "check_")])
   r6_inits = lapply(check_exports, init_r6_check, dir = dir, file = file)
   r6_inits
 }

@@ -42,7 +42,7 @@ If a test is missing in the config, the default value is TRUE.
 Tests are R6 classes. To be automatically detected, the class name **must**
 start with `check_`. If you copy/paste the following code into `R/example.R`,
 when you run `check()`, the test is automatically detected and run.
-Likewise, `create_config()` 
+Likewise, `create_config()`
 
 ``` r
 #' @export
@@ -53,12 +53,12 @@ check_example = R6::R6Class(
   # This runs the test, detects errors, and logs the result
   public = list(
     #' @description Runs a UAT check
-    check = function() {
+    check = function(account = NULL) {
       private$checker(example_test())
       return(invisible(NULL))
     }
   ),
-  # Multiple classes can have the same group. 
+  # Multiple classes can have the same group.
   # But context/short should be unique
   private = list(
     context = "Human description",
