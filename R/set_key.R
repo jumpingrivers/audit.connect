@@ -6,7 +6,7 @@ set_key = function(name, value) {
 get_server = function(clean = FALSE) {
   server = .connect[["connect_server"]]
   if (is.null(server)) cli::cli_abort("Missing server")
-  if (clean) server = stringr::str_remove_all(server, "http?s|:|/")
+  if (clean) server = stringr::str_remove_all(server, "https?|:|/")
   return(server)
 }
 
