@@ -4,12 +4,14 @@
 \alias{create_config}
 \title{Create test config}
 \usage{
-create_config(dir = ".", file = "config-uat.yml")
+create_config(dir = ".", file = "config-uat.yml", default = TRUE)
 }
 \arguments{
 \item{dir}{Directory of the config file}
 
 \item{file}{Config file name}
+
+\item{default}{Default value for if a test should run (logical)}
 }
 \description{
 Some PSC servers intentionally won't have some features implemented.

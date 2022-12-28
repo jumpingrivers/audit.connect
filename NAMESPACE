@@ -2,6 +2,7 @@
 
 export(check)
 export(check_deploy_pins_rds)
+export(check_deploy_plumber_api)
 export(check_deploy_python_flask)
 export(check_deploy_python_streamlit)
 export(check_deploy_quarto_beamer)
