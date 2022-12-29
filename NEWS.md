@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.13 _2022-12-29_
+- feat: Check RSC version
+
 # jrHealthCheckConnect 0.2.12 _2022-12-20_
 - feat: Add plumber test
 - feat: Set config file with default "no"
