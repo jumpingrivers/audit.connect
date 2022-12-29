@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.13 _2022-12-29_
+- fix: Julia isn't possible on connect. So removing test.
+
 # jrHealthCheckConnect 0.2.12 _2022-12-20_
 - feat: Add plumber test
 - feat: Set config file with default "no"
