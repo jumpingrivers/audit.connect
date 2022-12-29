@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.18 _2023-01-17_
+- feat: Highlight old R/Python/Quarto versions
+
 # jrHealthCheckConnect 0.2.17 _2023-01-17_
 - feat: Check sys deps to determine which packages can't be installed
 

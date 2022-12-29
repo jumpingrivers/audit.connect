@@ -7,7 +7,7 @@
 #' @param token RSC api token. If NULL, use the ENV variable CONNECT_API_KEY
 #' @param dir directory location of the the config file
 #' @param file config file name
-#' @importFrom rlang .data
+#' @importFrom rlang .data .env
 #' @export
 check = function(server = NULL, token = NULL,
                  dir = ".", file = "config-uat.yml") {
