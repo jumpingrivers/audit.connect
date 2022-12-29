@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.15 _2023-01-10_
+- feat: Check server headers
+
 # jrHealthCheckConnect 0.2.14 _2022-12-29_
 - refactor: Remove {jrApiRStudio} dependency
 
