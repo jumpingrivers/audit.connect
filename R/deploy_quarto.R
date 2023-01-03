@@ -21,6 +21,8 @@ cleanup_quarto = function(tmp_dir) {
   dcf_contents = read.dcf(dcf)
   url = dcf_contents[1, "url"]
   guid = stringr::str_match_all(url, "content/(.*)/")[[1]][, 2]
-  suppressMessages(jrApiRStudio::delete_content(guid, server = get_server(), token = get_token()))
+  con = connectapi::connect(server = get_server(), api_key = get_token())
+  item = connectapi::content_item(con, guid = guid)
+  suppressMessages(connectapi::content_delete(item, force = TRUE))
   fs::dir_delete(tmp_dir)
 }

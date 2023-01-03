@@ -126,31 +126,6 @@ check_deploy_quarto_python = R6::R6Class(
 #'
 #' Check classes
 #' @export
-check_deploy_quarto_julia = R6::R6Class(
-  "check_deploy_quarto_julia",
-  inherit = base_check,
-  public = list(
-    #' @description Checks deployment of Quarto document with PDF output
-    #' @param account Connect username
-    check = function(account = NULL) {
-      if (is.null(account)) account = get_username()
-      quarto_dir = system.file("extdata", private$group, private$short,
-                               package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account))
-      return(invisible(NULL))
-    }
-  ),
-  private = list(
-    context = "Julia engine",
-    short = "julia",
-    group = "deploy_quarto"
-  )
-)
-
-#' R6 classes
-#'
-#' Check classes
-#' @export
 check_deploy_quarto_observable = R6::R6Class(
   "check_deploy_quarto_observable",
   inherit = base_check,

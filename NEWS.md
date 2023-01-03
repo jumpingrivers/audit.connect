@@ -1,5 +1,11 @@
-# jrHealthCheckConnect 0.2.13 _2022-12-29_
+# jrHealthCheckConnect 0.2.15 _2022-12-29_
 - feat: Check RSC version
+
+# jrHealthCheckConnect 0.2.14 _2022-12-29_
+- refactor: Remove {jrApiRStudio} dependency
+
+# jrHealthCheckConnect 0.2.13 _2022-12-29_
+- fix: Julia isn't possible on connect. So removing test.
 
 # jrHealthCheckConnect 0.2.12 _2022-12-20_
 - feat: Add plumber test
