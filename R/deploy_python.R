@@ -24,7 +24,6 @@ deploy_python = function(python_dir,
                                    "--title-contains", title))
   guid = jsonlite::fromJSON(content$stdout)$guid
 
-
   # Redoing on.exit to clean-up content
   on.exit(cleanup_python(tmp_dir, guid = guid))
   return(invisible(has_deployed$status == 0))

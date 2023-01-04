@@ -54,7 +54,6 @@ lookup_version = function(connect_versions, server_version) {
   return(row_number)
 }
 
-
 version_to_date = function(version) {
   # Old style version
   if (!is_new_version(version)) return(NA)
@@ -66,4 +65,3 @@ version_to_date = function(version) {
 is_new_version = function(version) {
   stringr::str_detect(version, pattern = "^202[0-9]\\.[01][0-9].[0-9]")
 }
-
