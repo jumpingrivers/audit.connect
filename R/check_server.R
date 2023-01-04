@@ -6,19 +6,19 @@ check_server_version = function(server, token) {
   connect_versions = get_connect_versions()
   row_number = which.max(connect_versions$version == server_version)
 
-  # Version not in the database!
+  # Server version missing from the database
   if (length(row_number) == 0L) row_number = nrow(connect_versions) + 1
 
-  # Up to date - edge case :)
+  # Server is up to date
   if (row_number == 1L) {
     cli::cli_alert_info("Your server is up to date")
     return(NULL)
   }
 
-  connect_versions = connect_versions[seq_len(row_number - 1), ]
-  no_of_versions = length(unique(connect_versions$version)) #nolint
+  newer_versions = connect_versions[seq_len(row_number - 1), ]
+  no_of_versions = length(unique(newer_versions$version)) #nolint
   cli::cli_alert_info("Your server is {cli::col_red('out of date')}")
-  cli::cli_alert_info("There {cli::col_red(no_of_versions)} newer versions that fix \\
+  cli::cli_alert_info("There are {cli::col_red(no_of_versions)} newer versions that fix \\
                       {cli::col_red(nrow(connect_versions))} CVEs")
 }
 
