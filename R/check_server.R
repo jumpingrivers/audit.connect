@@ -30,5 +30,6 @@ get_connect_versions = function() {
   versions = dplyr::tibble(versions)
 
   versions = dplyr::arrange(versions, dplyr::desc(date))
+  stopifnot("Error retrieving RSC versions " = nrow(versions) > 10)
   return(versions)
 }
