@@ -11,15 +11,15 @@ audit_server_version = function(server_version) {
   connect_versions = get_connect_versions()
   row_number = lookup_version(connect_versions, server_version)
 
-  if (row_number != 0L) {
+  if (is.na(row_number)) {
+    cli::cli_alert_info("Server version not in the DB")
+    cli::cli_alert_info("Please report.")
+  } else if (row_number > 1L) {
     newer_versions = connect_versions[seq_len(row_number - 1), ]
     no_of_versions = length(unique(newer_versions$version)) #nolint
     cli::cli_alert_info("Your server is {cli::col_red('out of date')}")
     cli::cli_alert_info("There are {cli::col_red(no_of_versions)} newer versions that fix \\
-                      {cli::col_red(nrow(connect_versions))} CVEs")
-  } else if (is.na(row_number)) {
-    cli::cli_alert_info("Server version not in the DB")
-    cli::cli_alert_info("Please report.")
+                      {cli::col_red(nrow(newer_versions))} CVEs")
   } else {
     cli::cli_alert_info("Your server is up to date")
   }
