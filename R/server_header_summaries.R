@@ -177,9 +177,9 @@ header_summary.scheme = function(value, ...) { #nolint
 `header_summary.x-permitted-cross-domain-policies` = function(value, ...) { #nolint
   security_header = class(value)
   value = as.character(value)
-  if (grepl("none|master-only|by-content-type|by-ftp-filename|all", tolower(value))) {
+  if (tolower(value) %in% c("none", "master-only", "by-content-type", "by-ftp-filename", "all")) {
     status = "OK"
-    message = "Acceptable setting found"
+    message = paste("Acceptable setting found:", tolower(value))
   } else {
     status = "WARN"
     message = "No legitimate value present"
