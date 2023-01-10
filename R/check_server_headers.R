@@ -9,17 +9,17 @@
 
 check_server_headers = function(server) {
   cli::cli_h2("Checking headers")
-  hrdrs = get_response_headers(server)
-  hrdrs_summary = purrr::map2_df(hrdrs, names(hrdrs), header_summary)
-  missing_hrdrs = .security_headers[!.security_headers %in% hrdrs_summary$security_header]
-  all_hrdrs = dplyr::bind_rows(hrdrs_summary, get_missing_headers(missing_hrdrs)) |>
+  headers = get_response_headers(server)
+  headers_summary = purrr::map2_df(headers, names(headers), header_summary)
+  missing_headers = .security_headers[!.security_headers %in% headers_summary$security_header]
+  all_headers = dplyr::bind_rows(headers_summary, get_missing_headers(missing_headers)) |>
     dplyr::arrange(.data$security_header)
   for (i in seq_along(.security_headers)) {
-    hrdr = all_hrdrs[i, ]
-    col = if (hrdr$status == "OK") cli::col_green else cli::col_red #nolint
-    cli::cli_alert_info("{col(hrdr$security_header)}: {hrdr$message}")
+    header = all_headers[i, ]
+    col = if (header$status == "OK") cli::col_green else cli::col_red #nolint
+    cli::cli_alert_info("{col(header$security_header)}: {header$message}")
   }
-  return(all_hrdrs)
+  return(all_headers)
 }
 
 get_response_headers = function(server) {

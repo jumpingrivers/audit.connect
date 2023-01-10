@@ -19,7 +19,7 @@ header_summary.scheme = function(value, ...) { #nolint
   value = as.character(value)
   if (value == "https") {
     status = "OK"
-    message = "Set to https"
+    message = "Using https (as required)"
   } else {
     status = "WARN"
     message = "Should be https"
@@ -53,7 +53,7 @@ header_summary.scheme = function(value, ...) { #nolint
 `header_summary.strict-transport-security` = function(value, ...) { #nolint
   security_header = class(value)
   value = as.character(value)
-  max_age = stringr::str_match(value, "max-age=([0-9]*)")[1, 2]
+  max_age = stringr::str_match(value, "max-age=([0-9]+)")[1, 2]
   max_age = as.numeric(max_age)
   if (!is.na(max_age)) {
     # 1 year
