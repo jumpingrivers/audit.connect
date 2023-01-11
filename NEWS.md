@@ -1,5 +1,8 @@
-# jrHealthCheckConnect 0.2.15 _2023-01-10_
+# jrHealthCheckConnect 0.2.16 _2023-01-11_
 - feat: Check server headers
+
+# jrHealthCheckConnect 0.2.15 _2022-12-29_
+- feat: Check RSC version
 
 # jrHealthCheckConnect 0.2.14 _2022-12-29_
 - refactor: Remove {jrApiRStudio} dependency
@@ -22,7 +25,7 @@
 # jrHealthCheckConnect 0.2.9 _2022-11-07_
 -  feat: Perform a basic API call to check token
 -  feat: Retrieve and display R/Python/Quarto versions
--  feat: Automatically register account using token 
+-  feat: Automatically register account using token
 -  chore: Remove additional blank lines / EOL whitespace
 
 # jrHealthCheckConnect 0.2.8 _2022-11-07_
