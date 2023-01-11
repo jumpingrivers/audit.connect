@@ -13,11 +13,11 @@ check = function(server = NULL, token = NULL,
                  dir = ".", file = "config-uat.yml") {
   summarise_setup(server, token)
   user_details = summarise_user(get_server(), get_token())
-<<<<<<< HEAD
+
   check_server_headers(get_server())
-=======
+
   check_server_version(get_server(), get_token())
->>>>>>> main
+
   summarise_versions(get_server(), get_token())
 
   register_uat_user(get_server(), get_token(), account = user_details$username)
