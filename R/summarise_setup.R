@@ -2,17 +2,18 @@
 # keys / servers as variables
 summarise_setup = function(server, token) {
   cli::cli_h2("Summary jrHealthCheckConnect v{packageVersion('jrHealthCheckConnect')}")
-  check_server(server)
-  check_api_key(token)
-  check_rsconnect_python()
-  return(invisible(NULL))
+  setup = list()
+  setup$server = check_server(server)
+  setup$api_key = check_api_key(token)
+  setup$rsconnect_python = check_rsconnect_python()
+  return(invisible(setup))
 }
 
 check_server = function(server) {
   server = set_key("connect_server", get_value("CONNECT_SERVER", server))
   check_server_url_structure(server)
   check_server_accessibility(server)
-  return(invisible(NULL))
+  return(invisible(server))
 }
 
 # The server structure is really picky: we are using {rsconnect}, {connectapi}, python deployment
@@ -27,7 +28,6 @@ check_server_url_structure = function(server) {
   if (isFALSE(end_slash)) {
     cli::cli_abort("The server URL should end with a `/`: {server}")
   }
-  cli::cli_alert_info("Server: {cli::col_green(server)}")
 
   start_address = stringr::str_starts(server, pattern = "http")
   if (isFALSE(start_address)) {
@@ -52,7 +52,7 @@ check_api_key = function(token) {
     cli::cli_abort("CONNECT_API_KEY missing")
   }
   cli::cli_alert_info("API KEY: {cli::col_green(cli::symbol$tick)}")
-  return(invisible(NULL))
+  return(invisible(TRUE))
 }
 
 check_rsconnect_python = function() {
@@ -64,5 +64,5 @@ check_rsconnect_python = function() {
     cli::cli_alert_warning("All python deploy tests will be skipped")
     cli::cli_alert_warning("Install: pip install rsconnect-python")
   }
-  return(invisible(NULL))
+  return(invisible(value))
 }

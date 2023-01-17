@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.17 _2023-01-17_
+- feat: Check sys deps to determine which packages can't be installed
+
 # jrHealthCheckConnect 0.2.16 _2023-01-11_
 - feat: Check server headers
 

@@ -9,6 +9,7 @@ summarise_versions = function(server, token) {
 
   quarto = get_info(server, token, "quarto")#nolint
   cli::cli_alert_info("Quarto versions: {paste(quarto, collapse = ', ')}")
+  return(list(r = r, python = python, quarto = quarto))
 }
 
 get_info = function(server, token, type = c("r", "python", "quarto")) {
