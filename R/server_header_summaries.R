@@ -150,7 +150,7 @@ header_summary.scheme = function(value, ...) { #nolint
 `header_summary.server` = function(value, ...) { #nolint
   dplyr::tibble(security_header = class(value),
                  status = "NOTE",
-                 message = "Server header found",
+                 message = paste("Server header found:", as.character(value)),
                  value = as.character(value))
 }
 

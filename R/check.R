@@ -13,7 +13,9 @@ check = function(server = NULL, token = NULL,
                  dir = ".", file = "config-uat.yml") {
   check_list = list()
   check_list$setup = summarise_setup(server, token)
+  check_list$server_headers = check_server_headers(get_server())
   check_list$user_details = summarise_user(get_server(), get_token())
+  check_list$users_details = summarise_users(get_server(), get_token())
   check_list$versions = summarise_versions(get_server(), get_token())
   check_list$sys_deps = check_sys_deps()
   register_uat_user(get_server(), get_token(), account = check_list$user_details$username)
@@ -23,7 +25,7 @@ check = function(server = NULL, token = NULL,
   lapply(r6_inits, function(r6) r6$check())
   check_list$deployments = purrr::map_dfr(r6_inits, ~.x$get_log())
   check_list$deployments = dplyr::arrange(check_list$deployments, .data$group, .data$short)
-  check_list
+  invisible(check_list)
 }
 
 init_r6_checks = function(dir, file) {

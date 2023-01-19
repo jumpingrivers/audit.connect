@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.2.19 _2023-01-18_
+- feat: Summaries RSC user types
+
 # jrHealthCheckConnect 0.2.18 _2023-01-17_
 - feat: Highlight old R/Python/Quarto versions
 

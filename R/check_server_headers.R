@@ -16,7 +16,7 @@ check_server_headers = function(server) {
     dplyr::arrange(.data$security_header)
   for (i in seq_along(.security_headers)) {
     header = all_headers[i, ]
-    col = if (header$status == "OK") cli::col_green else cli::col_red #nolint
+    col = if (header$status %in% c("OK", "NOTE")) cli::col_green else cli::col_red #nolint
     cli::cli_alert_info("{col(header$security_header)}: {header$message}")
   }
   return(all_headers)
