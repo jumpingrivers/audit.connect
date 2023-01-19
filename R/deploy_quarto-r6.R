@@ -99,7 +99,9 @@ check_deploy_quarto_beamer = R6::R6Class(
 
 #' R6 classes
 #'
-#' Check classes
+#' Check classes.
+#' @details We use the deploy_python() mechanism for this quarto document, as
+#' we need to specify the requirements.txt file
 #' @export
 check_deploy_quarto_python = R6::R6Class(
   "check_deploy_quarto_python",
@@ -109,9 +111,12 @@ check_deploy_quarto_python = R6::R6Class(
     #' @param account Connect username
     check = function(account = NULL) {
       if (is.null(account)) account = get_username()
-      quarto_dir = system.file("extdata", private$group, private$short,
+      python_dir = system.file("extdata", private$group, private$short,
                                package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account))
+      private$checker(
+        deploy_python(python_dir,
+                      python_files = "index.qmd",
+                      rsconnect_type = "quarto"))
       return(invisible(NULL))
     }
   ),

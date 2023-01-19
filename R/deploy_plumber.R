@@ -4,7 +4,7 @@ deploy_plumber = function(plumber_dir, suppress = suppressMessages) {
   fs::dir_copy(plumber_dir, app_dir)
   on.exit(cleanup_plumber(app_dir, content, suppress))
 
-  client = suppress(connectapi::connect())
+  client = suppress(connectapi::connect(server = get_server(), api_key = get_token()))
   bundle = suppress(connectapi::bundle_dir(app_dir))
 
   # If deploy not successful, content not created

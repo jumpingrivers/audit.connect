@@ -1,3 +1,7 @@
+# jrHealthCheckConnect 0.2.20 _2023-01-18_
+- fix: Pass server/token to plumber test
+- fix: Deploying Python quarto content now uses a requirements.txt
+
 # jrHealthCheckConnect 0.2.19 _2023-01-18_
 - feat: Summaries RSC user types
 

@@ -14,7 +14,9 @@ check_deploy_python_streamlit = R6::R6Class(
       }
       python_dir = system.file("extdata", private$group, private$short,
                         package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_python(python_dir, rsconnect_type = "streamlit"))
+      private$checker(deploy_python(python_dir,
+                                    python_files = "app.py",
+                                    rsconnect_type = "streamlit"))
       return(invisible(NULL))
     }
   ),
