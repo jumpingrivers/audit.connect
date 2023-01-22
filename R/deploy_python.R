@@ -12,7 +12,7 @@ deploy_python = function(python_dir,
                          suppress = suppressMessages,
                          rsconnect_type = c("api", "streamlit", "quarto")) {
   rsconnect_type = match.arg(rsconnect_type)
-  tmp_dir = file.path(tempdir(), paste0("python-", rsconnect_type))
+  tmp_dir = file.path(tempdir(), paste0("UAT_python-", rsconnect_type))
   on.exit(cleanup_python(tmp_dir))
   dir.create(tmp_dir, showWarnings = FALSE)
 

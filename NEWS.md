@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.0 _2023-01-21_
+- style: Standardise deploy titles
+
 # jrHealthCheckConnect 0.2.20 _2023-01-18_
 - fix: Pass server/token to plumber test
 - fix: Deploying Python quarto content now uses a requirements.txt

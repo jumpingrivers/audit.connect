@@ -4,7 +4,7 @@ summarise_users = function(server, token) {
 
   user_list = list()
   user_list$user_account_limit = get_user_account_limit(client)
-  user_list$users = connectapi::get_users(client, limit = Inf)
+  user_list$users = suppressMessages(connectapi::get_users(client, limit = Inf))
 
   print_audit_users(user_list)
   print_audit_user_apps(client)

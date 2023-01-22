@@ -16,7 +16,7 @@ deploy_rmd = function(rmd_dir, suppress = suppressMessages) {
 get_deploy_name = function(rmd_path) {
   fname = basename(rmd_path)
   clean_string = stringr::str_remove_all(fname, "(\\.Rmd$|^test-)")
-  paste0("test-uat-", clean_string)
+  paste("UAT: RMD deploy", clean_string)
 }
 
 push_to_connect = function(bundle_dir, deploy_name, suppress) {
@@ -25,7 +25,7 @@ push_to_connect = function(bundle_dir, deploy_name, suppress) {
   bundle = suppress(connectapi::bundle_dir(bundle_dir))
 
   # If deploy not successful, content not created
-  content = suppress(connectapi::deploy(client, bundle, name = deploy_name))
+  content = suppress(connectapi::deploy(client, bundle, title = deploy_name))
   on.exit(cleanup_rmd(bundle_dir, content, suppress))
   suppress(connectapi::poll_task(content))
   return(invisible(NULL))

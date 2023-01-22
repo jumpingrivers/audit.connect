@@ -1,5 +1,5 @@
 summarise_user = function(server, token) {
-  cli::cli_h2("User summary")
+  cli::cli_h2("User Summary")
   res = httr::GET(paste0(server, "/__api__/v1/user"),
                   httr::add_headers(Authorization = paste("Key", token)))
   check_api_status_code(res)

@@ -7,7 +7,7 @@
 #' @details Suppress parameter will be changed in a near-future MR to verbose levels
 #' @export
 check_sys_deps = function(suppress = suppressMessages) {
-  cli::cli_h2("Systems libraries")
+  cli::cli_h2("Systems Libraries")
 
   app_dir = file.path(tempdir(), "pkg")
   pkg_dir = system.file("extdata", "check_sys_deps", package = "jrHealthCheckConnect",

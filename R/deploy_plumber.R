@@ -1,6 +1,6 @@
 deploy_plumber = function(plumber_dir, suppress = suppressMessages) {
 
-  app_dir = file.path(tempdir(), "plumber")
+  app_dir = file.path(tempdir(), "uat-plumber")
   fs::dir_copy(plumber_dir, app_dir)
   on.exit(cleanup_plumber(app_dir, content, suppress))
 
@@ -8,8 +8,8 @@ deploy_plumber = function(plumber_dir, suppress = suppressMessages) {
   bundle = suppress(connectapi::bundle_dir(app_dir))
 
   # If deploy not successful, content not created
-  name = paste("UAT_Plumber-", Sys.Date(), sep = "_")
-  content = suppress(connectapi::deploy(client, bundle, name = name))
+  title = paste("UAT: Plumber", Sys.time())
+  content = suppress(connectapi::deploy(client, bundle, title = title))
 
   suppress(connectapi::poll_task(content))
 

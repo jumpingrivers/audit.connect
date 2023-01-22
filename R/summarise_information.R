@@ -1,5 +1,5 @@
 summarise_versions = function(server, token) {
-  cli::cli_h2("R/Python/Quarto versions")
+  cli::cli_h2("R/Python/Quarto Versions")
   software = c("r", "python", "quarto")
 
   installed = purrr::map(software, ~get_server_settings(server, token, .x))

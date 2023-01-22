@@ -9,6 +9,10 @@ set_key = function(name, value) {
 
 get_server = function(clean = FALSE) {
   server = .connect[["connect_server"]]
+  if (is.null(server)) {
+    server = get_value("CONNECT_SERVER")
+    set_key("connect_server", server)
+  }
   if (is.null(server)) cli::cli_abort("Missing server")
   if (clean) server = stringr::str_remove_all(server, "https?|:|/")
   return(server)
@@ -20,7 +24,7 @@ get_token = function() {
     token = get_value("CONNECT_API_KEY")
     set_key("connect_api_key", token)
   }
-  if (is.na(token)) stop("Can't find CONNECT_API_KEY")
+  if (is.null(token)) stop("Can't find CONNECT_API_KEY")
   return(token)
 }
 

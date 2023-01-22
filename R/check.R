@@ -20,7 +20,7 @@ check = function(server = NULL, token = NULL,
   check_list$sys_deps = check_sys_deps()
   register_uat_user(get_server(), get_token(), account = check_list$user_details$username)
 
-  cli::cli_h2("Starting deployment checks")
+  cli::cli_h2("Document Deployment Checks")
   r6_inits = init_r6_checks(dir = dir, file = file)
   lapply(r6_inits, function(r6) r6$check())
   check_list$deployments = purrr::map_dfr(r6_inits, ~.x$get_log())

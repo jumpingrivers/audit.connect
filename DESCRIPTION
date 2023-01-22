@@ -1,7 +1,7 @@
 Type: Package
 Package: jrHealthCheckConnect
 Title: Posit Connect Health Check
-Version: 0.2.20
+Version: 0.3.0
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
 Description: Posit Connect Health Check. Deploys various content types to

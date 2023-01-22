@@ -8,7 +8,7 @@
   "x-powered-by")
 
 check_server_headers = function(server) {
-  cli::cli_h2("Checking headers")
+  cli::cli_h2("Checking Headers")
   headers = get_response_headers(server)
   headers_summary = purrr::map2_df(headers, names(headers), header_summary)
   missing_headers = .security_headers[!.security_headers %in% headers_summary$security_header]

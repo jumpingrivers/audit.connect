@@ -10,8 +10,8 @@ deploy_pins = function(suppress = suppressMessages) {
       board = board,
       x = tmp_env$mtcars,
       name = "connect_uat_mtcars",
-      title = "UAT Test: Testing pins deployment",
-      description = "UAT Test: Testing pins deployment",
+      title = "UAT: Testing pins deployment",
+      description = "UAT: Testing pins deployment",
       versioned = FALSE,
       type = "rds"
     )
