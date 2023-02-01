@@ -38,9 +38,16 @@ Check classes
 \subsection{Method \code{check()}}{
 Checks a pin can be written, read and deleted
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{check_deploy_pins_rds$check()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{check_deploy_pins_rds$check(debug_level)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{debug_level}}{See check() for details}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-check_deploy_pins_rds-clone"></a>}}

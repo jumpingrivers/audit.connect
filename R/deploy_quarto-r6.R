@@ -8,11 +8,12 @@ check_deploy_quarto_html = R6::R6Class(
   public = list(
     #' @description Checks deployment of Quarto document with HTML output
     #' @param account Connect username
-    check = function(account = NULL) {
+    #' @param debug_level See check() for details
+    check = function(debug_level, account = NULL) {
       if (is.null(account)) account = get_username()
       quarto_dir = system.file("extdata", private$group, private$short,
                                package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account))
+      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
       return(invisible(NULL))
     }
   ),
@@ -33,11 +34,12 @@ check_deploy_quarto_docx = R6::R6Class(
   public = list(
     #' @description Checks deployment of Quarto document with Docx output
     #' @param account Connect username
-    check = function(account = NULL) {
+    #' @param debug_level See check() for details
+    check = function(debug_level, account = NULL) {
       if (is.null(account)) account = get_username()
       quarto_dir = system.file("extdata", private$group, private$short,
                                package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account))
+      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
       return(invisible(NULL))
     }
   ),
@@ -58,11 +60,12 @@ check_deploy_quarto_pdf = R6::R6Class(
   public = list(
     #' @description Checks deployment of Quarto document with PDF output
     #' @param account Connect username
-    check = function(account = NULL) {
+    #' @param debug_level See check() for details
+    check = function(debug_level, account = NULL) {
       if (is.null(account)) account = get_username()
       quarto_dir = system.file("extdata", private$group, private$short,
                                package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account))
+      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
       return(invisible(NULL))
     }
   ),
@@ -83,11 +86,12 @@ check_deploy_quarto_beamer = R6::R6Class(
   public = list(
     #' @description Checks deployment of Quarto document with beamer output
     #' @param account Connect username
-    check = function(account = NULL) {
+    #' @param debug_level See check() for details
+    check = function(debug_level, account = NULL) {
       if (is.null(account)) account = get_username()
       quarto_dir = system.file("extdata", private$group, private$short,
                                package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account))
+      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
     }
   ),
   private = list(
@@ -109,14 +113,16 @@ check_deploy_quarto_python = R6::R6Class(
   public = list(
     #' @description Checks deployment of Quarto document with PDF output
     #' @param account Connect username
-    check = function(account = NULL) {
+    #' @param debug_level See check() for details
+    check = function(debug_level, account = NULL) {
       if (is.null(account)) account = get_username()
       python_dir = system.file("extdata", private$group, private$short,
                                package = "jrHealthCheckConnect", mustWork = TRUE)
       private$checker(
         deploy_python(python_dir,
                       python_files = "index.qmd",
-                      rsconnect_type = "quarto"))
+                      rsconnect_type = "quarto",
+                      debug_level = debug_level))
       return(invisible(NULL))
     }
   ),
@@ -137,11 +143,12 @@ check_deploy_quarto_observable = R6::R6Class(
   public = list(
     #' @description Checks deployment of Quarto document with PDF output
     #' @param account Connect username
-    check = function(account = NULL) {
+    #' @param debug_level See check() for details
+    check = function(debug_level, account = NULL) {
       if (is.null(account)) account = get_username()
       quarto_dir = system.file("extdata", private$group, private$short,
                                package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account))
+      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
       return(invisible(NULL))
     }
   ),

@@ -4,10 +4,10 @@
 \alias{check_sys_deps}
 \title{Checking System Dependencies}
 \usage{
-check_sys_deps(suppress = suppressMessages)
+check_sys_deps(debug_level = 0:2)
 }
 \arguments{
-\item{suppress}{Suppress output}
+\item{debug_level}{Integer, 0 to 2.}
 }
 \description{
 Many R packages require additional system dependencies.

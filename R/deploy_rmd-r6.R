@@ -7,10 +7,11 @@ check_deploy_rmd_pdf = R6::R6Class(
   inherit = base_check,
   public = list(
     #' @description Checks deployment of an R Markdown document with PDF output
-    check = function() {
+    #' @param debug_level See check() for details
+    check = function(debug_level) {
       rmd_dir = system.file("extdata", private$group, private$short,
                             package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_rmd(rmd_dir))
+      private$checker(deploy_rmd(rmd_dir, debug_level))
       return(invisible(NULL))
     }
   ),
@@ -28,10 +29,11 @@ check_deploy_rmd_html = R6::R6Class(
   inherit = base_check,
   public = list(
     #' @description Checks deployment of an R Markdown document with HTML output
-    check = function() {
+    #' @param debug_level See check() for details
+    check = function(debug_level) {
       rmd_dir = system.file("extdata", private$group, private$short,
                             package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_rmd(rmd_dir))
+      private$checker(deploy_rmd(rmd_dir, debug_level))
       return(invisible(NULL))
     }
   ),
@@ -49,10 +51,11 @@ check_deploy_rmd_doc = R6::R6Class(
   inherit = base_check,
   public = list(
     #' @description  Checks deployment of an R Markdown document with Word Docx output
-    check = function() {
+    #' @param debug_level See check() for details
+    check = function(debug_level) {
       rmd_dir = system.file("extdata", private$group, private$short,
                             package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_rmd(rmd_dir))
+      private$checker(deploy_rmd(rmd_dir, debug_level))
       return(invisible(NULL))
     }
   ),

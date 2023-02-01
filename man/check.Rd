@@ -4,7 +4,13 @@
 \alias{check}
 \title{Run UAT Checks}
 \usage{
-check(server = NULL, token = NULL, dir = ".", file = "config-uat.yml")
+check(
+  server = NULL,
+  token = NULL,
+  dir = ".",
+  file = "config-uat.yml",
+  debug_level = 0:2
+)
 }
 \arguments{
 \item{server}{RSC server. If NULL, use the ENV variable CONNECT_SERVER}
@@ -14,9 +20,17 @@ check(server = NULL, token = NULL, dir = ".", file = "config-uat.yml")
 \item{dir}{directory location of the the config file}
 
 \item{file}{config file name}
+
+\item{debug_level}{Integer, 0 to 2.}
 }
 \description{
 This functions runs all UAT tests.
 To skip tests, set check to `no` in the config yaml file.
 See `create_config()`
+}
+\details{
+Debug level description
+ * 0: clean-up all files; suppress all noise
+ * 1: clean-up all files, but display build steps
+ * 2: No clean-up (on connect and on disk) and display build steps
 }

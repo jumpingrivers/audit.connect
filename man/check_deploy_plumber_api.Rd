@@ -38,9 +38,16 @@ Check classes
 \subsection{Method \code{check()}}{
 Checks deployment of a Plumber API
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{check_deploy_plumber_api$check()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{check_deploy_plumber_api$check(debug_level)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{debug_level}}{See check() for details}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-check_deploy_pluumber_api-clone"></a>}}

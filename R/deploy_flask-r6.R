@@ -7,7 +7,8 @@ check_deploy_python_flask = R6::R6Class(
   inherit = base_check,
   public = list(
     #' @description Checks deployment of Quarto document with HTML output
-    check = function() {
+    #' @param debug_level See check() for details
+    check = function(debug_level) {
       if (isFALSE(.connect$rsconnect_python)) {
         cli::cli_alert_info("rsconnect-python missing. Skipping Python test.")
         return(invisible(NULL))
@@ -16,7 +17,8 @@ check_deploy_python_flask = R6::R6Class(
                                package = "jrHealthCheckConnect", mustWork = TRUE)
       private$checker(deploy_python(python_dir,
                                     python_files = "app.py",
-                                    rsconnect_type = "api"))
+                                    rsconnect_type = "api",
+                                    debug_level = debug_level))
       return(invisible(NULL))
     }
   ),

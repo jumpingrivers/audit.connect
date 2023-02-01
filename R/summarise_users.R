@@ -1,13 +1,14 @@
-summarise_users = function(server, token) {
+summarise_users = function(server, token, debug_level) {
+  suppress = get_suppress(debug_level)
   cli::cli_h2("Checking Connect Users")
-  client = suppressMessages(connectapi::connect(server = server, api_key = token))
+  client = suppress(connectapi::connect(server = server, api_key = token))
 
   user_list = list()
   user_list$user_account_limit = get_user_account_limit(client)
-  user_list$users = suppressMessages(connectapi::get_users(client, limit = Inf))
+  user_list$users = suppress(connectapi::get_users(client, limit = Inf))
 
   print_audit_users(user_list)
-  print_audit_user_apps(client)
+  print_audit_user_apps(client, debug_level)
 }
 
 get_user_account_limit = function(client) {
@@ -29,8 +30,9 @@ print_audit_users = function(user_list) {
   cli::cli_alert_info("{nrow(admins)} Administrators: {admins$username}")
 }
 
-print_audit_user_apps = function(client) {
-  apps = suppressMessages(connectapi::cache_apps(client))
+print_audit_user_apps = function(client, debug_level) {
+  suppress = get_suppress(debug_level)
+  apps = suppress(connectapi::cache_apps(client))
   app_creators =  purrr::map_df(apps,
                                 ~dplyr::tibble(owner = .x[["owner_username"]],
                                                locked = .x$owner_locked))

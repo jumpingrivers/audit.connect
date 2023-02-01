@@ -1,6 +1,8 @@
-deploy_quarto = function(quarto_dir, account, suppress = suppressMessages) {
+deploy_quarto = function(quarto_dir, account, debug_level = debug_level) {
+  suppress = get_suppress(debug_level)
+
   tmp_dir = file.path(tempdir(), "quarto")
-  on.exit(cleanup_quarto(tmp_dir))
+  on.exit(cleanup_quarto(tmp_dir, debug_level))
   dir.create(tmp_dir, showWarnings = FALSE)
 
   file.copy(file.path(quarto_dir, "index.qmd"), tmp_dir)
@@ -17,14 +19,16 @@ deploy_quarto = function(quarto_dir, account, suppress = suppressMessages) {
   return(invisible(has_deployed))
 }
 
-cleanup_quarto = function(tmp_dir) {
+cleanup_quarto = function(tmp_dir, debug_level) {
+  if (debug_level == 2) return(NULL)
+  suppress = get_suppress(debug_level)
   fnames = list.files(tmp_dir, recursive = TRUE, full.names = TRUE)
   dcf = fnames[stringr::str_detect(fnames, "(.*)\\.dcf$")]
   dcf_contents = read.dcf(dcf)
   url = dcf_contents[1, "url"]
   guid = stringr::str_match_all(url, "content/(.*)/")[[1]][, 2]
-  con = suppressMessages(connectapi::connect(server = get_server(), api_key = get_token()))
+  con = suppress(connectapi::connect(server = get_server(), api_key = get_token()))
   item = connectapi::content_item(con, guid = guid)
-  suppressMessages(connectapi::content_delete(item, force = TRUE))
+  suppress(connectapi::content_delete(item, force = TRUE))
   fs::dir_delete(tmp_dir)
 }

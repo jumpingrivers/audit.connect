@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.1 _2023-02-01_
+- feat: Improved debugging using `debug_level`
+
 # jrHealthCheckConnect 0.3.0 _2023-01-21_
 - style: Standardise deploy titles
 

@@ -40,9 +40,16 @@ Check classes
 \subsection{Method \code{check()}}{
 Checks deployment of an R Markdown document with PDF output
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{check_deploy_rmd_pdf$check()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{check_deploy_rmd_pdf$check(debug_level)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{debug_level}}{See check() for details}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-check_deploy_rmd_pdf-clone"></a>}}
@@ -89,9 +96,16 @@ The objects of this class are cloneable with this method.
 \subsection{Method \code{check()}}{
 Checks deployment of an R Markdown document with HTML output
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{check_deploy_rmd_html$check()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{check_deploy_rmd_html$check(debug_level)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{debug_level}}{See check() for details}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-check_deploy_rmd_html-clone"></a>}}
@@ -138,9 +152,16 @@ The objects of this class are cloneable with this method.
 \subsection{Method \code{check()}}{
 Checks deployment of an R Markdown document with Word Docx output
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{check_deploy_rmd_doc$check()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{check_deploy_rmd_doc$check(debug_level)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{debug_level}}{See check() for details}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-check_deploy_rmd_word-clone"></a>}}

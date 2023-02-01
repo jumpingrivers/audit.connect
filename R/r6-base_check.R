@@ -18,9 +18,10 @@ base_check = R6::R6Class(
     #' @description Set parameters for config file location
     #' @param dir directory location of the the config file
     #' @param file config file name
-    initialize = function(dir = ".", file = "config-uat.yml") {
+    initialize = function(dir = ".", file = "config-uat.yml", debug_level = 0) {
       private$dir = dir
       private$file = file
+      private$debug_level = debug_level
     },
     #' @description Summarise key class attributes
     info = function() {
@@ -34,6 +35,7 @@ base_check = R6::R6Class(
   private = list(
     dir = "-",
     file = "-",
+    debug_level = "-",
     # Assume TRUE, unless explicitly FALSE
     skip_test = function() {
       config_path = file.path(private$dir, private$file)

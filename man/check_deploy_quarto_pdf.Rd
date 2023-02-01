@@ -38,12 +38,14 @@ Check classes
 \subsection{Method \code{check()}}{
 Checks deployment of Quarto document with PDF output
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{check_deploy_quarto_pdf$check(account = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{check_deploy_quarto_pdf$check(debug_level, account = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{debug_level}}{See check() for details}
+
 \item{\code{account}}{Connect username}
 }
 \if{html}{\out{</div>}}

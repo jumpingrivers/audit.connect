@@ -3,18 +3,19 @@
 #' Many R packages require additional system dependencies.
 #' This check, obtains a list of system libraries installed on the connect server, then
 #' determines which R packages can't be installed.
-#' @param suppress Suppress output
+#' @inheritParams check
 #' @details Suppress parameter will be changed in a near-future MR to verbose levels
 #' @export
-check_sys_deps = function(suppress = suppressMessages) {
+check_sys_deps = function(debug_level = 0:2) {
+  debug_level = get_debug_level(debug_level)
   cli::cli_h2("Systems Libraries")
 
   app_dir = file.path(tempdir(), "pkg")
   pkg_dir = system.file("extdata", "check_sys_deps", package = "jrHealthCheckConnect",
                         mustWork = TRUE)
   fs::dir_copy(pkg_dir, app_dir)
-  on.exit(cleanup_plumber(app_dir, content, suppressMessages))
-  content = setup_plumber_sys_deps_endpoint(app_dir, suppress)
+  on.exit(cleanup_plumber(app_dir, content, debug_level))
+  content = setup_plumber_sys_deps_endpoint(app_dir, debug_level)
 
   # Ping endpoint
   url = paste0(get_deploy_url(content), "installed")
@@ -39,13 +40,14 @@ check_sys_deps = function(suppress = suppressMessages) {
   return(missing_libs)
 }
 
-setup_plumber_sys_deps_endpoint = function(app_dir, suppress = suppressMessages) { #nolint
+setup_plumber_sys_deps_endpoint = function(app_dir, debug_level) { #nolint
+  suppress = get_suppress(debug_level)
   # Deploy plumber
   client = suppress(connectapi::connect(server = get_server(), api_key = get_token()))
   bundle = suppress(connectapi::bundle_dir(app_dir))
   name = paste("UAT_check_package-", Sys.Date(), sep = "_")
   content = suppress(connectapi::deploy(client, bundle, name = name))
-  suppressMessages(connectapi::poll_task(content))
+  suppress(connectapi::poll_task(content))
   return(content)
 }
 
