@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.6 _2023-03-19_
+- feat: Use {serverHeaders} package
+
 # jrHealthCheckConnect 0.3.5 _2023-02-12_
 - feat: Update versions
 

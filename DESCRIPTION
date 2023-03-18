@@ -1,7 +1,7 @@
 Type: Package
 Package: jrHealthCheckConnect
 Title: Posit Connect Health Check
-Version: 0.3.5
+Version: 0.3.6
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
 Description: Posit Connect Health Check. Deploys various content types to
@@ -24,11 +24,14 @@ Imports:
     R6,
     rlang,
     rsconnect (>= 0.8.27),
+    serverHeaders,
     stringr,
     tibble,
     yaml
 Suggests:
     testthat (>= 3.0.0)
+Remotes:
+    jumpingrivers/serverheaders
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true

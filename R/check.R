@@ -24,7 +24,7 @@ check = function(server = NULL, token = NULL,
   check_list = list()
   check_list$setup = summarise_setup(server, token)
   check_server_version(get_server(), get_token(), debug_level = debug_level)
-  check_list$server_headers = check_server_headers(get_server())
+  check_list$server_headers = serverHeaders::check(get_server())
   check_list$user_details = summarise_user(get_server(), get_token())
   check_list$users_details = summarise_users(get_server(), get_token(), debug_level = debug_level)
   check_list$versions = summarise_versions(get_server(), get_token())

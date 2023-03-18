@@ -6,11 +6,13 @@ deploy_pins = function(debug_level) {
 
   tmp_env = new.env()
   utils::data("mtcars", package = "datasets", envir = tmp_env)
+  name = paste("connect_uat_mtcars", Sys.time(), sep = "-")
+  name = stringr::str_replace_all(name, "\\.|:| ", "_")
   deployed_pin = suppress(
     pins::pin_write(
       board = board,
       x = tmp_env$mtcars,
-      name = "connect_uat_mtcars",
+      name = name,
       title = "UAT: Testing pins deployment",
       description = "UAT: Testing pins deployment",
       versioned = FALSE,
