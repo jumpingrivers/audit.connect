@@ -30,7 +30,9 @@ See \code{create_config()}
 }
 \details{
 Debug level description
- * 0: clean-up all files; suppress all noise
- * 1: clean-up all files, but display build steps
- * 2: No clean-up (on connect and on disk) and display build steps
+\itemize{
+\item 0: clean-up all files; suppress all noise
+\item 1: clean-up all files, but display build steps
+\item 2: No clean-up (on connect and on disk) and display build steps
+}
 }

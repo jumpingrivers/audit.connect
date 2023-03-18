@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.5 _2023-02-12_
+- feat: Update versions
+
 # jrHealthCheckConnect 0.3.4 _2023-02-12_
 - feat: Improved config creation
 

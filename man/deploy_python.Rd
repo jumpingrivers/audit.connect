@@ -26,10 +26,12 @@ Deploy Python output
 \details{
 Python deploy function
 All python content must have a requirements.txt file and either a app.py or index.qmd.
-`index.qmd` is for quarto only. General idea is to
- * copy dir of contents to R_TMP_DIR
- * Use the python interface to deploy
- * Use the python interface to grab the guid
- * Clean up.
- @noRd
+\code{index.qmd} is for quarto only. General idea is to
+\itemize{
+\item copy dir of contents to R_TMP_DIR
+\item Use the python interface to deploy
+\item Use the python interface to grab the guid
+\item Clean up.
+@noRd
+}
 }
