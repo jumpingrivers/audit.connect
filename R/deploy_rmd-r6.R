@@ -11,7 +11,7 @@ check_deploy_rmd_pdf = R6::R6Class(
     check = function(debug_level) {
       rmd_dir = system.file("extdata", private$group, private$short,
                             package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_rmd(rmd_dir, debug_level))
+      private$checker(deploy_app(rmd_dir, debug_level, appFiles = "index.Rmd"))
       return(invisible(NULL))
     }
   ),
@@ -33,7 +33,7 @@ check_deploy_rmd_html = R6::R6Class(
     check = function(debug_level) {
       rmd_dir = system.file("extdata", private$group, private$short,
                             package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_rmd(rmd_dir, debug_level))
+      private$checker(deploy_app(rmd_dir, debug_level, appFiles = "index.Rmd"))
       return(invisible(NULL))
     }
   ),
@@ -55,7 +55,7 @@ check_deploy_rmd_doc = R6::R6Class(
     check = function(debug_level) {
       rmd_dir = system.file("extdata", private$group, private$short,
                             package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_rmd(rmd_dir, debug_level))
+      private$checker(deploy_app(rmd_dir, debug_level, appFiles = "index.Rmd"))
       return(invisible(NULL))
     }
   ),

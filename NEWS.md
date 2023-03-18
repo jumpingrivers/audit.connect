@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.2 _2023-02-11_
+- feat: Check shiny deployment
+
 # jrHealthCheckConnect 0.3.1 _2023-02-01_
 - feat: Improved debugging using `debug_level`
 
