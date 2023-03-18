@@ -1,26 +1,64 @@
 #' Create test config
 #'
-#' Some PSC servers intentionally won't have some features implemented.
-#' Tests can be skipped using a config-uat.yml file.
-#'
 #' This function creates an example config. By default all tests are TRUE.
+#' Some RSC servers intentionally won't have some features implemented.
 #'
 #' @param dir Directory of the config file
 #' @param file Config file name
 #' @param default Default value for if a test should run (logical)
+#' @param type Merge type, see details
+#'
 #' @details If a test is missing from the config file, it is assume to be TRUE.
 #' Therefore, the config file can be quite short and just list exceptions.
 #' If the config file is missing, then all tests are carried out.
+#'
+#' When merging configs, we either
+#' * merge the new with existing
+#' * force: overwrite existing file
+#' * error: if a config file exists, raise an error
 #' @export
-create_config = function(dir = ".", file = "config-uat.yml", default = TRUE) {
+create_config = function(dir = ".",
+                         file = "config-uat-rsc.yml",
+                         default = TRUE,
+                         type = c("merge", "force", "error")) {
+  type = match.arg(type)
+  yaml_file = file.path(dir, file)
+  if (type == "error" && file.exists(yaml_file)) {
+    cli::cli_abort("Config file already exists.
+                   Either delete or change the `type` argument.")
+  }
+
+  new_config = create_config_list(dir, file, default)
+  if (type == "merge" && file.exists(yaml_file)) {
+    existing_config = yaml::read_yaml(yaml_file)
+    new_config = merge_configs(new_config, existing_config)
+  }
+  yaml::write_yaml(new_config, file = yaml_file)
+  return(invisible(new_config))
+}
+
+merge_configs = function(new, existing) {
+  xnames = names(existing)
+  for (v in names(new)) {
+    if (is.list(new[[v]]))  {
+      new[[v]] = merge_configs(new[[v]], existing[[v]])
+      # Ensure that existing list is the same "type"
+      # If not, new gets precedent
+    } else if (v %in% xnames && !is.null(existing[[v]]) && !is.list(existing[[v]])) {
+      new[[v]] = existing[[v]]
+    }
+  }
+  new
+}
+
+create_config_list = function(dir, file, default) {
   obj_info = get_check_info(dir, file)
   groups = unique(obj_info$group)
   shorts = purrr::map(groups, ~obj_info[obj_info$group == .x, ]$short)
   group_shorts = purrr::map(shorts, create_group_short, default = default)
 
   names(group_shorts) = groups
-  yaml::write_yaml(group_shorts, file = file.path(dir, file))
-  return(invisible(group_shorts))
+  group_shorts
 }
 
 create_group_short = function(short, default) {

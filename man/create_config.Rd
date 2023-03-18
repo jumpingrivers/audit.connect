@@ -4,7 +4,12 @@
 \alias{create_config}
 \title{Create test config}
 \usage{
-create_config(dir = ".", file = "config-uat.yml", default = TRUE)
+create_config(
+  dir = ".",
+  file = "config-uat-rsc.yml",
+  default = TRUE,
+  type = c("merge", "force", "error")
+)
 }
 \arguments{
 \item{dir}{Directory of the config file}
@@ -12,15 +17,22 @@ create_config(dir = ".", file = "config-uat.yml", default = TRUE)
 \item{file}{Config file name}
 
 \item{default}{Default value for if a test should run (logical)}
+
+\item{type}{Merge type, see details}
 }
 \description{
-Some PSC servers intentionally won't have some features implemented.
-Tests can be skipped using a config-uat.yml file.
+This function creates an example config. By default all tests are TRUE.
+Some RSC servers intentionally won't have some features implemented.
 }
 \details{
-This function creates an example config. By default all tests are TRUE.
-
 If a test is missing from the config file, it is assume to be TRUE.
 Therefore, the config file can be quite short and just list exceptions.
 If the config file is missing, then all tests are carried out.
+
+When merging configs, we either
+\itemize{
+\item merge the new with existing
+\item force: overwrite existing file
+\item error: if a config file exists, raise an error
+}
 }

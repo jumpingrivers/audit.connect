@@ -25,8 +25,8 @@ check(
 }
 \description{
 This functions runs all UAT tests.
-To skip tests, set check to `no` in the config yaml file.
-See `create_config()`
+To skip tests, set check to \code{no} in the config yaml file.
+See \code{create_config()}
 }
 \details{
 Debug level description

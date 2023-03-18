@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.4 _2023-02-12_
+- feat: Improved config creation
+
 # jrHealthCheckConnect 0.3.3 _2023-02-11_
 - feat: Check github deployment
 
