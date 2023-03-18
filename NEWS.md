@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.3 _2023-02-11_
+- feat: Check github deployment
+
 # jrHealthCheckConnect 0.3.2 _2023-02-11_
 - feat: Check shiny deployment
 

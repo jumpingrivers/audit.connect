@@ -36,5 +36,6 @@ cleanup_app = function(bundle_dir, content, debug_level) {
   if (debug_level == 2) return(invisible(NULL))
   suppress = get_suppress(debug_level)
   if (exists("content")) suppress(connectapi::content_delete(content, force = TRUE))
-  fs::dir_delete(bundle_dir)
+  if (!is.null(bundle_dir) && file.exists(bundle_dir)) fs::dir_delete(bundle_dir)
+  return(invisible(NULL))
 }

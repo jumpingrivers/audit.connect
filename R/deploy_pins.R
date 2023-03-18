@@ -17,7 +17,7 @@ deploy_pins = function(debug_level) {
       type = "rds"
     )
   )
-  if (debug_level != 2) on.exit(pins::pin_delete(board, deployed_pin))
+  if (debug_level == 2) on.exit(pins::pin_delete(board, deployed_pin))
   pulled_data = pins::pin_read(board, deployed_pin)
   if (!identical(pulled_data, tmp_env$mtcars)) stop("Corrupted pins data")
   return(invisible(TRUE))
