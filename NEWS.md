@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.7 _2023-03-19_
+- feat: Use {uatBase} package
+
 # jrHealthCheckConnect 0.3.6 _2023-03-19_
 - feat: Use {serverHeaders} package
 

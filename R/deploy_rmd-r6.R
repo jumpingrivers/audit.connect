@@ -4,7 +4,7 @@
 #' @export
 check_deploy_rmd_pdf = R6::R6Class(
   "check_deploy_rmd_pdf",
-  inherit = base_check,
+  inherit = uatBase::base_check,
   public = list(
     #' @description Checks deployment of an R Markdown document with PDF output
     #' @param debug_level See check() for details
@@ -26,7 +26,7 @@ check_deploy_rmd_pdf = R6::R6Class(
 #' @export
 check_deploy_rmd_html = R6::R6Class(
   "check_deploy_rmd_html",
-  inherit = base_check,
+  inherit = uatBase::base_check,
   public = list(
     #' @description Checks deployment of an R Markdown document with HTML output
     #' @param debug_level See check() for details
@@ -48,7 +48,7 @@ check_deploy_rmd_html = R6::R6Class(
 #' @export
 check_deploy_rmd_doc = R6::R6Class(
   "check_deploy_rmd_word",
-  inherit = base_check,
+  inherit = uatBase::base_check,
   public = list(
     #' @description  Checks deployment of an R Markdown document with Word Docx output
     #' @param debug_level See check() for details

@@ -4,7 +4,7 @@
 #' @export
 check_deploy_python_streamlit = R6::R6Class(
   "check_deploy_python_streamlit",
-  inherit = base_check,
+  inherit = uatBase::base_check,
   public = list(
     #' @description Checks deployment of Python Streamlit app
     #' @param debug_level See check() for details

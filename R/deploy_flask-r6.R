@@ -4,7 +4,7 @@
 #' @export
 check_deploy_python_flask = R6::R6Class(
   "check_deploy_python_flask",
-  inherit = base_check,
+  inherit = uatBase::base_check,
   public = list(
     #' @description Checks deployment of Quarto document with HTML output
     #' @param debug_level See check() for details

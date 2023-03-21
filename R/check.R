@@ -15,6 +15,7 @@
 #'  * 1: clean-up all files, but display build steps
 #'  * 2: No clean-up (on connect and on disk) and display build steps
 #' @importFrom rlang .data .env
+#' @import uatBase
 #' @export
 check = function(server = NULL, token = NULL,
                  dir = ".", file = "config-uat.yml",

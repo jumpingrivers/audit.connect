@@ -48,7 +48,7 @@ Likewise, `create_config()`
 #' @export
 check_example = R6::R6Class(
   "check_example",
-  inherit = base_check,
+  inherit = uatBase::base_check,
   # A function is passed to checker()
   # This runs the test, detects errors, and logs the result
   public = list(

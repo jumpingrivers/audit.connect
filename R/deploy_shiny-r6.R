@@ -4,7 +4,7 @@
 #' @export
 check_deploy_shiny = R6::R6Class(
   "check_deploy_shiny",
-  inherit = base_check,
+  inherit = uatBase::base_check,
   public = list(
     #' @description  Checks deployment of an R Markdown document with Word Docx output
     #' @param debug_level See check() for details

@@ -4,7 +4,7 @@
 #' @export
 check_deploy_plumber_api = R6::R6Class(
   "check_deploy_pluumber_api",
-  inherit = base_check,
+  inherit = uatBase::base_check,
   public = list(
     #' @description Checks deployment of a Plumber API
     #' @param debug_level See check() for details

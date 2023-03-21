@@ -12,7 +12,7 @@ R6 classes
 Check classes
 }
 \section{Super classes}{
-\code{jrHealthCheckConnect::logger} -> \code{jrHealthCheckConnect::base_check} -> \code{check_deploy_python_flask}
+\code{\link[uatBase:logger]{uatBase::logger}} -> \code{\link[uatBase:base_check]{uatBase::base_check}} -> \code{check_deploy_python_flask}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -24,11 +24,11 @@ Check classes
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="jrHealthCheckConnect" data-topic="logger" data-id="get_log"><a href='../../jrHealthCheckConnect/html/logger.html#method-logger-get_log'><code>jrHealthCheckConnect::logger$get_log()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="jrHealthCheckConnect" data-topic="logger" data-id="start_logger"><a href='../../jrHealthCheckConnect/html/logger.html#method-logger-start_logger'><code>jrHealthCheckConnect::logger$start_logger()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="jrHealthCheckConnect" data-topic="logger" data-id="stop_logger"><a href='../../jrHealthCheckConnect/html/logger.html#method-logger-stop_logger'><code>jrHealthCheckConnect::logger$stop_logger()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="jrHealthCheckConnect" data-topic="base_check" data-id="info"><a href='../../jrHealthCheckConnect/html/base_check.html#method-base_check-info'><code>jrHealthCheckConnect::base_check$info()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="jrHealthCheckConnect" data-topic="base_check" data-id="initialize"><a href='../../jrHealthCheckConnect/html/base_check.html#method-base_check-initialize'><code>jrHealthCheckConnect::base_check$initialize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="uatBase" data-topic="logger" data-id="get_log"><a href='../../uatBase/html/logger.html#method-logger-get_log'><code>uatBase::logger$get_log()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="uatBase" data-topic="logger" data-id="start_logger"><a href='../../uatBase/html/logger.html#method-logger-start_logger'><code>uatBase::logger$start_logger()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="uatBase" data-topic="logger" data-id="stop_logger"><a href='../../uatBase/html/logger.html#method-logger-stop_logger'><code>uatBase::logger$stop_logger()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="uatBase" data-topic="base_check" data-id="info"><a href='../../uatBase/html/base_check.html#method-base_check-info'><code>uatBase::base_check$info()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="uatBase" data-topic="base_check" data-id="initialize"><a href='../../uatBase/html/base_check.html#method-base_check-initialize'><code>uatBase::base_check$initialize()</code></a></span></li>
 </ul>
 </details>
 }}
