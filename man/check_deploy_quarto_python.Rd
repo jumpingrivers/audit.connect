@@ -2,6 +2,14 @@
 % Please edit documentation in R/deploy_quarto-r6.R
 \name{check_deploy_quarto_python}
 \alias{check_deploy_quarto_python}
+\alias{check_deploy_quarto_beamer}
+\alias{check_deploy_quarto_docx}
+\alias{check_deploy_quarto_html}
+\alias{check_deploy_quarto_observable}
+\alias{check_deploy_quarto_pdf}
+\alias{check_deploy_rmd_html}
+\alias{check_deploy_rmd_pdf}
+\alias{check_deploy_rmd_word}
 \title{R6 classes}
 \description{
 R6 classes

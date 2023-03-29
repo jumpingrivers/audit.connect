@@ -1,111 +1,45 @@
-#' R6 classes
-#'
-#' Check classes
-#' @export
-check_deploy_quarto_html = R6::R6Class(
-  "check_deploy_quarto_html",
-  inherit = uatBase::base_check,
-  public = list(
-    #' @description Checks deployment of Quarto document with HTML output
-    #' @param account Connect username
-    #' @param debug_level See check() for details
-    check = function(debug_level, account = NULL) {
-      if (is.null(account)) account = get_username()
-      quarto_dir = system.file("extdata", private$group, private$short,
-                               package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
-      return(invisible(NULL))
-    }
-  ),
-  private = list(
-    context = "qmd to HTML deployment",
-    short = "html",
-    group = "deploy_quarto"
-  )
-)
+#' @rawNamespace export(check_deploy_quarto_beamer)
+#' @rawNamespace export(check_deploy_quarto_docx)
+#' @rawNamespace export(check_deploy_quarto_html)
+#' @rawNamespace export(check_deploy_quarto_observable)
+#' @rawNamespace export(check_deploy_quarto_pdf)
+NULL
+types = c("beamer", "docx", "html", "observable", "pdf")
+for (type in types) {
 
-#' R6 classes
-#'
-#' Check classes
-#' @export
-check_deploy_quarto_docx = R6::R6Class(
-  "check_deploy_quarto_docx",
-  inherit = uatBase::base_check,
-  public = list(
-    #' @description Checks deployment of Quarto document with Docx output
-    #' @param account Connect username
-    #' @param debug_level See check() for details
-    check = function(debug_level, account = NULL) {
-      if (is.null(account)) account = get_username()
-      quarto_dir = system.file("extdata", private$group, private$short,
-                               package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
-      return(invisible(NULL))
-    }
-  ),
-  private = list(
-    context = "qmd to docx deployment",
-    short = "docx",
-    group = "deploy_quarto"
-  )
-)
+  assign(
+    paste0("check_deploy_quarto_", type),
+    R6::R6Class(
+      paste0("check_deploy_quarto_", type),
+      inherit = uatBase::base_check,
+      public = list(
+        check = function(debug_level, account = NULL) {
+          quarto_dir = system.file("extdata", private$group, private$short,
+                                   package = "uatBase", mustWork = TRUE)
+          private$checker(
+            deploy_quarto(quarto_dir, account, debug_level = debug_level))
 
-#' R6 classes
-#'
-#' Check classes
-#' @export
-check_deploy_quarto_pdf = R6::R6Class(
-  "check_deploy_quarto_pdf",
-  inherit = uatBase::base_check,
-  public = list(
-    #' @description Checks deployment of Quarto document with PDF output
-    #' @param account Connect username
-    #' @param debug_level See check() for details
-    check = function(debug_level, account = NULL) {
-      if (is.null(account)) account = get_username()
-      quarto_dir = system.file("extdata", private$group, private$short,
-                               package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
-      return(invisible(NULL))
-    }
-  ),
-  private = list(
-    context = "qmd to PDF deployment",
-    short = "pdf",
-    group = "deploy_quarto"
+          return(invisible(NULL))
+        }
+      ),
+      private = list(
+        context = paste("Deploying", type),
+        short = type,
+        group = "render_quarto"
+      )
+    )
   )
-)
-
-#' R6 classes
-#'
-#' Check classes
-#' @export
-check_deploy_quarto_beamer = R6::R6Class(
-  "check_deploy_quarto_beamer",
-  inherit = uatBase::base_check,
-  public = list(
-    #' @description Checks deployment of Quarto document with beamer output
-    #' @param account Connect username
-    #' @param debug_level See check() for details
-    check = function(debug_level, account = NULL) {
-      if (is.null(account)) account = get_username()
-      quarto_dir = system.file("extdata", private$group, private$short,
-                               package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
-    }
-  ),
-  private = list(
-    context = "qmd to beamer deployment",
-    short = "beamer",
-    group = "deploy_quarto"
-  )
-)
+}
 
 #' R6 classes
 #'
 #' Check classes.
 #' @details We use the deploy_python() mechanism for this quarto document, as
 #' we need to specify the requirements.txt file
+#' @aliases check_deploy_quarto_beamer check_deploy_quarto_docx
+#' @aliases check_deploy_quarto_html check_deploy_quarto_observable
+#' @aliases check_deploy_quarto_pdf
+#' @aliases check_deploy_rmd_html check_deploy_rmd_pdf check_deploy_rmd_word
 #' @export
 check_deploy_quarto_python = R6::R6Class(
   "check_deploy_quarto_python",
@@ -117,7 +51,7 @@ check_deploy_quarto_python = R6::R6Class(
     check = function(debug_level, account = NULL) {
       if (is.null(account)) account = get_username()
       python_dir = system.file("extdata", private$group, private$short,
-                               package = "jrHealthCheckConnect", mustWork = TRUE)
+                               package = "uatBase", mustWork = TRUE)
       private$checker(
         deploy_python(python_dir,
                       python_files = "index.qmd",
@@ -129,32 +63,6 @@ check_deploy_quarto_python = R6::R6Class(
   private = list(
     context = "Jupyter engine",
     short = "python",
-    group = "deploy_quarto"
-  )
-)
-
-#' R6 classes
-#'
-#' Check classes
-#' @export
-check_deploy_quarto_observable = R6::R6Class(
-  "check_deploy_quarto_observable",
-  inherit = uatBase::base_check,
-  public = list(
-    #' @description Checks deployment of Quarto document with PDF output
-    #' @param account Connect username
-    #' @param debug_level See check() for details
-    check = function(debug_level, account = NULL) {
-      if (is.null(account)) account = get_username()
-      quarto_dir = system.file("extdata", private$group, private$short,
-                               package = "jrHealthCheckConnect", mustWork = TRUE)
-      private$checker(deploy_quarto(quarto_dir, account = account, debug_level = debug_level))
-      return(invisible(NULL))
-    }
-  ),
-  private = list(
-    context = "observable deployment",
-    short = "observable",
-    group = "deploy_quarto"
+    group = "render_quarto"
   )
 )

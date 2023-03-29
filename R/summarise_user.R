@@ -8,6 +8,7 @@ summarise_user = function(server, token) {
   cli::cli_alert_info("Username: {content$username}")
   cli::cli_alert_info("Role: {content$user_role}")
   set_key("username", content$username)
+  set_key("connect_account", content$username)
   return(invisible(content))
 }
 

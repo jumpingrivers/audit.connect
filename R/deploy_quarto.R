@@ -1,4 +1,4 @@
-deploy_quarto = function(quarto_dir, account, debug_level = debug_level) {
+deploy_quarto = function(quarto_dir, account = NULL, debug_level = debug_level) {
   suppress = get_suppress(debug_level)
 
   tmp_dir = file.path(tempdir(), "quarto")
@@ -8,6 +8,7 @@ deploy_quarto = function(quarto_dir, account, debug_level = debug_level) {
   file.copy(file.path(quarto_dir, "index.qmd"), tmp_dir)
   title = paste("UAT: Quarto", Sys.Date())
   # quarto uses rsconnect::accounts. So, looks up the server in list of accounts
+  if (is.null(account)) account = get_account()
   has_deployed = suppress(quarto::quarto_publish_doc(file.path(tmp_dir, "index.qmd"),
                              render = "server",
                              title = title,

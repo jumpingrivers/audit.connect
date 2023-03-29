@@ -7,6 +7,10 @@ set_key = function(name, value) {
   return(invisible(value))
 }
 
+get_account = function() {
+  account = .connect[["connect_account"]]
+  account
+}
 get_server = function(clean = FALSE) {
   server = .connect[["connect_server"]]
   if (is.null(server)) {

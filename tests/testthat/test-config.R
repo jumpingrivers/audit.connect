@@ -12,22 +12,22 @@ test_check_values = function(con, value = TRUE) {
 test_that("Config file test", {
   # Setup
   tmpdir = tempdir()
-  config_path = file.path(tmpdir, "config.yml")
+  config_path = file.path(tmpdir, "config-uat-rsc.yml")
 
   # Basic test
-  create_config(dir = tmpdir, file = "config.yml", type = "force")
+  create_config(dir = tmpdir, type = "force")
   expect_true(file.exists(config_path))
   con = yaml::read_yaml(config_path)
   expect_null(test_check_values(con, TRUE))
 
   # Don't overwrite
-  expect_error(create_config(dir = tmpdir, file = "config.yml", type = "error"))
+  expect_error(create_config(dir = tmpdir, type = "error"))
 
   # Test Merge
   con$deploy_pins$rds = FALSE
   con$bad_value = TRUE
   yaml::write_yaml(con, config_path)
-  create_config(dir = tmpdir, file = "config.yml", type = "merge")
+  create_config(dir = tmpdir, type = "merge")
   con = yaml::read_yaml(config_path)
 
   # Had bad_value been removed
@@ -37,7 +37,4 @@ test_that("Config file test", {
   con$deploy_pins$rds = TRUE
 
   expect_null(test_check_values(con, TRUE))
-  checks = get_check_info(dir = ".", file = "missing.yml")
-  expect_true(all(names(con) %in% checks$group))
-
 })

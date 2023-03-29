@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.8 _2023-03-28_
+- feat: Use {uatBase} package for inst/
+
 # jrHealthCheckConnect 0.3.7 _2023-03-19_
 - feat: Use {uatBase} package
 
