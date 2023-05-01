@@ -1,3 +1,8 @@
+# jrHealthCheckConnect 0.3.9 _2023-05-01_
+- feat: New test - include svgs with quarto
+- chore: New version of uatBase has comments in CSVs
+- fix: Delete pins after deployment
+
 # jrHealthCheckConnect 0.3.8 _2023-03-28_
 - feat: Use {uatBase} package for inst/
 

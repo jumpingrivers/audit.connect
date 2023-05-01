@@ -3,8 +3,9 @@
 #' @rawNamespace export(check_deploy_quarto_html)
 #' @rawNamespace export(check_deploy_quarto_observable)
 #' @rawNamespace export(check_deploy_quarto_pdf)
+#' @rawNamespace export(check_deploy_quarto_rsvg_convert)
 NULL
-types = c("beamer", "docx", "html", "observable", "pdf")
+types = c("beamer", "docx", "html", "observable", "pdf", "rsvg_convert")
 for (type in types) {
 
   assign(
@@ -40,6 +41,7 @@ for (type in types) {
 #' @aliases check_deploy_quarto_html check_deploy_quarto_observable
 #' @aliases check_deploy_quarto_pdf
 #' @aliases check_deploy_rmd_html check_deploy_rmd_pdf check_deploy_rmd_word
+#' @aliases check_deploy_quarto_rsvg_convert
 #' @export
 check_deploy_quarto_python = R6::R6Class(
   "check_deploy_quarto_python",

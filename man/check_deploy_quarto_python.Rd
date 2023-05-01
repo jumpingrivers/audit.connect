@@ -10,6 +10,7 @@
 \alias{check_deploy_rmd_html}
 \alias{check_deploy_rmd_pdf}
 \alias{check_deploy_rmd_word}
+\alias{check_deploy_quarto_rsvg_convert}
 \title{R6 classes}
 \description{
 R6 classes
