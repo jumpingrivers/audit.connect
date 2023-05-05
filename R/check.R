@@ -7,7 +7,6 @@
 #' @param token RSC api token. If NULL, use the ENV variable CONNECT_API_KEY
 #' @param dir directory location of the the config file
 #' @param debug_level Integer, 0 to 2.
-#'
 #' @details
 #' Debug level description
 #'  * 0: clean-up all files; suppress all noise
@@ -24,18 +23,14 @@ check = function(server = NULL, token = NULL,
   check_list = list()
   check_list$setup = summarise_setup(server, token)
   check_server_version(get_server(), get_token(), debug_level = debug_level)
-  check_list$server_headers = serverHeaders::check(get_server())
+  check_list$server_headers = serverHeaders::check(get_server(clean = TRUE))
   check_list$user_details = summarise_user(get_server(), get_token())
   check_list$users_details = summarise_users(get_server(), get_token(), debug_level = debug_level)
   check_list$versions = summarise_versions(get_server(), get_token())
   check_list$sys_deps = check_sys_deps(debug_level = debug_level)
   register_uat_user(get_server(), get_token(), account = get_account())
 
-  cli::cli_h2("Document Deployment Checks")
-  r6_inits = init_r6_checks(dir = dir, file = "config-uat-rsc.yml")
-  lapply(r6_inits, function(r6) r6$check(debug_level = debug_level))
-  check_list$deployments = purrr::map_dfr(r6_inits, ~.x$get_log())
-  check_list$deployments = dplyr::arrange(check_list$deployments, .data$group, .data$short)
+  check_list$deployments = check_deployments(dir, debug_level)
   invisible(check_list)
 }
 

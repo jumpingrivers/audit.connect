@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.10 _2023-05-02_
+- fix: Ensure that manifests don't use binary repos
+
 # jrHealthCheckConnect 0.3.9 _2023-05-01_
 - feat: New test - include svgs with quarto
 - chore: New version of uatBase has comments in CSVs
