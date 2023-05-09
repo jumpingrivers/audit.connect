@@ -1,0 +1,97 @@
+---
+title: "Posit Audit"
+format: html
+editor_options:
+  chunk_output_type: console
+params:
+  input: null
+---
+
+<!--IMPORTANT:
+This is a working draft.
+As I've worked through the sections, I spot where the check() output could be tweaked to
+provide a better report.
+
+As such, this report will change!
+Consider this a rough draft, that you are able to view :)
+
+Yes, I know the code is horrible - see above comments :)
+--->
+
+```{r}
+#| echo: false
+# quarto render report.qmd -P input:output.rds
+library("glue")
+library("gt")
+library("dplyr", warn.conflicts = FALSE)
+out = readRDS(params$input)
+server_name = stringr::str_remove_all(out$setup$server, "(^http?s://|/$)")
+
+```
+
+## Who Ran this Audit
+
+```{r}
+#| echo: false
+user = out$user_details
+```
+
+This audit was run by `r glue("{user$first_name} {user$last_name} (<{user$email}>)")`.
+The account level was `r user$user_role`.
+
+## Server Audit (`r server_name`)
+
+```{r}
+#| echo: false
+headers = out$server_headers$headers
+headers = dplyr::filter(headers, !is.na(.data$documentation))
+headers = dplyr::arrange(headers, dplyr::desc(.data$status)) |>
+  dplyr::mutate(
+    header_docs = purrr::map(documentation, ~ htmltools::a(href = .x, "(docs)")),
+    message = purrr::map2(message, header_docs, ~ gt::html(paste(.x, as.character(.y))))) |>
+  dplyr::mutate(value = ifelse(is.na(.data$value), "-", .data$value))
+
+gt(headers) |>
+  tab_source_note("Mozilla suggestions") |>
+  gt::cols_align("left") |>
+  cols_move_to_start(header_docs) |>
+
+  cols_label("security_header" = "Header",
+             message = "Information",
+             value = "Value") |>
+  tab_row_group(label = "Looks good",
+                rows = which(headers$status == "OK")) |>
+  tab_row_group(label = "To investigate",
+                rows = which(headers$status != "OK")) |>
+  cols_hide(c("status", "documentation", "value", "header_docs"))  |>
+  gtExtras::gt_merge_stack(col1 = "message", col2 = "value",
+                           palette = c("grey10", "grey50"),
+                           font_weight = c("normal", "normal"),
+                           small_cap = FALSE
+  ) |>
+  gtExtras::gt_theme_nytimes()
+
+```
+
+## Deployments
+
+```{r}
+#| echo: false
+deploy = out$deployments
+deploy$type = paste0(deploy$group, ": ", deploy$short)
+deploy = arrange(deploy, !passed, group)
+library(gt)
+gt(deploy)  |>
+  tab_row_group(label = "To investigate",
+                rows = which(!deploy$passed)) |>
+  tab_row_group(label = "Looks good",
+                rows = which(deploy$passed)) |>
+  cols_hide(c("group", "short"))  |>
+  gtExtras::gt_merge_stack(col1 = "context", col2 = "type",
+                           palette = c("grey10", "grey50"),
+                           font_weight = c("normal", "normal"),
+                           small_cap = FALSE
+  ) |>
+  cols_hide(c("passed"))  |>
+  gtExtras::gt_theme_nytimes()
+```

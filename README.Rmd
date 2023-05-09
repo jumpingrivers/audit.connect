@@ -1,25 +1,35 @@
+---
+output: github_document
+---
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # jrHealthCheckConnect
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-This checks that a variety of applications can be deployed to a Posit
-Connect Server.
+This checks that a variety of applications can be deployed to a Posit Connect Server.
 
 ## Installation
 
 To install the R package, run
 
-``` r
+```{r, eval = FALSE}
 install.packages("jrHealthCheckConnect")
 ```
+For python based deployment, the python package, `rsconnect-python` is required
 
-For python based deployment, the python package, `rsconnect-python` is
-required
-
-``` bash
+```{bash, eval = FALSE}
 pip install rsconnect-python
 ```
 
@@ -27,32 +37,30 @@ pip install rsconnect-python
 
 Running the test is straightforward
 
-``` r
+```{r, eval = FALSE}
 library("jrHealthCheckConnect")
 check(server = "https://www.connect.server.name/",
       token = "API_TOKEN")
 ```
-
-Alternatively, you can set environmental variables, `CONNECT_SERVER` and
-`CONNECT_API_KEY` in your `.Renviron` file.
+Alternatively, you can set environmental variables, `CONNECT_SERVER` and `CONNECT_API_KEY` in your
+`.Renviron` file.
 
 ## Config file
 
-Experimental. You can skip deployment tests, by setting the appropriate
-value in `config-uat.yml`. This file can be auto-generated via
+Experimental. You can skip deployment tests, by setting the appropriate value in `config-uat.yml`.
+This file can be auto-generated via
 
-``` r
+```{r, eval = FALSE}
 create_config()
 ```
-
 If a test is missing in the config, the default value is TRUE.
 
 ## Creating a test
 
-Tests are R6 classes. To be automatically detected, the class name
-**must** start with `check_`. If you copy/paste the following code into
-`R/example.R`, when you run `check()`, the test is automatically
-detected and run. Likewise, `create_config()`
+Tests are R6 classes. To be automatically detected, the class name **must**
+start with `check_`. If you copy/paste the following code into `R/example.R`,
+when you run `check()`, the test is automatically detected and run.
+Likewise, `create_config()`
 
 ``` r
 #' @export

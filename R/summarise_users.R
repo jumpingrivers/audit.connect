@@ -8,7 +8,8 @@ summarise_users = function(server, token, debug_level) {
   user_list$users = suppress(connectapi::get_users(client, limit = Inf))
 
   print_audit_users(user_list)
-  print_audit_user_apps(client, debug_level)
+  apps = print_audit_user_apps(client, debug_level)
+  list(user_list = user_list, apps = apps)
 }
 
 get_user_account_limit = function(client) {

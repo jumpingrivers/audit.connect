@@ -39,6 +39,6 @@ get_username = function() {
 }
 
 get_value = function(env_name, value = NULL) {
-  if (is.null(value)) value = Sys.getenv(env_name, NA)
+  if (is.null(value) || nchar(value) == 0L) value = Sys.getenv(env_name, NA)
   return(value)
 }

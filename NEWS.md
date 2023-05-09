@@ -1,3 +1,6 @@
+# jrHealthCheckConnect 0.3.11 _2023-05-05_
+- feat: Initial sketch of report
+
 # jrHealthCheckConnect 0.3.10 _2023-05-02_
 - fix: Ensure that manifests don't use binary repos
 
