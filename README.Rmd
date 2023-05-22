@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# jrHealthCheckConnect
+# audit.connect
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -25,7 +25,7 @@ This checks that a variety of applications can be deployed to a Posit Connect Se
 To install the R package, run
 
 ```{r, eval = FALSE}
-install.packages("jrHealthCheckConnect")
+install.packages("audit.connect")
 ```
 For python based deployment, the python package, `rsconnect-python` is required
 
@@ -38,7 +38,7 @@ pip install rsconnect-python
 Running the test is straightforward
 
 ```{r, eval = FALSE}
-library("jrHealthCheckConnect")
+library("audit.connect")
 check(server = "https://www.connect.server.name/",
       token = "API_TOKEN")
 ```

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(jrHealthCheckConnect)
+library(audit.connect)
 
-test_check("jrHealthCheckConnect")
+test_check("audit.connect")

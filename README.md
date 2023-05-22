@@ -1,6 +1,7 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# jrHealthCheckConnect
+# audit.connect
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -13,7 +14,7 @@ Connect Server.
 To install the R package, run
 
 ``` r
-install.packages("jrHealthCheckConnect")
+install.packages("audit.connect")
 ```
 
 For python based deployment, the python package, `rsconnect-python` is
@@ -28,7 +29,7 @@ pip install rsconnect-python
 Running the test is straightforward
 
 ``` r
-library("jrHealthCheckConnect")
+library("audit.connect")
 check(server = "https://www.connect.server.name/",
       token = "API_TOKEN")
 ```

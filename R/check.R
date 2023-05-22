@@ -13,7 +13,7 @@
 #'  * 1: clean-up all files, but display build steps
 #'  * 2: No clean-up (on connect and on disk) and display build steps
 #' @importFrom rlang .data .env
-#' @import uatBase
+#' @import audit.base
 #' @export
 check = function(server = NULL, token = NULL,
                  dir = ".",
@@ -35,7 +35,7 @@ check = function(server = NULL, token = NULL,
 }
 
 init_r6_checks = function(dir, file) {
-  exports = getNamespaceExports("jrHealthCheckConnect")
+  exports = getNamespaceExports("audit.connect")
   check_exports = sort(exports[stringr::str_starts(exports, "check_deploy")])
   r6_inits = lapply(check_exports, init_r6_check, dir = dir, file = file)
   r6_inits

@@ -9,7 +9,7 @@ check_sys_deps = function(debug_level = 0:2) {
 
   app_dir = file.path(tempdir(), "pkg")
   pkg_dir = system.file("extdata", "check_sys_deps",
-                        package = "jrHealthCheckConnect",
+                        package = "audit.connect",
                         mustWork = TRUE)
   fs::dir_copy(pkg_dir, app_dir)
   on.exit(cleanup_plumber(app_dir, content, debug_level))
@@ -21,7 +21,7 @@ check_sys_deps = function(debug_level = 0:2) {
   resp = httr::GET(url, httr::add_headers(Authorization = auth_key))
   rtn = jsonlite::parse_json(rawToChar(resp$content))
 
-  uatBase::check_sys_deps(rtn$os, rtn$libs, debug_level)
+  audit.base::check_sys_deps(rtn$os, rtn$libs, debug_level)
 }
 
 setup_plumber_sys_deps_endpoint = function(app_dir, debug_level) { #nolint

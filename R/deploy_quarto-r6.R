@@ -12,11 +12,11 @@ for (type in types) {
     paste0("check_deploy_quarto_", type),
     R6::R6Class(
       paste0("check_deploy_quarto_", type),
-      inherit = uatBase::base_check,
+      inherit = audit.base::base_check,
       public = list(
         check = function(debug_level, account = NULL) {
           quarto_dir = system.file("extdata", private$group, private$short,
-                                   package = "uatBase", mustWork = TRUE)
+                                   package = "audit.base", mustWork = TRUE)
           private$checker(
             deploy_quarto(quarto_dir, account, debug_level = debug_level))
 
@@ -45,7 +45,7 @@ for (type in types) {
 #' @export
 check_deploy_quarto_python = R6::R6Class(
   "check_deploy_quarto_python",
-  inherit = uatBase::base_check,
+  inherit = audit.base::base_check,
   public = list(
     #' @description Checks deployment of Quarto document with PDF output
     #' @param account Connect username
@@ -53,7 +53,7 @@ check_deploy_quarto_python = R6::R6Class(
     check = function(debug_level, account = NULL) {
       if (is.null(account)) account = get_username()
       python_dir = system.file("extdata", private$group, private$short,
-                               package = "uatBase", mustWork = TRUE)
+                               package = "audit.base", mustWork = TRUE)
       private$checker(
         deploy_python(python_dir,
                       python_files = "index.qmd",

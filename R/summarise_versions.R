@@ -3,7 +3,7 @@ summarise_versions = function(server, token) {
   software = c("r", "python", "quarto")
 
   installed = purrr::map_dfr(software, ~get_server_settings(server, token, .x))
-  installed = uatBase::augment_installed(installed)
+  installed = audit.base::augment_installed(installed)
 
   return(installed)
 }

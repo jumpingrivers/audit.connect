@@ -1,7 +1,7 @@
 Type: Package
-Package: jrHealthCheckConnect
+Package: audit.connect
 Title: Posit Connect Health Check
-Version: 0.3.11
+Version: 0.4.0
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
 Description: Posit Connect Health Check. Deploys various content types to
@@ -10,6 +10,7 @@ License: file LICENSE
 Depends: 
     R (>= 4.1.0)
 Imports: 
+    audit.base,
     cli,
     connectapi,
     dplyr,
@@ -24,8 +25,7 @@ Imports:
     rsconnect (>= 0.8.27),
     serverHeaders,
     stringr,
-    tibble,
-    uatBase (>= 0.1.1)
+    tibble
 Suggests:
     testthat (>= 3.0.0),
     yaml

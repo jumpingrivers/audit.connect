@@ -2,7 +2,7 @@
 # Connect's OS. To keep things simple, we enfore that the Repo in manifests
 # must use the boring CRAN Repo
 test_that("Check Manifest files", {
-  pkg_files = system.file(package = "jrHealthCheckConnect", mustWork = TRUE)
+  pkg_files = system.file(package = "audit.connect", mustWork = TRUE)
 
   manifests = list.files(pkg_files, recursive = TRUE, pattern = "manifest\\.json$",
                          full.names = TRUE)

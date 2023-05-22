@@ -4,7 +4,7 @@
 #' @export
 check_deploy_pins_rds = R6::R6Class(
   "check_deploy_pins_rds",
-  inherit = uatBase::base_check,
+  inherit = audit.base::base_check,
   public = list(
     #' @description Checks a pin can be written, read and deleted
     #' @param debug_level See check() for details

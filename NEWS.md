@@ -1,3 +1,6 @@
+# audit.connect 0.4.0 _2023-05-22_
+- feat: Move to GitHub and rename pkg
+
 # jrHealthCheckConnect 0.3.11 _2023-05-05_
 - feat: Initial sketch of report
 

@@ -1,7 +1,7 @@
 # Note: storing variables in .connect as in the (near) future, we'll want to pass
 # keys / servers as variables
 summarise_setup = function(server, token) {
-  cli::cli_h2("Summary jrHealthCheckConnect v{packageVersion('jrHealthCheckConnect')}")
+  cli::cli_h2("Summary audit.connect v{packageVersion('audit.connect')}")
   setup = list()
   setup$server = check_server(server)
   setup$api_key = check_api_key(token)

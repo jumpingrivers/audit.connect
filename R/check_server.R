@@ -29,7 +29,7 @@ audit_server_version = function(server_version) {
 
 get_connect_versions = function() {
   versions = system.file("extdata", "connect_versions", "connect_versions.csv",
-                         mustWork = TRUE, package = "jrHealthCheckConnect")
+                         mustWork = TRUE, package = "audit.connect")
   versions = utils::read.csv(versions, comment.char = "#")
   versions$date = as.Date(versions$date)
   versions = dplyr::tibble(versions)

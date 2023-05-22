@@ -8,11 +8,11 @@ for (type in types) {
     paste0("check_deploy_rmd_", type),
     R6::R6Class(
       paste0("check_deploy_rmd_", type),
-      inherit = uatBase::base_check,
+      inherit = audit.base::base_check,
       public = list(
         check = function(debug_level) {
           rmd_dir = system.file("extdata", private$group, private$short,
-                                   package = "uatBase", mustWork = TRUE)
+                                   package = "audit.base", mustWork = TRUE)
           private$checker(
             deploy_app(rmd_dir, debug_level = debug_level))
 
