@@ -54,7 +54,7 @@ server_name = stringr::str_remove_all(setup$server, "(^http?s://|/$)")
 ## Feature Usage
 
  * __Used__: `r {used}`
- * __Unused__: `r {glue::glue("{unused}")}`
+ * __Unused__: `r {unused}`
 
 
 ## Server Headings (`r server_name`)
