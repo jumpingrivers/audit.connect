@@ -24,22 +24,23 @@ Yes, I know the code is horrible - see above comments :)
 ```{r}
 #| echo: false
 # quarto render report.qmd -P input:output.rds
-library("glue")
+library(lubridate, quietly = TRUE, warn.conflicts = FALSE)
 library("gt")
-library("dplyr", warn.conflicts = FALSE)
 library(audit.connect)
 out = readRDS(params$input)
 audit_details = out$audit_details
 severe = "#f59d9a"
 moderate = "#f5cf9a"
 trivial = "#c0d1ed"
+
+server_name = stringr::str_remove_all(out$setup$server, "(^http?s://|/$)")
 ```
 
-## Overview
+## Overview  (`r server_name`)
 
-This audit was run by `r glue("{audit_details$first_name} {audit_details$last_name} (<{audit_details$email}>)")`, using {audit.connect} R package (version `r audit_details$version`). The account level was `r audit_details$user_role`.
+This audit was run by `r glue::glue("{audit_details$first_name} {audit_details$last_name} (<{audit_details$email}>)")`, using {audit.connect} R package (version `r audit_details$version`). The account level was `r audit_details$user_role`.
 
-`r get_quarto_server_version_msg(out$server_version)`
+`r get_quarto_server_version_msg(out)`
 
 ```{r}
 #| echo: false
@@ -47,17 +48,15 @@ feat_usage = dplyr::bind_rows(out$feature_usage)
 used = feat_usage$name[feat_usage$used]
 unused = feat_usage$name[!feat_usage$used]
 
-setup = out$setup
-server_name = stringr::str_remove_all(setup$server, "(^http?s://|/$)")
 ```
 
 ## Feature Usage
 
- * __Used__: `r {used}`
- * __Unused__: `r {unused}`
+* __Used__: `r {used}`
+* __Unused__: `r {unused}`
 
 
-## Server Headings (`r server_name`)
+## Server Headings
 
 This audit examines the server headings of the Posit Connect (or the server sitting in front of Connect).
 It is important to note, that there may be cases where you may want to deviate from setting these
@@ -67,24 +66,13 @@ Mozilla. Where the heading has not been set, we provide links to documentation.
 
 ```{r}
 #| echo: false
-headers = out$server_headers$headers
-headers = dplyr::filter(headers, .data$primary_header)
-headers = dplyr::arrange(headers, dplyr::desc(.data$status)) |>
-  dplyr::mutate(
-    header_docs = purrr::map(documentation, ~ htmltools::a(href = .x, "(docs)")),
-    message = purrr::map2(message, header_docs, ~ gt::html(paste(.x, as.character(.y))))) |>
-  dplyr::mutate(value = ifelse(is.na(.data$value), "-", .data$value))
-
-gt(headers) |>
+headers = get_quarto_server_header(out)
+gt::gt(headers) |>
+  gt::cols_label("header" = "Header",  message = "Information") |>
   gt::cols_align("left") |>
-  cols_move_to_start(header_docs) |>
-  
-  cols_label("header" = "Header",  message = "Information", value = "Value") |>
-  tab_row_group(label = "Looks good",
-                rows = which(headers$status == "OK")) |>
-  tab_row_group(label = "To investigate",
-                rows = which(headers$status != "OK")) |>
-  cols_hide(c("status", "documentation", "value", "header_docs", "primary_header"))  |>
+  gt::cols_hide("status")  |>
+  gt::tab_row_group(label = "Looks good", rows = which(headers$status == "OK")) |>
+  gt::tab_row_group(label = "To investigate", rows = which(headers$status != "OK")) |>
   gtExtras::gt_merge_stack(col1 = "message", col2 = "value",
                            palette = c("grey10", "grey50"),
                            font_weight = c("normal", "normal"),
@@ -107,46 +95,25 @@ This Connect server is licenced for `r user_list$user_account_limit` users.
 
 ```{r}
 #| echo: false
-library(lubridate, quietly = TRUE, warn.conflicts = FALSE)
-old_users = user_list$users |>
-  filter(!locked) |>
-  mutate(last_log_on_diff = interval(active_time, lubridate::now()) / months(1),
-         last_log_in = case_when(last_log_on_diff > 12 ~ "12 months+",
-                          last_log_on_diff > 6 & last_log_on_diff < 12 ~ "6 months+",
-                          last_log_on_diff > 3 & last_log_on_diff < 6 ~"3 months+",
-                          .default = NA)) |>
-  filter(last_log_on_diff > 3) |>
-  arrange(last_log_on_diff) |>
-  group_by(last_log_in) |>
-  reframe(email = paste(email, collapse = ", "))
-gt(old_users) |>
-  cols_label("last_log_in" = "Last Log In",
-             "email" = "User Email") |>
-    tab_style(style = cell_text(v_align = "top"), 
-            locations = cells_body(columns = last_log_in)) 
+old_users = get_quarto_old_users(out)
+gt::gt(old_users) |>
+  gt::cols_label("last_log_in" = "Last Log In", "email" = "User Email") |>
+  gt::cols_align("left") |>
+  gt::tab_style(style = gt::cell_text(v_align = "top"),
+            locations = gt::cells_body(columns = last_log_in))
 ```
 
 ```{r}
 #| echo: false
-users = user_list$users
-users$user_role = factor(users$user_role, 
-                         levels = c("administrator", "publisher", "viewer"))
-user_roles = users  |>
-  filter(!locked) |>
-  count(user_role)
-user_admin = user_roles[user_roles$user_role == "administrator", ]$n
-user_pub = user_roles[user_roles$user_role == "publisher", ]$n
-user_view = user_roles[user_roles$user_role == "viewer", ]$n
-admins = users |>
-  filter(!locked & user_role == "administrator") |>
-  pull(username)
+roles = get_quarto_user_roles(out)
+n_users = purrr::map_int(roles, length)
 ```
 
-Out of the `r sum(user_roles$n)` registered users, there are:
+Out of the `r sum(n_users)` registered users, there are:
 
- * `r user_admin` Administrators (`r glue::glue("{admins}")`)
- * `r user_pub` Publishers
- * `r user_view` Viewers
+* `r n_users["administrator"]` Administrators (`r glue::glue("{roles[['administrator']]}")`)
+* `r n_users["publisher"]` Publishers
+* `r n_users["viewer"]` Viewers
 
 ## System Dependencies
 
@@ -157,26 +124,23 @@ This check tries to determine which R packages would fail to install.
 
 ```{r}
 #| echo: false
-sys_dep = out$sys_deps
-no_of_pkgs = nrow(sys_dep)
-no_of_libs = length(unique(sys_dep$sys_libs))
-sys_dep = sys_dep %>%
-  group_by(sys_libs) |>
-  reframe(pkg = paste(r_pkg_names, collapse = ", "))
+sys_deps = get_quarto_sys_deps(out)
 ```
 
 ### Summary
 
-There are `r no_of_pkgs` R packages that can't be installed, due to 
-`r no_of_libs` missing system dependencies.
+There are `r nrow(sys_deps)` R packages that can't be installed, due to 
+`r sum(sys_deps$n)` missing system dependencies.
 
 ```{r}
 #| echo: false
-gt(sys_dep) |>
-  cols_label("sys_libs" = "System Library",
-             "pkg" = "R Package") |>
-  tab_style(style = cell_text(v_align = "top"), 
-            locations = cells_body(columns = sys_libs))
+gt::gt(sys_deps) |>
+  gt::cols_label("sys_libs" = "System Library",
+                 "pkg" = "R Package") |>
+  gt::cols_align("left") |>
+  gt::cols_hide("n") |>
+  gt::tab_style(style = gt::cell_text(v_align = "top"), 
+                locations = gt::cells_body(columns = sys_libs))
 
 ```
 
@@ -188,24 +152,19 @@ We've highlighted any older versions.
 
 ```{r}
 #| echo: false
-software = out$versions
-software = dplyr::select(software, "software", "version", "installed_version", "upgrade")
-software$installed_version = ifelse(is.na(software$installed_version), 
-                                    "-", software$installed_version)
-first_r = which(software$software == "r")
-first_py = which(software$software == "python")
-first_qu = which(software$software == "quarto")
-upgrade = which(software$upgrade)
+software = get_quarto_software_versions(out)
+gt::gt(software) |>
+  gt::cols_label("version" = "Latest version",
+                 "installed_version" = "Installed version") |>
+  gt::cols_align("right") |>
+  gt::cols_hide(c("software", "upgrade")) |>
 
-gt(software) |>
-  cols_label("version" = "Latest version",
-             "installed_version" = "Installed version") |>
-  tab_row_group(label = "R", rows = first_r) |>
-  tab_row_group(label = "Python", rows = first_py) |>
-  tab_row_group(label = "Quarto", rows = first_qu) |>
-  gtExtras::gt_highlight_rows(rows = upgrade, font_color = "white",
-                              fill = severe) |>
-  cols_hide(c("software", "upgrade"))
+   gt::tab_row_group(label = "R", rows = which(.data$software == "r")) |>
+   gt::tab_row_group(label = "Python", rows = which(.data$software == "python")) |>
+   gt::tab_row_group(label = "Quarto", rows = which(.data$software == "quarto")) |>
+
+  gtExtras::gt_highlight_rows(rows = which(.data$upgrade), font_color = "white",
+                              fill = severe) 
 ```
 
 ## Deployments
@@ -215,23 +174,17 @@ The test determines if the application has been successful launched.
 
 ```{r}
 #| echo: false
-deploy = out$deployments
-deploy$type = paste0(deploy$group, ": ", deploy$short)
-deploy = arrange(deploy, !passed, group)
-library(gt)
-gt(deploy)  |>
+deploy = get_quarto_deploy(out)
+gt::gt(deploy)  |>
+  gt::cols_label("context" = "Deployment",
+                 "time_taken" = "Time (secs)") |>
   gt::cols_align("right", "time_taken") |>
-  cols_label("context" = "Deployment",
-             "time_taken" = "Time (secs)") |>
-  tab_row_group(label = "Failed",
-                rows = which(!deploy$passed)) |>
-  tab_row_group(label = "Looks good",
-                rows = which(deploy$passed)) |>
-  cols_hide(c("group", "short"))  |>
+  gt::cols_hide(c("passed", "group", "short")) |>
+  gt::tab_row_group(label = "Failed", rows = which(!deploy$passed)) |>
+  gt::tab_row_group(label = "Looks good", rows = which(deploy$passed)) |>
   gtExtras::gt_merge_stack(col1 = "context", col2 = "type",
                            palette = c("grey10", "grey50"),
                            font_weight = c("normal", "normal"),
                            small_cap = FALSE
-  ) |>
-  cols_hide(c("passed"))
+  ) 
 ```

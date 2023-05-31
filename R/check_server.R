@@ -66,22 +66,3 @@ version_to_date = function(version) {
 is_new_version = function(version) {
   stringr::str_detect(version, pattern = "^202[0-9]\\.[01][0-9].[0-9]")
 }
-
-##########
-# For Quarto doc
-#' @export
-get_quarto_server_version_msg = function(server_version) {
-  connect_versions = get_connect_versions()
-  row_number = lookup_version(connect_versions, server_version)
-  if (is.na(row_number)) {
-    "Your server version isn't in our database.
-    This could be because we've missed it or it's really old."
-  } else if (row_number > 1L) {
-    newer_versions = connect_versions[seq_len(row_number - 1), ]
-    no_of_versions = length(unique(newer_versions$version)) #nolint
-    glue::glue("Posit Connect is out of date.
-             There are {no_of_versions} newer versions that fix {nrow(newer_versions)} CVEs")
-  } else {
-    "Posit Connect is up to date"
-  }
-}

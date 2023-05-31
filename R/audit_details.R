@@ -2,7 +2,7 @@ audit_details = function(server, token) {
   user_details = summarise_user(server, token)
   c(user_details,
     list(time = Sys.time(),
-         version = packageVersion("audit.connect"))
+         version = utils::packageVersion("audit.connect"))
   )
 }
 
