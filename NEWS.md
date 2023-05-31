@@ -1,3 +1,8 @@
+# audit.connect 0.4.1 _2023-05-31_
+- feat: Quarto report of audit
+- feat: Add feature usage
+- feat: Include package version in output
+
 # audit.connect 0.4.0 _2023-05-22_
 - feat: Move to GitHub and rename pkg
 

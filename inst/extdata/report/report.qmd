@@ -1,10 +1,13 @@
 ---
-title: "Posit Audit"
-format: html
+title: "Posit Connect Audit"
+format: 
+  html:
+    self-contained: true
+    theme: flatly
 editor_options:
   chunk_output_type: console
 params:
-  input: null
+  input: "~/auditconnect.rds"
 ---
 
 <!--IMPORTANT:
@@ -24,27 +27,48 @@ Yes, I know the code is horrible - see above comments :)
 library("glue")
 library("gt")
 library("dplyr", warn.conflicts = FALSE)
+library(audit.connect)
 out = readRDS(params$input)
-server_name = stringr::str_remove_all(out$setup$server, "(^http?s://|/$)")
-
+audit_details = out$audit_details
+severe = "#f59d9a"
+moderate = "#f5cf9a"
+trivial = "#c0d1ed"
 ```
 
-## Who Ran this Audit
+## Overview
+
+This audit was run by `r glue("{audit_details$first_name} {audit_details$last_name} (<{audit_details$email}>)")`, using {audit.connect} R package (version `r audit_details$version`). The account level was `r audit_details$user_role`.
+
+`r get_quarto_server_version_msg(out$server_version)`
 
 ```{r}
 #| echo: false
-user = out$user_details
+feat_usage = dplyr::bind_rows(out$feature_usage)
+used = feat_usage$name[feat_usage$used]
+unused = feat_usage$name[!feat_usage$used]
+
+setup = out$setup
+server_name = stringr::str_remove_all(setup$server, "(^http?s://|/$)")
 ```
 
-This audit was run by `r glue("{user$first_name} {user$last_name} (<{user$email}>)")`.
-The account level was `r user$user_role`.
+## Feature Usage
 
-## Server Audit (`r server_name`)
+ * __Used__: `r {used}`
+ * __Unused__: `r {glue::glue("{unused}")}`
+
+
+## Server Headings (`r server_name`)
+
+This audit examines the server headings of the Posit Connect (or the server sitting in front of Connect).
+It is important to note, that there may be cases where you may want to deviate from setting these
+headings. However, this is the exception and not the rule. 
+The headings listed below follow the recommendations of securityheaders.com and (to a certain extent)
+Mozilla. Where the heading has not been set, we provide links to documentation.
 
 ```{r}
 #| echo: false
 headers = out$server_headers$headers
-headers = dplyr::filter(headers, !is.na(.data$documentation))
+headers = dplyr::filter(headers, .data$primary_header)
 headers = dplyr::arrange(headers, dplyr::desc(.data$status)) |>
   dplyr::mutate(
     header_docs = purrr::map(documentation, ~ htmltools::a(href = .x, "(docs)")),
@@ -52,28 +76,142 @@ headers = dplyr::arrange(headers, dplyr::desc(.data$status)) |>
   dplyr::mutate(value = ifelse(is.na(.data$value), "-", .data$value))
 
 gt(headers) |>
-  tab_source_note("Mozilla suggestions") |>
   gt::cols_align("left") |>
   cols_move_to_start(header_docs) |>
-
-  cols_label("security_header" = "Header",
-             message = "Information",
-             value = "Value") |>
+  
+  cols_label("header" = "Header",  message = "Information", value = "Value") |>
   tab_row_group(label = "Looks good",
                 rows = which(headers$status == "OK")) |>
   tab_row_group(label = "To investigate",
                 rows = which(headers$status != "OK")) |>
-  cols_hide(c("status", "documentation", "value", "header_docs"))  |>
+  cols_hide(c("status", "documentation", "value", "header_docs", "primary_header"))  |>
   gtExtras::gt_merge_stack(col1 = "message", col2 = "value",
                            palette = c("grey10", "grey50"),
                            font_weight = c("normal", "normal"),
                            small_cap = FALSE
-  ) |>
-  gtExtras::gt_theme_nytimes()
+  )
+```
+
+## Connect Users 
+
+```{r}
+#| echo: false
+user_list = out$users_details$user_list
+```
+
+Standard security practice is to remove users that are no longer in your organisation.
+While we can't detect these users, a useful proxy is to detect registered users
+who have not accessed the system in a significant time.
+
+This Connect server is licenced for `r user_list$user_account_limit` users.
+
+```{r}
+#| echo: false
+library(lubridate, quietly = TRUE, warn.conflicts = FALSE)
+old_users = user_list$users |>
+  filter(!locked) |>
+  mutate(last_log_on_diff = interval(active_time, lubridate::now()) / months(1),
+         last_log_in = case_when(last_log_on_diff > 12 ~ "12 months+",
+                          last_log_on_diff > 6 & last_log_on_diff < 12 ~ "6 months+",
+                          last_log_on_diff > 3 & last_log_on_diff < 6 ~"3 months+",
+                          .default = NA)) |>
+  filter(last_log_on_diff > 3) |>
+  arrange(last_log_on_diff) |>
+  group_by(last_log_in) |>
+  reframe(email = paste(email, collapse = ", "))
+gt(old_users) |>
+  cols_label("last_log_in" = "Last Log In",
+             "email" = "User Email") |>
+    tab_style(style = cell_text(v_align = "top"), 
+            locations = cells_body(columns = last_log_in)) 
+```
+
+```{r}
+#| echo: false
+users = user_list$users
+users$user_role = factor(users$user_role, 
+                         levels = c("administrator", "publisher", "viewer"))
+user_roles = users  |>
+  filter(!locked) |>
+  count(user_role)
+user_admin = user_roles[user_roles$user_role == "administrator", ]$n
+user_pub = user_roles[user_roles$user_role == "publisher", ]$n
+user_view = user_roles[user_roles$user_role == "viewer", ]$n
+admins = users |>
+  filter(!locked & user_role == "administrator") |>
+  pull(username)
+```
+
+Out of the `r sum(user_roles$n)` registered users, there are:
+
+ * `r user_admin` Administrators (`r glue::glue("{admins}")`)
+ * `r user_pub` Publishers
+ * `r user_view` Viewers
+
+## System Dependencies
+
+Posit Connect allows users to push dashboards and markdown documents. 
+However, these applications contain R packages that have system level dependencies.
+This check tries to determine which R packages would fail to install.
+
+
+```{r}
+#| echo: false
+sys_dep = out$sys_deps
+no_of_pkgs = nrow(sys_dep)
+no_of_libs = length(unique(sys_dep$sys_libs))
+sys_dep = sys_dep %>%
+  group_by(sys_libs) |>
+  reframe(pkg = paste(r_pkg_names, collapse = ", "))
+```
+
+### Summary
+
+There are `r no_of_pkgs` R packages that can't be installed, due to 
+`r no_of_libs` missing system dependencies.
+
+```{r}
+#| echo: false
+gt(sys_dep) |>
+  cols_label("sys_libs" = "System Library",
+             "pkg" = "R Package") |>
+  tab_style(style = cell_text(v_align = "top"), 
+            locations = cells_body(columns = sys_libs))
 
 ```
 
+## Software Versions
+
+Posit Connect contains multiple versions of R, Python and Quarto.
+This audit compares the installed version, to the latest version. 
+We've highlighted any older versions.
+
+```{r}
+#| echo: false
+software = out$versions
+software = dplyr::select(software, "software", "version", "installed_version", "upgrade")
+software$installed_version = ifelse(is.na(software$installed_version), 
+                                    "-", software$installed_version)
+first_r = which(software$software == "r")
+first_py = which(software$software == "python")
+first_qu = which(software$software == "quarto")
+upgrade = which(software$upgrade)
+
+gt(software) |>
+  cols_label("version" = "Latest version",
+             "installed_version" = "Installed version") |>
+  tab_row_group(label = "R", rows = first_r) |>
+  tab_row_group(label = "Python", rows = first_py) |>
+  tab_row_group(label = "Quarto", rows = first_qu) |>
+  gtExtras::gt_highlight_rows(rows = upgrade, font_color = "white",
+                              fill = severe) |>
+  cols_hide(c("software", "upgrade"))
+```
+
 ## Deployments
+
+This audit deploys a variety of applications, ranging from Shiny apps to quarto documents.
+The test determines if the application has been successful launched.
 
 ```{r}
 #| echo: false
@@ -82,7 +220,10 @@ deploy$type = paste0(deploy$group, ": ", deploy$short)
 deploy = arrange(deploy, !passed, group)
 library(gt)
 gt(deploy)  |>
-  tab_row_group(label = "To investigate",
+  gt::cols_align("right", "time_taken") |>
+  cols_label("context" = "Deployment",
+             "time_taken" = "Time (secs)") |>
+  tab_row_group(label = "Failed",
                 rows = which(!deploy$passed)) |>
   tab_row_group(label = "Looks good",
                 rows = which(deploy$passed)) |>
@@ -92,6 +233,5 @@ gt(deploy)  |>
                            font_weight = c("normal", "normal"),
                            small_cap = FALSE
   ) |>
-  cols_hide(c("passed"))  |>
-  gtExtras::gt_theme_nytimes()
+  cols_hide(c("passed"))
 ```
