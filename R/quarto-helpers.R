@@ -11,9 +11,7 @@ get_quarto_server_header = function(out) {
       header_docs = purrr::map(.data$documentation, ~ htmltools::a(href = .x, "(docs)")),
       message = purrr::map2(message, .data$header_docs, ~ gt::html(paste(.x, as.character(.y))))) |>
     dplyr::mutate(value = ifelse(is.na(.data$value), "-", .data$value))
-
     dplyr::select(headers,  -"documentation", -"header_docs", -"primary_header")
-
 }
 
 #' @rdname get_quarto_server_header
