@@ -21,13 +21,6 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Install dependencies
-        run: |
-          install.packages("remotes")
-          remotes::install_github("jumpingrivers/serverHeaders")
-          remotes::install_github("jumpingrivers/audit.base")
-        shell: Rscript {0}
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: >
@@ -37,3 +30,10 @@ jobs:
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
+
+      - name: InteRgrate
+        run: |
+          install.packages("remotes")
+          remotes::install_github("jumpingrivers/inteRgrate")
+          inteRgrate::check_all()
+        shell: Rscript {0}
