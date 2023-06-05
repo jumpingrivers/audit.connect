@@ -23,6 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          install.packages("remotes")
           remotes::install_github("jumpingrivers/serverHeaders")
           remotes::install_github("jumpingrivers/audit.base")
         shell: Rscript {0}
