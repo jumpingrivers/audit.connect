@@ -17,3 +17,4 @@ rsconnect/
 ^config-uat-rsc\.yml$
 ^report.html$
 ^README\.Rmd$
+^\.github$

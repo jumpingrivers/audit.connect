@@ -1,3 +1,12 @@
+audit_details = function(server, token) {
+  user_details = summarise_user(server, token)
+  c(user_details,
+    list(time = Sys.time(),
+         version = utils::packageVersion("audit.connect"))
+  )
+}
+
+# Details on the user running this audit
 summarise_user = function(server, token) {
   cli::cli_h2("User Summary")
   res = httr::GET(paste0(server, "/__api__/v1/user"),
