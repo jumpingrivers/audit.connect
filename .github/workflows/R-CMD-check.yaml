@@ -21,6 +21,13 @@ jobs:
         with:
           use-public-rspm: true
 
+  - name: Install dependencies
+     run: |
+         remotes::install_github("jumpingrivers/serverHeaders")
+         remotes::install_github("jumpingrivers/audit.base")
+         devtools::install()
+     shell: Rscript {0}
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
