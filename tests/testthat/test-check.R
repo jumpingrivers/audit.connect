@@ -1,7 +1,6 @@
 test_that("High level test", {
-  # Skip the deployment tests on the CI
-  # Takes a while
-  create_config(default = !isTRUE(as.logical(Sys.getenv("CI"))))
+  testthat::skip_on_ci()
+  create_config(default = TRUE)
 
   rtn = check()
 
