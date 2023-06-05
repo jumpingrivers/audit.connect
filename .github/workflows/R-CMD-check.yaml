@@ -29,9 +29,9 @@ jobs:
             any::rcmdcheck
           needs: check
 
-      - uses: r-lib/actions/check-r-package@v2
 
       - name: InteRgrate
+        uses: r-lib/actions/check-r-package@v2
         run: |
           pak::pkg_install("jumpingrivers/inteRgrate")
           inteRgrate::check_all()
