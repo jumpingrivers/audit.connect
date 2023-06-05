@@ -33,7 +33,6 @@ jobs:
 
       - name: InteRgrate
         run: |
-          install.packages("remotes")
-          remotes::install_github("jumpingrivers/inteRgrate")
+          pak::pkg_install("jumpingrivers/inteRgrate")
           inteRgrate::check_all()
         shell: Rscript {0}
