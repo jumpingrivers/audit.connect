@@ -1,10 +1,10 @@
-#' Run UAT Checks
+#' Run Posit Checks
 #'
-#' This functions runs all UAT tests.
+#' This functions runs all Posit tests.
 #' To skip tests, set check to `no` in the config yaml file.
 #' See `create_config()`
-#' @param server RSC server. If NULL, use the ENV variable CONNECT_SERVER
-#' @param token RSC api token. If NULL, use the ENV variable CONNECT_API_KEY
+#' @param server Connect server. If NULL, use the ENV variable CONNECT_SERVER
+#' @param token Connect api token. If NULL, use the ENV variable CONNECT_API_KEY
 #' @param dir directory location of the the config file
 #' @param debug_level Integer, 0 to 2.
 #' @details
@@ -32,7 +32,7 @@ check = function(server = NULL, token = NULL,
   check_list$sys_deps = check_sys_deps(debug_level = debug_level)
   register_uat_user(get_server(), get_token(), account = get_account())
 
-  check_list$deployments = check_deployments(dir, debug_level)
+  check_list$results = check_deployments(dir, debug_level)
   invisible(check_list)
 }
 
