@@ -2,21 +2,21 @@
 % Please edit documentation in R/check.R
 \name{check}
 \alias{check}
-\title{Run UAT Checks}
+\title{Run Posit Checks}
 \usage{
 check(server = NULL, token = NULL, dir = ".", debug_level = 0:2)
 }
 \arguments{
-\item{server}{RSC server. If NULL, use the ENV variable CONNECT_SERVER}
+\item{server}{Connect server. If NULL, use the ENV variable CONNECT_SERVER}
 
-\item{token}{RSC api token. If NULL, use the ENV variable CONNECT_API_KEY}
+\item{token}{Connect api token. If NULL, use the ENV variable CONNECT_API_KEY}
 
 \item{dir}{directory location of the the config file}
 
 \item{debug_level}{Integer, 0 to 2.}
 }
 \description{
-This functions runs all UAT tests.
+This functions runs all Posit tests.
 To skip tests, set check to \code{no} in the config yaml file.
 See \code{create_config()}
 }

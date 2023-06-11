@@ -1,3 +1,6 @@
+# audit.connect 0.5.0 _2023-06-11_
+- refactor: Move standard functions to audit.base
+
 # audit.connect 0.4.1 _2023-05-31_
 - feat: Quarto report of audit
 - feat: Add feature usage
