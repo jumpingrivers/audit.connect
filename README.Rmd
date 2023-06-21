@@ -46,6 +46,31 @@ check(server = "https://www.connect.server.name/",
 Alternatively, you can set environmental variables, `CONNECT_SERVER` and `CONNECT_API_KEY` in your
 `.Renviron` file.
 
+## Connect Package Pollution
+
+If you are running this package on a machine you normally use to deploy to Connect, then 
+this isn't an issue - you can skip the next part.
+
+**If** you are using a machine where you are deploying to Connect for the
+first time, then read one!
+
+Connect package pollution occurs when
+
+ * we use package manager binaries, **and**
+ * the OS on Connect differs to the OS on the deployment machine.
+ 
+If you aren't using binaries or the OS is the same, then you won't have any issue. 
+If you want to be sure, we can use {renv}
+
+```{r, eval = FALSE}
+# Ensure we don't use the existing renv cache
+fs::dir_delete(renv::paths$cache())
+# Use the slow installation method
+renv::init(repo = "https://cloud.r-project.org/")
+renv::install("remotes")
+```
+
+
 ## Config file
 
 Experimental. You can skip deployment tests, by setting the appropriate value in `config-uat.yml`.

@@ -4,18 +4,22 @@
 #' @param out Output from check
 #' @export
 get_quarto_old_users = function(out) {
-  old_users = out$users_details$user_list$users |>
-    dplyr::filter(!.data$locked) |>
+  old_users = out$users_details$user_list$users %>%
+    dplyr::filter(!.data$locked) %>%
     dplyr::mutate(last_log_on_diff = lubridate::interval(.data$active_time, lubridate::now()) / months(1), #nolint
                   last_log_in = dplyr::case_when(
                     last_log_on_diff > 12 ~ "12 months+",
                     last_log_on_diff > 6 & last_log_on_diff < 12 ~ "6 months+",
                     last_log_on_diff > 3 & last_log_on_diff < 6 ~ "3 months+",
-                    .default = NA)) |>
-    dplyr::filter(.data$last_log_on_diff > 3) |>
-    dplyr::arrange(.data$last_log_on_diff) |>
-    dplyr::group_by(.data$last_log_in) |>
-    dplyr::reframe(email = paste(sort(.data$email), collapse = ", "))
+                    .default = NA)) %>%
+    dplyr::filter(.data$last_log_on_diff > 3) %>%
+
+    dplyr::group_by(.data$last_log_in) %>%
+    dplyr::reframe(email = paste(sort(.data$email), collapse = ", ")) %>%
+    dplyr::mutate(last_log_in = factor(.data$last_log_in,
+                                       c("12 months+", "6 months+", "3 months+"),
+                                       ordered = T)) %>%
+    dplyr::arrange(.data$last_log_in)
   old_users
 }
 
@@ -28,4 +32,16 @@ get_quarto_user_roles = function(out) {
   publisher = users[users$user_role == "publisher", ]$username
   administrator = users[users$user_role == "administrator", ]$username
   list(viewer = viewer, publisher = publisher, administrator = administrator)
+}
+
+#' @rdname get_quarto_old_users
+#' @export
+get_quarto_locked_user_apps = function(out) {
+  apps = out$users_details$apps
+
+  app_creators =  purrr::map_df(apps,
+                                ~dplyr::tibble(owner = .x[["owner_username"]],
+                                               locked = .x$owner_locked))
+  locked_users = dplyr::filter(app_creators, .data$locked) # nolint: object_usage_linter
+  nrow(locked_users)
 }
