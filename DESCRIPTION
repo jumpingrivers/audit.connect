@@ -19,7 +19,6 @@ Imports:
     pins (>= 1.1.0),
     processx,
     purrr,
-    quarto,
     rlang,
     rsconnect (>= 0.8.27),
     serverHeaders,
@@ -28,7 +27,9 @@ Imports:
 Suggests:
     glue,
     gt,
+    gtExtras,
     htmltools,
+    quarto,
     testthat (>= 3.0.0),
     yaml
 Remotes:
