@@ -18,8 +18,8 @@ get_user_account_limit = function(client) {
 }
 
 print_audit_users = function(user_list) {
-  user_summary = user_list$users |>
-    dplyr::filter(!.data$locked) |>
+  user_summary = user_list$users %>%
+    dplyr::filter(!.data$locked) %>%
     dplyr::count(.data$user_role)
 
   user_vec = paste(stringr::str_to_title(user_summary$user_role), user_summary$n, sep = ": ")
