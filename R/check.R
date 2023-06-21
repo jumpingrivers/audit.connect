@@ -24,7 +24,7 @@ check = function(server = NULL, token = NULL,
   check_list$setup = summarise_setup(server, token)
   check_list$posit_version = check_posit_version(get_server(), get_token(),
                                                    debug_level = debug_level)
-  check_list$server_headers = serverHeaders::check(get_server(clean = TRUE))
+  check_list$server_headers = check_server_headers()
   check_list$feature_usage = summarise_feature_usage(get_server(), get_token())
   check_list$audit_details = audit_details(get_server(), get_token())
   check_list$users_details = summarise_users(get_server(), get_token(), debug_level = debug_level)

@@ -11,9 +11,13 @@ check_sys_deps = function(debug_level = 0:2) {
   pkg_dir = system.file("extdata", "check_sys_deps",
                         package = "audit.connect",
                         mustWork = TRUE)
-  fs::dir_copy(pkg_dir, app_dir)
+  fs::dir_copy(pkg_dir, app_dir, overwrite = TRUE)
   on.exit(cleanup_plumber(app_dir, content, debug_level))
-  content = setup_plumber_sys_deps_endpoint(app_dir, debug_level)
+  content = try(setup_plumber_sys_deps_endpoint(app_dir, debug_level), silent = TRUE)
+  if ("try-error" %in% class(content)) {
+    cli::cli_alert_info("Can't deploy plumber end point - odd?")
+    return(NA)
+  }
 
   # Ping endpoint
   url = paste0(get_deploy_url(content), "installed")
@@ -21,7 +25,7 @@ check_sys_deps = function(debug_level = 0:2) {
   resp = httr::GET(url, httr::add_headers(Authorization = auth_key))
   rtn = jsonlite::parse_json(rawToChar(resp$content))
 
-  audit.base::check_sys_deps(rtn$os, rtn$libs, debug_level)
+  audit.base::check_sys_deps(rtn$os_release, rtn$libs, debug_level)
 }
 
 setup_plumber_sys_deps_endpoint = function(app_dir, debug_level) { #nolint
