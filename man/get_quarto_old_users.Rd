@@ -3,20 +3,14 @@
 \name{get_quarto_old_users}
 \alias{get_quarto_old_users}
 \alias{get_quarto_user_roles}
-<<<<<<< HEAD
-=======
 \alias{get_quarto_locked_user_apps}
->>>>>>> 4bc964f (refactor: Move standard functions to audit.base)
 \title{Quarto Helper Functions}
 \usage{
 get_quarto_old_users(out)
 
 get_quarto_user_roles(out)
-<<<<<<< HEAD
-=======
 
 get_quarto_locked_user_apps(out)
->>>>>>> 4bc964f (refactor: Move standard functions to audit.base)
 }
 \arguments{
 \item{out}{Output from check}
