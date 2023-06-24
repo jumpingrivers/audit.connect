@@ -34,6 +34,8 @@ print_audit_users = function(user_list) {
 print_audit_user_apps = function(client, debug_level) {
   suppress = get_suppress(debug_level)
   apps = suppress(connectapi::cache_apps(client))
+  # Remove any api keys; don't need or want them
+  apps = purrr::map(apps, ~{.x$EnvironmentJson = NULL; .x})
   app_creators =  purrr::map_df(apps,
                                 ~dplyr::tibble(owner = .x[["owner_username"]],
                                                locked = .x$owner_locked))
