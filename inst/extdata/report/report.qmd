@@ -54,21 +54,12 @@ Mozilla. Where the heading has not been set, we provide links to documentation.
 ```{r}
 #| echo: false
 headers = audit.base::get_quarto_server_header(out)
-<<<<<<< HEAD
-gt::gt(headers) |>
-  gt::cols_label("header" = "Header",  message = "Information") |>
-  gt::cols_align("left") |>
-  gt::cols_hide("status")  |>
-  gt::tab_row_group(label = "Looks good", rows = which(headers$status == "OK")) |>
-  gt::tab_row_group(label = "To investigate", rows = which(headers$status != "OK")) |>
-=======
 gt::gt(headers) %>%
   gt::cols_label("header" = "Header",  message = "Information") %>%
   gt::cols_align("left") %>%
   gt::cols_hide("status")  %>%
   gt::tab_row_group(label = "Looks good", rows = which(headers$status == "OK")) %>%
   gt::tab_row_group(label = "To investigate", rows = which(headers$status != "OK")) %>%
->>>>>>> 4bc964f (refactor: Move standard functions to audit.base)
   gtExtras::gt_merge_stack(col1 = "message", col2 = "value",
                            palette = c("grey10", "grey50"),
                            font_weight = c("normal", "normal"),
@@ -92,15 +83,9 @@ This Connect server is licenced for `r user_list$user_account_limit` users.
 ```{r}
 #| echo: false
 old_users = audit.connect::get_quarto_old_users(out)
-<<<<<<< HEAD
-gt::gt(old_users) |>
-  gt::cols_label("last_log_in" = "Last Log In", "email" = "User Email") |>
-  gt::cols_align("left") |>
-=======
 gt::gt(old_users) %>%
   gt::cols_label("last_log_in" = "Last Log In", "email" = "User Email") %>%
   gt::cols_align("left") %>%
->>>>>>> 4bc964f (refactor: Move standard functions to audit.base)
   gt::tab_style(style = gt::cell_text(v_align = "top"),
             locations = gt::cells_body(columns = last_log_in))
 ```
@@ -160,11 +145,7 @@ We've highlighted any older versions.
 ```{r}
 #| echo: false
 software = audit.base::get_quarto_software_versions(out)
-<<<<<<< HEAD
-gt::gt(software) |>
-=======
 gt::gt(software) %>%
->>>>>>> 4bc964f (refactor: Move standard functions to audit.base)
   gt::cols_label("version" = "Latest version",
                  "installed_version" = "Installed version") %>%
   gt::cols_align("right") %>%
@@ -186,11 +167,7 @@ The test determines if the application has been successful launched.
 ```{r}
 #| echo: false
 deploy = audit.base::get_quarto_deploy(out)
-<<<<<<< HEAD
-gt::gt(deploy)  |>
-=======
 gt::gt(deploy)  %>%
->>>>>>> 4bc964f (refactor: Move standard functions to audit.base)
   gt::cols_label("context" = "Deployment",
                  "time_taken" = "Time (secs)") %>%
   gt::cols_align("right", "time_taken") %>%
