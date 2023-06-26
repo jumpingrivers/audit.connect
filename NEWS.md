@@ -1,3 +1,6 @@
+# audit.connect 0.5.2 _2023-06-26_
+- fix: Typo in report.qmd
+
 # audit.connect 0.5.1 _2023-06-24_
 - feat: Remove API keys from app call. Don't need; don't want them. 
 

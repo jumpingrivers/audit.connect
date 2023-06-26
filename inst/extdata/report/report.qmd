@@ -41,7 +41,7 @@ server_name = stringr::str_remove_all(out$setup$server, "(^http?s://|/$)")
 
 This audit was run by `r glue::glue("{audit_details$first_name} {audit_details$last_name} (<{audit_details$email}>)")`, using {audit.connect} R package (version `r audit_details$version`). The account level was `r audit_details$user_role`.
 
-`r audit.base::get_quarto_server_version_msg(out, audit.base::get_posit_versions("connect"))`
+`r audit.base::get_quarto_posit_version_msg(out, "connect")`
 
 ## Server Headings
 
