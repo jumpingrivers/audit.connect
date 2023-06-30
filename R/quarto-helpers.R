@@ -20,6 +20,7 @@ get_quarto_old_users = function(out) {
                                        c("12 months+", "6 months+", "3 months+"),
                                        ordered = T)) %>%
     dplyr::arrange(.data$last_log_in)
+  old_users$n = stringr::str_count(old_users$email, ",") + 1
   old_users
 }
 
