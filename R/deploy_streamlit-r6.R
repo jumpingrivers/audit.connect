@@ -25,6 +25,7 @@ check_deploy_python_streamlit = R6::R6Class(
   private = list(
     context = "Deploy streamlit app",
     short = "streamlit",
-    group = "deploy_python"
+    group = "deploy_python",
+    long = "Deploy a Python streamlit application"
   )
 )

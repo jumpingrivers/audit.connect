@@ -18,6 +18,7 @@ check_deploy_plumber_api = R6::R6Class(
   private = list(
     context = "Plumber API deployment",
     short = "api",
-    group = "deploy_plumber"
+    group = "deploy_plumber",
+    long = "Deploy and connect to a basic plummer endpoint"
   )
 )
