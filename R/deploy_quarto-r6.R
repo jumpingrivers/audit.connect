@@ -50,7 +50,7 @@ check_deploy_quarto_python = R6::R6Class(
   "check_deploy_quarto_python",
   inherit = audit.base::base_check,
   public = list(
-    #' @description Checks deployment of Quarto document with PDF output
+    #' @description Deploy a quarto document that uses a jupyter engine
     #' @param account Connect username
     #' @param debug_level See check() for details
     check = function(debug_level, account = NULL) {
@@ -68,6 +68,7 @@ check_deploy_quarto_python = R6::R6Class(
   private = list(
     context = "Jupyter engine",
     short = "python",
-    group = "render_quarto"
+    group = "render_quarto",
+    long = "Deploy a quarto document that uses a jupyter engine"
   )
 )
