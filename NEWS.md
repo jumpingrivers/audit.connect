@@ -1,3 +1,6 @@
+# audit.connect 0.6.0 _2023-07-02_
+- feat: Add in long string context to checks
+
 # audit.connect 0.5.2 _2023-06-26_
 - fix: Typo in report.qmd
 
