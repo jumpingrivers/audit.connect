@@ -22,7 +22,8 @@ for (type in types) {
       private = list(
         context = paste("Deploying", type),
         short = type,
-        group = "render_rmd"
+        group = "render_rmd",
+        long = paste0("Checking that Rmarkdown can render a document (type: `", type, "`)")
       )
     )
   )

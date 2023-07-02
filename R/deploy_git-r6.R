@@ -6,7 +6,7 @@ check_deploy_github = R6::R6Class(
   "check_deploy_github",
   inherit = audit.base::base_check,
   public = list(
-    #' @description Checks deployment of an R Markdown document with PDF output
+    #' @description Deploy a shiny application from github
     #' @param debug_level See check() for details
     check = function(debug_level) {
       private$checker(deploy_git(repository = "https://github.com/uat-examples/old-faithful",
@@ -18,6 +18,7 @@ check_deploy_github = R6::R6Class(
   private = list(
     context = "Old Faithful",
     short = "public-github",
-    group = "deploy_git"
+    group = "deploy_git",
+    long = "Deploy a Shiny application via github.com"
   )
 )

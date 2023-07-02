@@ -48,7 +48,7 @@ we need to specify the requirements.txt file
 \if{html}{\out{<a id="method-check_deploy_quarto_python-check"></a>}}
 \if{latex}{\out{\hypertarget{method-check_deploy_quarto_python-check}{}}}
 \subsection{Method \code{check()}}{
-Checks deployment of Quarto document with PDF output
+Deploy a quarto document that uses a jupyter engine
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{check_deploy_quarto_python$check(debug_level, account = NULL)}\if{html}{\out{</div>}}
 }

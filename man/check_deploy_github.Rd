@@ -36,7 +36,7 @@ Check classes
 \if{html}{\out{<a id="method-check_deploy_github-check"></a>}}
 \if{latex}{\out{\hypertarget{method-check_deploy_github-check}{}}}
 \subsection{Method \code{check()}}{
-Checks deployment of an R Markdown document with PDF output
+Deploy a shiny application from github
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{check_deploy_github$check(debug_level)}\if{html}{\out{</div>}}
 }

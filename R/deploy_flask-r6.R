@@ -25,6 +25,7 @@ check_deploy_python_flask = R6::R6Class(
   private = list(
     context = "Deploy flask app",
     short = "flask",
-    group = "deploy_python"
+    group = "deploy_python",
+    long = "Deploy a Python flask application"
   )
 )

@@ -18,6 +18,7 @@ check_deploy_shiny = R6::R6Class(
   private = list(
     context = "Deploy basic app",
     short = "basic_app",
-    group = "deploy_shiny"
+    group = "deploy_shiny",
+    long = "Deploy a basic Shiny application"
   )
 )

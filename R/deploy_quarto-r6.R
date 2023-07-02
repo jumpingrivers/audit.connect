@@ -6,12 +6,14 @@
 #' @rawNamespace export(check_deploy_quarto_rsvg_convert)
 NULL
 types = c("beamer", "docx", "html", "observable", "pdf", "rsvg_convert")
-for (type in types) {
+longs = paste0("Checking that quarto can render a document (type: `", types, "`)")
+longs[6] = "Checking that quarto can render SVG image within a PDF"
+for (i in seq_along(types)) {
 
   assign(
-    paste0("check_deploy_quarto_", type),
+    paste0("check_deploy_quarto_", types[i]),
     R6::R6Class(
-      paste0("check_deploy_quarto_", type),
+      paste0("check_deploy_quarto_", types[i]),
       inherit = audit.base::base_check,
       public = list(
         check = function(debug_level, account = NULL) {
@@ -24,9 +26,10 @@ for (type in types) {
         }
       ),
       private = list(
-        context = paste("Deploying", type),
-        short = type,
-        group = "render_quarto"
+        context = paste("Deploying", types[i]),
+        short = types[i],
+        group = "render_quarto",
+        long = longs[i]
       )
     )
   )
@@ -47,7 +50,7 @@ check_deploy_quarto_python = R6::R6Class(
   "check_deploy_quarto_python",
   inherit = audit.base::base_check,
   public = list(
-    #' @description Checks deployment of Quarto document with PDF output
+    #' @description Deploy a quarto document that uses a jupyter engine
     #' @param account Connect username
     #' @param debug_level See check() for details
     check = function(debug_level, account = NULL) {
@@ -65,6 +68,7 @@ check_deploy_quarto_python = R6::R6Class(
   private = list(
     context = "Jupyter engine",
     short = "python",
-    group = "render_quarto"
+    group = "render_quarto",
+    long = "Deploy a quarto document that uses a jupyter engine"
   )
 )

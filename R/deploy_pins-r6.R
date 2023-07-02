@@ -16,6 +16,7 @@ check_deploy_pins_rds = R6::R6Class(
   private = list(
     context = "Read, write & delete pins",
     short = "rds",
-    group = "deploy_pins"
+    group = "deploy_pins",
+    long = "Deploy pin and download pins"
   )
 )
