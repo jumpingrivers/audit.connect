@@ -3,18 +3,26 @@ summarise_users = function(server, token, debug_level) {
   cli::cli_h2("Checking Connect Users")
   client = suppress(connectapi::connect(server = server, api_key = token))
 
+  settings = client$server_settings()
   user_list = list()
-  user_list$user_account_limit = get_user_account_limit(client)
+  user_list$user_account_limit = settings$license$users
   user_list$users = suppress(connectapi::get_users(client, limit = Inf))
 
-  print_audit_users(user_list)
-  apps = print_audit_user_apps(client, debug_level)
+  if (is_evaluation(settings)) {
+    apps = NA
+  } else {
+    print_audit_users(user_list)
+    apps = print_audit_user_apps(client, debug_level)
+  }
   list(user_list = user_list, apps = apps)
 }
 
-get_user_account_limit = function(client) {
-  settings = client$server_settings()
-  settings$license$users
+is_evaluation = function(settings) {
+  if (settings$license$status == "evaluation") {
+    cli::cli_alert_info("Evaluation license detected.")
+    cli::cli_alert_info("Skipping user audits")
+  }
+  settings$license$status == "evaluation"
 }
 
 print_audit_users = function(user_list) {
