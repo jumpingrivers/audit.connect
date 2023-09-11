@@ -1,3 +1,6 @@
+# audit.connect 0.6.3 _2023-09-23_
+- feat: Be less picky with server URLs
+
 # audit.connect 0.6.2 _2023-09-23_
 - fix: Checking system libs
 
