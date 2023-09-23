@@ -35,6 +35,7 @@ check = function(server = NULL, token = NULL,
   register_uat_user(get_server(), get_token(), account = get_account())
 
   check_list$results = check_deployments(dir, debug_level)
+  cli::cli_h1("All checks complete")
   invisible(check_list)
 }
 
