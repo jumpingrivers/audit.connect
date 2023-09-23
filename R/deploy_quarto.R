@@ -1,11 +1,10 @@
 deploy_quarto = function(quarto_dir, account = NULL, debug_level = debug_level) {
   suppress = get_suppress(debug_level)
 
-  tmp_dir = file.path(tempdir(), "quarto")
+  tmp_dir = file.path(tempdir(), "quarto", basename(quarto_dir))
   on.exit(cleanup_quarto(tmp_dir, debug_level))
   dir.create(tmp_dir, showWarnings = FALSE)
-
-  file.copy(file.path(quarto_dir, "index.qmd"), tmp_dir)
+  fs::dir_copy(quarto_dir, tmp_dir, overwrite = TRUE)
   title = paste("UAT: Quarto", Sys.Date())
   # quarto uses rsconnect::accounts. So, looks up the server in list of accounts
   if (is.null(account)) account = get_account()

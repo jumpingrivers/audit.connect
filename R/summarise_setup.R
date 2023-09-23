@@ -10,8 +10,9 @@ summarise_setup = function(server, token) {
 }
 
 check_server = function(server) {
+  server = get_value("CONNECT_SERVER", server)
+  server = standardise_server_url(server)
   server = set_key("connect_server", get_value("CONNECT_SERVER", server))
-  check_server_url_structure(server)
   check_server_accessibility(server)
   return(invisible(server))
 }
@@ -20,21 +21,23 @@ check_server = function(server) {
 # Solution: enforce one URL structure
 # This pkg likely won't work if the url is https://example.com/myrsc/
 # But I don't have that structure to test, so ...
-check_server_url_structure = function(server) {
+standardise_server_url = function(server) {
   if (is.na(server)) {
-    cli::cli_abort("CONNECT_SERVER is missing")
+    cli::cli_abort("Can't find server. \\
+                   Either add CONNECT_SERVER to your .Renviron or
+                   pass `server` as an argument")
   }
   end_slash = stringr::str_ends(server, pattern = "/")
   if (isFALSE(end_slash)) {
-    cli::cli_abort("The server URL should end with a `/`: {server}")
+    server = paste0(server, "/")
   }
 
   start_address = stringr::str_starts(server, pattern = "http")
   if (isFALSE(start_address)) {
-    cli::cli_abort("The server URL should start with 'http': {server}")
+    server = paste0("http://", server)
   }
   cli::cli_alert_info("Server: {cli::col_green(server)}")
-  return(invisible(NULL))
+  return(invisible(server))
 }
 
 check_server_accessibility = function(server) {
