@@ -8,9 +8,9 @@ Description: Posit Connect Health Check. Deploys various content types to
     assess whether Connect is functioning correctly.
 License: file LICENSE
 Imports: 
-    audit.base (>= 0.6.6),
+    audit.base (>= 0.6.7),
     cli,
-    connectapi (>= 0.1.2),
+    connectapi (>= 0.1.3.1),
     dplyr,
     fs,
     httr,
@@ -19,8 +19,9 @@ Imports:
     pins (>= 1.1.0),
     processx,
     purrr,
+    quarto (>= 1.3),
     rlang,
-    rsconnect (>= 0.8.27),
+    rsconnect (>= 1.1.0),
     serverHeaders,
     stringr,
     tibble
@@ -29,7 +30,6 @@ Suggests:
     gt,
     gtExtras,
     htmltools,
-    quarto,
     testthat (>= 3.0.0),
     yaml
 Remotes:

@@ -25,7 +25,8 @@ check_sys_deps = function(debug_level = 0:2) {
   resp = httr::GET(url, httr::add_headers(Authorization = auth_key))
   rtn = jsonlite::parse_json(rawToChar(resp$content))
 
-  audit.base::check_sys_deps(rtn$os_release, rtn$libs, debug_level)
+  clean_libs = audit.base::clean_libs(rtn$os_release, rtn$libs)
+  audit.base::check_sys_deps(rtn$os_release, clean_libs, debug_level)
 }
 
 setup_plumber_sys_deps_endpoint = function(app_dir, debug_level) { #nolint

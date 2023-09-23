@@ -1,3 +1,6 @@
+# audit.connect 0.6.2 _2023-09-23_
+- fix: Checking system libs
+
 # audit.connect 0.6.1 _2023-08-08_
 - fix: Skip user check on evaluation licenses
 
