@@ -37,7 +37,7 @@ standardise_server_url = function(server) {
     server = paste0("http://", server)
   }
   cli::cli_alert_info("Server: {cli::col_green(server)}")
-  return(invisible(NULL))
+  return(invisible(server))
 }
 
 check_server_accessibility = function(server) {
