@@ -1,3 +1,6 @@
+# audit.connect 0.6.4 _2023-10-01_
+ - feat: Check for Posit name leakage
+ 
 # audit.connect 0.6.3 _2023-09-23_
 - feat: Be less picky with server URLs
 - fix: Deploy multiple files
