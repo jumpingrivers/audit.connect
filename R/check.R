@@ -7,6 +7,7 @@
 #' @param token Connect api token. If NULL, use the ENV variable CONNECT_API_KEY
 #' @param dir directory location of the the config file
 #' @param debug_level Integer, 0 to 2.
+#' @param suppress_users Whether to suppress output of Connect users' data.
 #' @details
 #' Debug level description
 #'  * 0: clean-up all files; suppress all noise
