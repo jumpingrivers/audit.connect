@@ -1,3 +1,6 @@
+# audit.connect 0.7.0 _2023-10-03_
+ - feat: Add option to suppress collection of Connect users' data
+
 # audit.connect 0.6.4 _2023-10-01_
  - feat: Check for Posit name leakage
  

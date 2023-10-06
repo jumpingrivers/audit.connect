@@ -4,7 +4,13 @@
 \alias{check}
 \title{Run Posit Checks}
 \usage{
-check(server = NULL, token = NULL, dir = ".", debug_level = 0:2)
+check(
+  server = NULL,
+  token = NULL,
+  dir = ".",
+  debug_level = 0:2,
+  suppress_users = FALSE
+)
 }
 \arguments{
 \item{server}{Connect server. If NULL, use the ENV variable CONNECT_SERVER}
@@ -14,6 +20,8 @@ check(server = NULL, token = NULL, dir = ".", debug_level = 0:2)
 \item{dir}{directory location of the the config file}
 
 \item{debug_level}{Integer, 0 to 2.}
+
+\item{suppress_users}{Whether to suppress output of Connect users' data.}
 }
 \description{
 This functions runs all Posit tests.

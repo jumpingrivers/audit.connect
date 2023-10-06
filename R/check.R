@@ -7,6 +7,7 @@
 #' @param token Connect api token. If NULL, use the ENV variable CONNECT_API_KEY
 #' @param dir directory location of the the config file
 #' @param debug_level Integer, 0 to 2.
+#' @param suppress_users Whether to suppress output of Connect users' data.
 #' @details
 #' Debug level description
 #'  * 0: clean-up all files; suppress all noise
@@ -17,7 +18,8 @@
 #' @export
 check = function(server = NULL, token = NULL,
                  dir = ".",
-                 debug_level = 0:2) {
+                 debug_level = 0:2,
+                 suppress_users = FALSE) {
 
   debug_level = get_debug_level(force(debug_level))
   check_list = list()
@@ -31,9 +33,10 @@ check = function(server = NULL, token = NULL,
 
   check_list$feature_usage = summarise_feature_usage(get_server(), get_token())
   check_list$audit_details = audit_details(get_server(), get_token())
-  check_list$users_details = summarise_users(get_server(), get_token(), debug_level = debug_level)
+  if(!suppress_users){
+    check_list$users_details = summarise_users(get_server(), get_token(), debug_level = debug_level) 
+  }
   register_uat_user(get_server(), get_token(), account = get_account())
-
   check_list$results = check_deployments(dir, debug_level)
   cli::cli_h1("All checks complete")
   invisible(check_list)
