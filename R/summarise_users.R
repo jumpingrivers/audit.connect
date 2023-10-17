@@ -51,3 +51,33 @@ print_audit_user_apps = function(client, debug_level) {
   cli::cli_alert_info("{nrow(locked_users)} applications owned by locked users")
   apps
 }
+
+#' Santitize {audit.connect} object
+#'
+#' This function wipes any user-identifying data from an {audit.connect} object,
+#' but inserts a column which contains the URL for each user in the Posit Connect admin panel
+#' @param audit_connect_object_arg An object from audit.connect::check()
+#' @export
+sanitize <- function(audit_connect_object_arg) {
+  # Retrieve the URL of the server from the audit connect object:
+  connect_server_url = audit_connect_object_arg$audit_details$server
+
+  # Make a copy of the audit connect object:
+  sanitized_audit_object = audit_connect_object_arg
+
+  # Wipe any user-identifiable data:
+  sanitized_audit_object$users_details$user_list$users[, 'email'] = NA
+  sanitized_audit_object$users_details$user_list$users[, 'username'] = NA
+  sanitized_audit_object$users_details$user_list$users[, 'first_name'] = NA
+  sanitized_audit_object$users_details$user_list$users[, 'last_name'] = NA
+
+  # The table contains a column `guid`. We can use these GUIDs to create URLs
+  # If we go to one of these URLs in the browser, we can see the details for the corresponding user:
+  sanitized_audit_object$users_details$user_list$users[, 'url'] <-
+    stringr::str_c(connect_server_url,
+                   "connect/#/people/users/",
+                   sanitized_audit_object$guid)
+
+  # Return the santitized object
+  sanitized_audit_object
+}
