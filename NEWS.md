@@ -1,5 +1,6 @@
 # audit.connect 0.7.0 _2023-10-18_
  - feat: `audit_object |> audit.connect::sanitize()` removes personal user data
+ - feat: Add in user URL when summarising users
 
 # audit.connect 0.6.4 _2023-10-01_
  - feat: Check for Posit name leakage
