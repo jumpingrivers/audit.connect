@@ -24,7 +24,7 @@ get_quarto_old_users = function(out) {
     dplyr::reframe(email = paste(.data$email, collapse = ", ")) %>%
     dplyr::mutate(last_log_in = factor(.data$last_log_in,
                                        c("12 months+", "6 months+", "3 months+"),
-                                       ordered = T)) %>%
+                                       ordered = TRUE)) %>%
     dplyr::arrange(.data$last_log_in)
   old_users$n = stringr::str_count(old_users$email, ",") + 1
   old_users
