@@ -7,6 +7,7 @@ summarise_users = function(server, token, debug_level) {
   user_list = list()
   user_list$user_account_limit = settings$license$users
   user_list$users = suppress(connectapi::get_users(client, limit = Inf))
+  user_list$users$url = paste0(server, "connect/#/people/users/", user_list$users$guid)
 
   if (is_evaluation(settings)) {
     apps = NA
