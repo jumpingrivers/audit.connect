@@ -9,7 +9,7 @@ get_quarto_old_users = function(out) {
     dplyr::filter(!.data$locked)
   old_users$email = tolower(old_users$email)
   old_users$domain = stringr::str_match(old_users$email, "@(.*)")[, 2]
-  old_users = dplyr::arrange(old_users, domain, email)
+  old_users = dplyr::arrange(old_users, .data$domain, .data$email)
 
   old_users = old_users %>%
     dplyr::mutate(last_log_on_diff = lubridate::interval(.data$active_time, lubridate::now()) / months(1), #nolint
