@@ -4,13 +4,9 @@
 #' @param audit_connect_check An object from audit.connect::check()
 #' @export
 sanitise = function(audit_connect_check) {
-  user_list = audit_connect_check$users_details$user_list
-  # Wipe any user-identifiable data:
-  user_list$users[, "email"] = NA_character_
-  user_list$users[, "username"] = NA_character_
-  user_list$users[, "first_name"] = NA_character_
-  user_list$users[, "last_name"] =  NA_character_
-  audit_connect_check$users_details$user_list = user_list
-  # Return the santitized object
+  # Wipe any user-identifiable data
+  for (value in c("email", "first_name", "last_name", "username")) {
+    audit_connect_check$users_details$user_list$users[, value] = NA_character_
+  }
   audit_connect_check
 }
