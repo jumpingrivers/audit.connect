@@ -25,6 +25,8 @@ deploy_plumber = function(plumber_dir, debug_level) {
 cleanup_plumber = function(bundle_dir, content, debug_level) {
   suppress = get_suppress(debug_level)
   if (debug_level == 2) return(NULL)
-  if (exists("content")) suppress(connectapi::content_delete(content, force = TRUE))
+  if (exists("content") && "Connect" %in% class(content)) {
+    suppress(connectapi::content_delete(content, force = TRUE))
+  }
   fs::dir_delete(bundle_dir)
 }

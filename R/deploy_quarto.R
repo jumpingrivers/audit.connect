@@ -9,13 +9,13 @@ deploy_quarto = function(quarto_dir, account = NULL, debug_level = debug_level) 
   # quarto uses rsconnect::accounts. So, looks up the server in list of accounts
   if (is.null(account)) account = get_account()
   has_deployed = suppress(quarto::quarto_publish_doc(file.path(tmp_dir, "index.qmd"),
-                             render = "server",
-                             title = title,
-                             server = get_server(clean = TRUE),
-                             account = account,
-                             launch.browser = FALSE,
-                             forceUpdate = TRUE,
-                             logLevel = "quiet"))
+                                                     render = "server",
+                                                     title = title,
+                                                     server = get_server(clean = TRUE),
+                                                     account = account,
+                                                     launch.browser = FALSE,
+                                                     forceUpdate = TRUE,
+                                                     logLevel = "quiet"))
   return(invisible(has_deployed))
 }
 

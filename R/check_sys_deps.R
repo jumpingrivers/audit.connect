@@ -16,6 +16,8 @@ check_sys_deps = function(debug_level = 0:2) {
   content = try(setup_plumber_sys_deps_endpoint(app_dir, debug_level), silent = TRUE)
   if ("try-error" %in% class(content)) {
     cli::cli_alert_info("Can't deploy plumber end point - odd?")
+    cli::cli_alert_info("Check the logs on {get_server()}")
+    cli::cli_alert_info("In the past, it was due to a missing sodium linux dependency")
     return(NA)
   }
 
