@@ -16,15 +16,15 @@ library(plumber)
 #* @param msg The message to echo
 #* @get /echo
 function(msg = "") {
-    list(msg = paste0("The message is: '", msg, "'"))
+  list(msg = paste0("The message is: '", msg, "'"))
 }
 
 #* Plot a histogram
 #* @serializer png
 #* @get /plot
 function() {
-    rand = rnorm(100)
-    hist(rand)
+  rand = rnorm(100)
+  hist(rand)
 }
 
 #* Return the sum of two numbers
@@ -32,13 +32,13 @@ function() {
 #* @param b The second number to add
 #* @post /sum
 function(a, b) {
-    as.numeric(a) + as.numeric(b)
+  as.numeric(a) + as.numeric(b)
 }
 
 # Programmatically alter your API
 #* @plumber
 function(pr) {
-    pr %>%
-        # Overwrite the default serializer to return unboxed JSON
-        pr_set_serializer(serializer_unboxed_json())
+  pr %>%
+    # Overwrite the default serializer to return unboxed JSON
+    pr_set_serializer(serializer_unboxed_json())
 }

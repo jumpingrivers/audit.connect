@@ -12,7 +12,7 @@ for (type in types) {
       public = list(
         check = function(debug_level) {
           rmd_dir = system.file("extdata", private$group, private$short,
-                                   package = "audit.base", mustWork = TRUE)
+                                package = "audit.base", mustWork = TRUE)
           private$checker(
             deploy_app(rmd_dir, debug_level = debug_level))
 
