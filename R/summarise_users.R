@@ -9,6 +9,8 @@ summarise_users = function(server, token, debug_level) {
   user_list$users = suppress(connectapi::get_users(client, limit = Inf))
   user_list$users$url = paste0(server, "connect/#/people/users/", user_list$users$guid)
 
+  # XXX: I don't think this is right
+  # Evaluation copies should have apps???
   if (is_evaluation(settings)) {
     apps = NA
   } else {
