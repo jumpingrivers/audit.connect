@@ -45,6 +45,7 @@ get_quarto_user_roles = function(out) {
 #' @export
 get_quarto_locked_user_apps = function(out) {
   apps = out$users_details$apps
+  if (is.na(apps)) return(0L)
 
   app_creators =  purrr::map_df(apps,
                                 ~dplyr::tibble(owner = .x[["owner_username"]],

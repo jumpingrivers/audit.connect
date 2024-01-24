@@ -1,3 +1,6 @@
+# audit.connect 0.7.2 _2024-01-24_
+  - fix: If NA, return 0 locked apps
+
 # audit.connect 0.7.1 _2023-12-05_
   - fix: If plumber deployment fails, handle failure gracefully
 
