@@ -10,7 +10,7 @@ summarise_versions = function(server, token) {
 
 get_server_settings = function(server, token, type = c("r", "python", "quarto")) {
   type = match.arg(type)
-  res = httr::GET(paste0(server, "/__api__/v1/server_settings/", type),
+  res = httr::GET(paste0(server, "__api__/v1/server_settings/", type),
                   httr::add_headers(Authorization = paste("Key", token)))
   content = httr::content(res)
   purrr::map_dfr(content$installations,
