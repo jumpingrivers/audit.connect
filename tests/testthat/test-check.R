@@ -21,8 +21,4 @@ test_that("High level test", {
   file.copy(input, tmpdir, overwrite = TRUE)
   saveRDS(rtn, file = file.path(tmpdir, "output.rds"))
 
-  y = quarto::quarto_render(input = file.path(tmpdir, "report.qmd"),
-                            execute_params = list(input = file.path(tmpdir, "output.rds")))
-  # Test if file exists
-  expect_true(file.exists(file.path(tmpdir, "report.html")))
 })

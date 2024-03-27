@@ -1,3 +1,6 @@
+# audit.connect 0.7.3 _2024-03-27_
+  - fix: Remove additional / from user api call
+
 # audit.connect 0.7.2 _2024-01-24_
   - fix: If NA, return 0 locked apps
 
