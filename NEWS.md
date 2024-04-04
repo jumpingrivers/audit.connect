@@ -1,6 +1,10 @@
+# audit.connect 0.7.4 _2024-04-04_
+  - feat: Force `server` to have `http(?s)`
+  - feat: Improved error message when testing status response
+
 # audit.connect 0.7.3 _2024-03-27_
   - fix: Remove additional / from user api call
-
+  
 # audit.connect 0.7.2 _2024-01-24_
   - fix: If NA, return 0 locked apps
 

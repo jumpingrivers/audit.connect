@@ -32,9 +32,12 @@ standardise_server_url = function(server) {
     server = paste0(server, "/")
   }
 
+  # We need to enforce adding http, otherwise things get messy. E.g.
+  # APIs typically need SSL, but if we only have http, that's "OK" to use http.
+  # But if we try http, and https is needed, it fails.
   start_address = stringr::str_starts(server, pattern = "http")
   if (isFALSE(start_address)) {
-    server = paste0("http://", server)
+    cli::cli_abort("Please add https (or http) to the server URL.")
   }
   cli::cli_alert_info("Server: {cli::col_green(server)}")
   return(invisible(server))
