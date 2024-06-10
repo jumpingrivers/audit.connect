@@ -10,5 +10,5 @@ sanitise(audit_connect_check)
 \item{audit_connect_check}{An object from audit.connect::check()}
 }
 \description{
-This function removes user-identifying data from an {audit.connect} object
+This function removes user-identifying data from an audit.connect object
 }
