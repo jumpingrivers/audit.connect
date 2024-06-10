@@ -7,7 +7,7 @@
 check(server = NULL, token = NULL, dir = ".", debug_level = 0:2)
 }
 \arguments{
-\item{server}{Connect server. If NULL, use the ENV variable CONNECT_SERVER}
+\item{server}{Connect server (URL). If NULL, use the ENV variable CONNECT_SERVER.}
 
 \item{token}{Connect api token. If NULL, use the ENV variable CONNECT_API_KEY}
 
