@@ -1,3 +1,8 @@
+# audit.connect 0.7.5 _2024-06-10_
+  - fix: Use latest version of {connactapi}
+  - chore: Fix Rd warnings due to R4.4
+  - fix: #15
+  
 # audit.connect 0.7.4 _2024-04-04_
   - feat: Force `server` to have `http(?s)`
   - feat: Improved error message when testing status response

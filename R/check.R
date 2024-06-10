@@ -3,7 +3,7 @@
 #' This functions runs all Posit tests.
 #' To skip tests, set check to `no` in the config yaml file.
 #' See `create_config()`
-#' @param server Connect server. If NULL, use the ENV variable CONNECT_SERVER
+#' @param server Connect server (URL). If NULL, use the ENV variable CONNECT_SERVER.
 #' @param token Connect api token. If NULL, use the ENV variable CONNECT_API_KEY
 #' @param dir directory location of the the config file
 #' @param debug_level Integer, 0 to 2.

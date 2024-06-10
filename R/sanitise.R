@@ -1,6 +1,6 @@
 #' Sanitise {audit.connect} object
 #'
-#' This function removes user-identifying data from an {audit.connect} object
+#' This function removes user-identifying data from an audit.connect object
 #' @param audit_connect_check An object from audit.connect::check()
 #' @export
 sanitise = function(audit_connect_check) {

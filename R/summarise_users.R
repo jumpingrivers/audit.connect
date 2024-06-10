@@ -44,13 +44,20 @@ print_audit_users = function(user_list) {
 
 print_audit_user_apps = function(client, debug_level) {
   suppress = get_suppress(debug_level)
-  apps = suppress(connectapi::cache_apps(client))
-  # Remove any api keys; don't need or want them
-  apps = purrr::map(apps, ~{.x$EnvironmentJson = NULL; .x}) # nolint
-  app_creators =  purrr::map_df(apps,
-                                ~dplyr::tibble(owner = .x[["owner_username"]],
-                                               locked = .x$owner_locked))
-  locked_users = dplyr::filter(app_creators, .data$locked) # nolint: object_usage_linter
-  cli::cli_alert_info("{nrow(locked_users)} applications owned by locked users")
-  apps
+  content = suppress(connectapi::get_content(client))
+  locked_users = suppress(connectapi::get_users(client)) |>
+    dplyr::filter(.data$locked)
+  locked_content = dplyr::inner_join(content, locked_users,
+                                     by = dplyr::join_by(owner_guid == guid))  |>
+    dplyr::group_by(username) |>
+    dplyr::summarise(n = dplyr::n()) |>
+    dplyr::arrange(dplyr::desc(n))
+
+  cli::cli_alert_info("{sum(locked_content$n)} applications owned by locked users")
+
+  for (i in seq_len(nrow(locked_content))) {
+    row = locked_content[i, ]
+    cli::cli_alert_info("{row$n} locked application{?s} owned by {cli::style_italic(row$username)}")
+  }
+  content
 }
