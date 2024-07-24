@@ -29,7 +29,7 @@ check = function(server = NULL, token = NULL,
   check_list$sys_deps = check_sys_deps(debug_level = debug_level)
   check_list$versions = summarise_versions(get_server(), get_token())
 
-  check_list$feature_usage = summarise_feature_usage(get_server(), get_token())
+  # check_list$feature_usage = summarise_feature_usage(get_server(), get_token())
   check_list$audit_details = audit_details(get_server(), get_token())
   check_list$users_details = summarise_users(get_server(), get_token(), debug_level = debug_level)
   register_uat_user(get_server(), get_token(), account = get_account())

@@ -1,15 +1,17 @@
+# audit.connect 0.7.5 _2024-07-24_
+  - fix: Remove feature usage - experimental API no longer works
 # audit.connect 0.7.5 _2024-06-10_
   - fix: Use latest version of {connactapi}
   - chore: Fix Rd warnings due to R4.4
   - fix: #15
-  
+
 # audit.connect 0.7.4 _2024-04-04_
   - feat: Force `server` to have `http(?s)`
   - feat: Improved error message when testing status response
 
 # audit.connect 0.7.3 _2024-03-27_
   - fix: Remove additional / from user api call
-  
+
 # audit.connect 0.7.2 _2024-01-24_
   - fix: If NA, return 0 locked apps
 
@@ -22,7 +24,7 @@
 
 # audit.connect 0.6.4 _2023-10-01_
  - feat: Check for Posit name leakage
- 
+
 # audit.connect 0.6.3 _2023-09-23_
 - feat: Be less picky with server URLs
 - fix: Deploy multiple files
@@ -41,7 +43,7 @@
 - fix: Typo in report.qmd
 
 # audit.connect 0.5.1 _2023-06-24_
-- feat: Remove API keys from app call. Don't need; don't want them. 
+- feat: Remove API keys from app call. Don't need; don't want them.
 
 # audit.connect 0.5.0 _2023-06-11_
 - refactor: Move standard functions to audit.base
