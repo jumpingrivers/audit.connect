@@ -1,3 +1,6 @@
+# 2024/07/24:
+# Used the experimental feature Connect. No longer seems to work.
+# Leaving function here in case it comes back
 summarise_feature_usage = function(server, token) {
   cli::cli_h2("Checking Feature Usage")
   connect = suppressMessages(connectapi::connect(server = server, api_key = token))

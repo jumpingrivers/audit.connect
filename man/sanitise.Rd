@@ -2,12 +2,12 @@
 % Please edit documentation in R/sanitise.R
 \name{sanitise}
 \alias{sanitise}
-\title{Sanitise {audit.connect} object}
+\title{Sanitise audit.connect object}
 \usage{
 sanitise(audit_connect_check)
 }
 \arguments{
-\item{audit_connect_check}{An object from audit.connect::check()}
+\item{audit_connect_check}{An object from \code{audit.connect::check()}}
 }
 \description{
 This function removes user-identifying data from an audit.connect object

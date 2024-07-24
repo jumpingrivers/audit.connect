@@ -6,7 +6,7 @@ test_that("High level test", {
   rtn = suppressMessages(check())
 
   expect_true(is.list(rtn))
-  check_names = c("setup", "posit_version", "server_headers", "feature_usage",
+  check_names = c("setup", "posit_version", "server_headers",
                   "audit_details", "users_details", "versions", "sys_deps", "results") %in%
     names(rtn)
   expect_true(all(check_names))
