@@ -11,19 +11,29 @@ for (type in types) {
       inherit = audit.base::base_check,
       public = list(
         check = function(debug_level) {
-          rmd_dir = system.file("extdata", private$group, private$short,
-                                package = "audit.base", mustWork = TRUE)
+          rmd_dir = system.file(
+            "extdata",
+            private$group,
+            private$short,
+            package = "audit.base",
+            mustWork = TRUE
+          )
           private$checker(
-            deploy_app(rmd_dir, debug_level = debug_level))
+            deploy_app(rmd_dir, debug_level = debug_level)
+          )
 
-          return(invisible(NULL))
+          invisible(NULL)
         }
       ),
       private = list(
         context = paste("Deploying", type),
         short = type,
         group = "render_rmd",
-        long = paste0("Checking that Rmarkdown can render a document (type: `", type, "`)")
+        long = paste0(
+          "Checking that Rmarkdown can render a document (type: `",
+          type,
+          "`)"
+        )
       )
     )
   )

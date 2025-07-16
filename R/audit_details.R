@@ -1,27 +1,33 @@
-
 audit_details = function(server, token) {
   user_details = summarise_user(server, token)
-  c(user_details,
-    list(server = server,
-         time = Sys.time(),
-         version = utils::packageVersion("audit.connect"))
+  c(
+    user_details,
+    list(
+      server = server,
+      time = Sys.time(),
+      version = utils::packageVersion("audit.connect")
+    )
   )
 }
 
 # Details on the user running this audit
 summarise_user = function(server, token) {
   cli::cli_h2("User Summary")
-  res = httr::GET(paste0(server, "__api__/v1/user"),
-                  httr::add_headers(Authorization = paste("Key", token)))
+  res = httr::GET(
+    paste0(server, "__api__/v1/user"),
+    httr::add_headers(Authorization = paste("Key", token))
+  )
 
   check_api_status_code(res)
   content = httr::content(res)
-  cli::cli_alert_info("{content$first_name} {content$last_name} <{content$email}>")
+  cli::cli_alert_info(
+    "{content$first_name} {content$last_name} <{content$email}>"
+  )
   cli::cli_alert_info("Username: {content$username}")
   cli::cli_alert_info("Role: {content$user_role}")
   set_key("username", content$username)
   set_key("connect_account", content$username)
-  return(invisible(content))
+  invisible(content)
 }
 
 check_api_status_code = function(res) {
@@ -31,8 +37,10 @@ check_api_status_code = function(res) {
     cli::cli_alert_danger("Likely causes are: bad token or bad server URL")
     cli::cli_alert_danger("{res$url} has status code {status}")
     cli::cli_alert_danger("{httr::http_status(status)$message}")
-    cli::cli_alert_danger("You could try changing http <-> https in the server URL")
+    cli::cli_alert_danger(
+      "You could try changing http <-> https in the server URL"
+    )
     cli::cli_abort("Status code: {status}")
   }
-  return(invisible(NULL))
+  invisible(NULL)
 }

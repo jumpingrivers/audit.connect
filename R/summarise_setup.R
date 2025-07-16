@@ -6,7 +6,7 @@ summarise_setup = function(server, token) {
   setup$server = check_server(server)
   setup$api_key = check_api_key(token)
   setup$rsconnect_python = check_rsconnect_python()
-  return(invisible(setup))
+  invisible(setup)
 }
 
 check_server = function(server) {
@@ -14,7 +14,7 @@ check_server = function(server) {
   server = standardise_server_url(server)
   server = set_key("connect_server", get_value("CONNECT_SERVER", server))
   check_server_accessibility(server)
-  return(invisible(server))
+  invisible(server)
 }
 
 # The server structure is really picky: we are using {rsconnect}, {connectapi}, python deployment
@@ -23,9 +23,11 @@ check_server = function(server) {
 # But I don't have that structure to test, so ...
 standardise_server_url = function(server) {
   if (is.na(server)) {
-    cli::cli_abort("Can't find server. \\
+    cli::cli_abort(
+      "Can't find server. \\
                    Either add CONNECT_SERVER to your .Renviron or
-                   pass `server` as an argument")
+                   pass `server` as an argument"
+    )
   }
   end_slash = stringr::str_ends(server, pattern = "/")
   if (isFALSE(end_slash)) {
@@ -40,7 +42,7 @@ standardise_server_url = function(server) {
     cli::cli_abort("Please add https (or http) to the server URL.")
   }
   cli::cli_alert_info("Server: {cli::col_green(server)}")
-  return(invisible(server))
+  invisible(server)
 }
 
 check_server_accessibility = function(server) {
@@ -58,17 +60,24 @@ check_api_key = function(token) {
     cli::cli_abort("CONNECT_API_KEY missing")
   }
   cli::cli_alert_info("API KEY: {cli::col_green(cli::symbol$tick)}")
-  return(invisible(TRUE))
+  invisible(TRUE)
 }
 
 check_rsconnect_python = function() {
-  value = set_key("rsconnect_python", as.logical(nchar(Sys.which("rsconnect")) > 0))
-  sym = ifelse(value, cli::col_green(cli::symbol$tick), cli::col_red(cli::symbol$cross)) #nolint
+  value = set_key(
+    "rsconnect_python",
+    as.logical(nchar(Sys.which("rsconnect")) > 0)
+  )
+  sym = ifelse(
+    value,
+    cli::col_green(cli::symbol$tick),
+    cli::col_red(cli::symbol$cross)
+  ) #nolint
   cli::cli_alert_info("rsconnect-python: {sym}")
   if (isFALSE(value)) {
     cli::cli_alert_warning("rsconnect-python not installed")
     cli::cli_alert_warning("All python deploy tests will be skipped")
     cli::cli_alert_warning("Install: pip install rsconnect-python")
   }
-  return(invisible(value))
+  invisible(value)
 }

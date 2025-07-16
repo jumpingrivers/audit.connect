@@ -9,10 +9,15 @@ check_deploy_shiny = R6::R6Class(
     #' @description  Checks deployment of an R Markdown document with Word Docx output
     #' @param debug_level See check() for details
     check = function(debug_level) {
-      shiny_dir = system.file("extdata", private$group, private$short,
-                              package = "audit.connect", mustWork = TRUE)
+      shiny_dir = system.file(
+        "extdata",
+        private$group,
+        private$short,
+        package = "audit.connect",
+        mustWork = TRUE
+      )
       private$checker(deploy_app(shiny_dir, debug_level, appFiles = "app.R"))
-      return(invisible(NULL))
+      invisible(NULL)
     }
   ),
   private = list(

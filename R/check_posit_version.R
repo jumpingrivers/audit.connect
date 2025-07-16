@@ -4,6 +4,9 @@ check_posit_version = function(server, token, debug_level) {
   client = suppress(connectapi::connect(server = server, api_key = token))
 
   posit_version = client$server_settings()$version
-  audit.base::audit_posit_version(posit_version = posit_version, type = "connect")
-  return(posit_version)
+  audit.base::audit_posit_version(
+    posit_version = posit_version,
+    type = "connect"
+  )
+  posit_version
 }

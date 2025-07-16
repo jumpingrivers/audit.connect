@@ -8,16 +8,24 @@ check_sys_deps = function(debug_level = 0:2) {
   debug_level = get_debug_level(debug_level)
 
   app_dir = file.path(tempdir(), "pkg")
-  pkg_dir = system.file("extdata", "check_sys_deps",
-                        package = "audit.connect",
-                        mustWork = TRUE)
+  pkg_dir = system.file(
+    "extdata",
+    "check_sys_deps",
+    package = "audit.connect",
+    mustWork = TRUE
+  )
   fs::dir_copy(pkg_dir, app_dir, overwrite = TRUE)
   on.exit(cleanup_plumber(app_dir, content, debug_level))
-  content = try(setup_plumber_sys_deps_endpoint(app_dir, debug_level), silent = TRUE)
+  content = try(
+    setup_plumber_sys_deps_endpoint(app_dir, debug_level),
+    silent = TRUE
+  )
   if ("try-error" %in% class(content)) {
     cli::cli_alert_info("Can't deploy plumber end point - odd?")
     cli::cli_alert_info("Check the logs on {get_server()}")
-    cli::cli_alert_info("In the past, it was due to a missing sodium linux dependency")
+    cli::cli_alert_info(
+      "In the past, it was due to a missing sodium linux dependency"
+    )
     return(NA)
   }
 
@@ -31,21 +39,28 @@ check_sys_deps = function(debug_level = 0:2) {
   audit.base::check_sys_deps(rtn$os_release, clean_libs, debug_level)
 }
 
-setup_plumber_sys_deps_endpoint = function(app_dir, debug_level) { #nolint
+setup_plumber_sys_deps_endpoint = function(app_dir, debug_level) {
   suppress = get_suppress(debug_level)
   # Deploy plumber
-  client = suppress(connectapi::connect(server = get_server(), api_key = get_token()))
+  client = suppress(connectapi::connect(
+    server = get_server(),
+    api_key = get_token()
+  ))
   bundle = suppress(connectapi::bundle_dir(app_dir))
   name = paste("UAT_check_package-", Sys.Date(), sep = "_")
   content = suppress(connectapi::deploy(client, bundle, name = name))
   suppress(connectapi::poll_task(content))
-  return(content)
+  content
 }
 
 # Extracting the URL differs on first deployment and subsequent deployments
 get_deploy_url = function(content) {
   url = content$get_url()
-  if (is.null(url)) url = content$get_content()$url
-  if (is.null(url)) stop("Missing deploy url")
-  return(url)
+  if (is.null(url)) {
+    url = content$get_content()$url
+  }
+  if (is.null(url)) {
+    stop("Missing deploy url")
+  }
+  url
 }

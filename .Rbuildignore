@@ -18,3 +18,5 @@ rsconnect/
 ^report.html$
 ^README\.Rmd$
 ^\.github$
+^[.]?air[.]toml$
+^\.vscode$

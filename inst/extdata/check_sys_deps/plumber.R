@@ -17,5 +17,5 @@ function() {
   }
 
   rtn = list(os_release = os_release, libs = libs)
-  return(rtn)
+  rtn
 }

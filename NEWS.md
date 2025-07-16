@@ -1,5 +1,10 @@
+# audit.connect 0.7.6 _2025-07-16_
+  - chore: Formatting using air
+  - chore: Update linting
+
 # audit.connect 0.7.5 _2024-07-24_
   - fix: Remove feature usage - experimental API no longer works
+
 # audit.connect 0.7.5 _2024-06-10_
   - fix: Use latest version of {connactapi}
   - chore: Fix Rd warnings due to R4.4
