@@ -1,3 +1,6 @@
+# audit.connect 0.7.7 _2025-07-16_
+  - chore: Update requirements.txt
+
 # audit.connect 0.7.6 _2025-07-16_
   - chore: Formatting using air
   - chore: Update linting
