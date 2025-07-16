@@ -16,5 +16,7 @@
 #' * force: overwrite existing file
 #' * error: if a config file exists, raise an error
 #' @export
-create_config = audit.base::create_config(file = "config-uat-rsc.yml",
-                                          pkg_name = "audit.connect")
+create_config = audit.base::create_config(
+  file = "config-uat-rsc.yml",
+  pkg_name = "audit.connect"
+)

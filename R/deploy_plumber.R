@@ -4,7 +4,10 @@ deploy_plumber = function(plumber_dir, debug_level) {
   fs::dir_copy(plumber_dir, app_dir)
   on.exit(cleanup_plumber(app_dir, content, debug_level))
 
-  client = suppress(connectapi::connect(server = get_server(), api_key = get_token()))
+  client = suppress(connectapi::connect(
+    server = get_server(),
+    api_key = get_token()
+  ))
   bundle = suppress(connectapi::bundle_dir(app_dir))
 
   # If deploy not successful, content not created
@@ -19,12 +22,14 @@ deploy_plumber = function(plumber_dir, debug_level) {
   resp = httr::GET(url, httr::add_headers(Authorization = auth_key))
   check_response = grepl(pattern = "testing", rawToChar(resp$content))
 
-  return(invisible(check_response))
+  invisible(check_response)
 }
 
 cleanup_plumber = function(bundle_dir, content, debug_level) {
   suppress = get_suppress(debug_level)
-  if (debug_level == 2) return(NULL)
+  if (debug_level == 2) {
+    return(NULL)
+  }
   if (exists("content") && "Connect" %in% class(content)) {
     suppress(connectapi::content_delete(content, force = TRUE))
   }

@@ -4,7 +4,7 @@ set_key = function(name, value) {
     error_msg = paste0("Missing ", name)
     stop(error_msg, call. = FALSE)
   }
-  return(invisible(value))
+  invisible(value)
 }
 
 get_account = function() {
@@ -18,9 +18,13 @@ get_server = function(clean = FALSE) {
     server = get_value("CONNECT_SERVER")
     set_key("connect_server", server)
   }
-  if (is.null(server)) cli::cli_abort("Missing server")
-  if (clean) server = stringr::str_remove_all(server, "https?|:|/")
-  return(server)
+  if (is.null(server)) {
+    cli::cli_abort("Missing server")
+  }
+  if (clean) {
+    server = stringr::str_remove_all(server, "https?|:|/")
+  }
+  server
 }
 
 get_token = function() {
@@ -29,17 +33,23 @@ get_token = function() {
     token = get_value("CONNECT_API_KEY")
     set_key("connect_api_key", token)
   }
-  if (is.null(token)) stop("Can't find CONNECT_API_KEY")
-  return(token)
+  if (is.null(token)) {
+    stop("Can't find CONNECT_API_KEY")
+  }
+  token
 }
 
 get_username = function() {
   user = .connect[["username"]]
-  if (is.null(user)) stop("Can't find username")
-  return(user)
+  if (is.null(user)) {
+    stop("Can't find username")
+  }
+  user
 }
 
 get_value = function(env_name, value = NULL) {
-  if (is.null(value) || nchar(value) == 0L) value = Sys.getenv(env_name, NA)
-  return(value)
+  if (is.null(value) || nchar(value) == 0L) {
+    value = Sys.getenv(env_name, NA)
+  }
+  value
 }

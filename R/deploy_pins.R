@@ -1,8 +1,11 @@
 deploy_pins = function(debug_level) {
   suppress = get_suppress(debug_level)
-  board = suppress(pins::board_connect(auth = "manual", versioned = TRUE,
-                                       server = get_server(),
-                                       key = get_token()))
+  board = suppress(pins::board_connect(
+    auth = "manual",
+    versioned = TRUE,
+    server = get_server(),
+    key = get_token()
+  ))
 
   tmp_env = new.env()
   utils::data("mtcars", package = "datasets", envir = tmp_env)
@@ -19,8 +22,12 @@ deploy_pins = function(debug_level) {
       type = "rds"
     )
   )
-  if (debug_level != 2L) on.exit(pins::pin_delete(board, deployed_pin))
+  if (debug_level != 2L) {
+    on.exit(pins::pin_delete(board, deployed_pin))
+  }
   pulled_data = pins::pin_read(board, deployed_pin)
-  if (!identical(pulled_data, tmp_env$mtcars)) stop("Corrupted pins data")
-  return(invisible(TRUE))
+  if (!identical(pulled_data, tmp_env$mtcars)) {
+    stop("Corrupted pins data")
+  }
+  invisible(TRUE)
 }

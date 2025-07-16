@@ -5,9 +5,12 @@ describe("Checking sanitize function", {
   rtn = suppressMessages(check())
   sanitize_rtn = sanitise(rtn)
 
-  it("Check users have been changed",
-     expect_false(identical(rtn[["users_details"]],
-                            sanitize_rtn[["users_details"]]))
+  it(
+    "Check users have been changed",
+    expect_false(identical(
+      rtn[["users_details"]],
+      sanitize_rtn[["users_details"]]
+    ))
   )
 
   it("Check everything else has stayed the same", {

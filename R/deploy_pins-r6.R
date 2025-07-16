@@ -10,7 +10,7 @@ check_deploy_pins_rds = R6::R6Class(
     #' @param debug_level See check() for details
     check = function(debug_level) {
       private$checker(deploy_pins(debug_level = debug_level))
-      return(invisible(NULL))
+      invisible(NULL)
     }
   ),
   private = list(
