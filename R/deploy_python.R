@@ -75,7 +75,8 @@ cleanup_python = function(tmp_dir, debug_level, guid = NULL) {
   suppress = get_suppress(debug_level)
   fs::dir_delete(tmp_dir)
   # map in case we make multiple mistakes
-  con = suppress(
+  # fmt: skip
+  con = suppress( # nolint
     connectapi::connect(
       server = get_server(),
       api_key = get_token()

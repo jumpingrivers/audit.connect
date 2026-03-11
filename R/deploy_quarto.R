@@ -24,7 +24,7 @@ deploy_quarto = function(
     forceUpdate = TRUE,
     logLevel = "quiet"
   ))
-  return(invisible(has_deployed))
+  invisible(has_deployed)
 }
 
 cleanup_quarto = function(tmp_dir, debug_level) {

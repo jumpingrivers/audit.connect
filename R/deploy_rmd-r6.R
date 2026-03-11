@@ -19,7 +19,8 @@ for (type in types) {
             mustWork = TRUE
           )
           private$checker(
-            deploy_app(rmd_dir, debug_level = debug_level)
+            deploy_app(rmd_dir, debug_level = debug_level),
+            debug_level
           )
 
           invisible(NULL)

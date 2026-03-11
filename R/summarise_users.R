@@ -43,10 +43,11 @@ print_audit_users = function(user_list) {
     sep = ": "
   )
   user_string = paste(user_vec, collapse = ", ") # nolint: object_usage_linter
-  admins = dplyr::filter(
+  # fmt: skip
+  admins = dplyr::filter(     # nolint: object_usage_linter
     user_list$users,
     .data$user_role == "administrator" & !.data$locked
-  ) # nolint: object_usage_linter
+  )
 
   cli::cli_alert_info(
     "Users: {sum(user_summary$n)} out of {user_list$user_account_limit}"

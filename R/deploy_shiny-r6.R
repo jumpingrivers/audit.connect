@@ -16,7 +16,10 @@ check_deploy_shiny = R6::R6Class(
         package = "audit.connect",
         mustWork = TRUE
       )
-      private$checker(deploy_app(shiny_dir, debug_level, appFiles = "app.R"))
+      private$checker(
+        deploy_app(shiny_dir, debug_level, appFiles = "app.R"),
+        debug_level
+      )
       invisible(NULL)
     }
   ),

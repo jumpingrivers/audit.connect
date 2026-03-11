@@ -15,7 +15,10 @@ check_deploy_plumber_api = R6::R6Class(
         package = "audit.connect",
         mustWork = TRUE
       )
-      private$checker(deploy_plumber(plumber_dir, debug_level = debug_level))
+      private$checker(
+        deploy_plumber(plumber_dir, debug_level = debug_level),
+        debug_level
+      )
       invisible(NULL)
     }
   ),
