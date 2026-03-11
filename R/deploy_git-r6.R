@@ -9,11 +9,14 @@ check_deploy_github = R6::R6Class(
     #' @description Deploy a shiny application from github
     #' @param debug_level See check() for details
     check = function(debug_level) {
-      private$checker(deploy_git(
-        repository = "https://github.com/uat-examples/old-faithful",
-        debug_level = debug_level,
-        title = paste("UAT", private$short)
-      ))
+      private$checker(
+        deploy_git(
+          repository = "https://github.com/uat-examples/old-faithful",
+          debug_level = debug_level,
+          title = paste("UAT", private$short)
+        ),
+        debug_level
+      )
       invisible(NULL)
     }
   ),

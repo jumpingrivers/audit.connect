@@ -43,10 +43,11 @@ print_audit_users = function(user_list) {
     sep = ": "
   )
   user_string = paste(user_vec, collapse = ", ") # nolint: object_usage_linter
-  admins = dplyr::filter(
+  # fmt: skip
+  admins = dplyr::filter(     # nolint: object_usage_linter
     user_list$users,
     .data$user_role == "administrator" & !.data$locked
-  ) # nolint: object_usage_linter
+  )
 
   cli::cli_alert_info(
     "Users: {sum(user_summary$n)} out of {user_list$user_account_limit}"
@@ -58,15 +59,15 @@ print_audit_users = function(user_list) {
 print_audit_user_apps = function(client, debug_level) {
   suppress = get_suppress(debug_level)
   content = suppress(connectapi::get_content(client))
-  locked_users = suppress(connectapi::get_users(client)) |>
+  locked_users = suppress(connectapi::get_users(client)) %>%
     dplyr::filter(.data$locked)
   locked_content = dplyr::inner_join(
     content,
     locked_users,
     by = dplyr::join_by("owner_guid" == "guid")
-  ) |>
-    dplyr::group_by(.data$username) |>
-    dplyr::summarise(n = dplyr::n()) |>
+  ) %>%
+    dplyr::group_by(.data$username) %>%
+    dplyr::summarise(n = dplyr::n()) %>%
     dplyr::arrange(dplyr::desc(.data$n))
 
   cli::cli_alert_info(

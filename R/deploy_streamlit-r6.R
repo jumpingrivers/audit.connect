@@ -20,12 +20,15 @@ check_deploy_python_streamlit = R6::R6Class(
         package = "audit.connect",
         mustWork = TRUE
       )
-      private$checker(deploy_python(
-        python_dir,
-        python_files = "app.py",
-        rsconnect_type = "streamlit",
-        debug_level = debug_level
-      ))
+      private$checker(
+        deploy_python(
+          python_dir,
+          python_files = "app.py",
+          rsconnect_type = "streamlit",
+          debug_level = debug_level
+        ),
+        debug_level
+      )
       invisible(NULL)
     }
   ),

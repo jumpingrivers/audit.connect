@@ -1,3 +1,7 @@
+# audit.connect 0.7.8 _2026-03-11_
+  - fix: Pass debug_level
+  - fix: Use magrittr pipe for compatibility with older R versions.
+
 # audit.connect 0.7.7 _2025-07-16_
   - chore: Update requirements.txt
 

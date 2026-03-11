@@ -1,14 +1,14 @@
 Type: Package
 Package: audit.connect
 Title: Posit Connect Health Check
-Version: 0.7.7
+Version: 0.7.8
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
 Description: Posit Connect Health Check. Deploys various content types to
     assess whether Connect is functioning correctly.
 License: file LICENSE
 Imports:
-    audit.base (>= 0.6.15),
+    audit.base (>= 0.6.26),
     cli,
     connectapi (>= 0.2.0),
     dplyr,
@@ -38,4 +38,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3

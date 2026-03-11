@@ -34,3 +34,6 @@ vignettes/*.pdf
 *.swp
 config-uat-rsc.yml
 output\.rds
+
+/.quarto/
+**/*.quarto_ipynb

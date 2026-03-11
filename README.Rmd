@@ -48,7 +48,7 @@ Alternatively, you can set environmental variables, `CONNECT_SERVER` and `CONNEC
 
 ## Connect Package Pollution
 
-If you are running this package on a machine you normally use to deploy to Connect, then 
+If you are running this package on a machine you normally use to deploy to Connect, then
 this isn't an issue - you can skip the next part.
 
 **If** you are using a machine where you are deploying to Connect for the
@@ -58,8 +58,8 @@ Connect package pollution occurs when
 
  * we use package manager binaries, **and**
  * the OS on Connect differs to the OS on the deployment machine.
- 
-If you aren't using binaries or the OS is the same, then you won't have any issue. 
+
+If you aren't using binaries or the OS is the same, then you won't have any issue.
 If you want to be sure, we can use {renv}
 
 ```{r, eval = FALSE}
@@ -97,8 +97,8 @@ check_example = R6::R6Class(
   # This runs the test, detects errors, and logs the result
   public = list(
     #' @description Runs a UAT check
-    check = function(account = NULL) {
-      private$checker(example_test())
+    check = function(debug_level) {
+      private$checker(example_test(), debug_level)
       return(invisible(NULL))
     }
   ),

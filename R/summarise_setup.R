@@ -68,11 +68,12 @@ check_rsconnect_python = function() {
     "rsconnect_python",
     as.logical(nchar(Sys.which("rsconnect")) > 0)
   )
-  sym = ifelse(
+  # fmt: skip
+  sym = ifelse( #nolint
     value,
     cli::col_green(cli::symbol$tick),
     cli::col_red(cli::symbol$cross)
-  ) #nolint
+  )
   cli::cli_alert_info("rsconnect-python: {sym}")
   if (isFALSE(value)) {
     cli::cli_alert_warning("rsconnect-python not installed")

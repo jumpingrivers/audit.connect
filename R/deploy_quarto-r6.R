@@ -28,10 +28,11 @@ for (i in seq_along(types)) {
             mustWork = TRUE
           )
           private$checker(
-            deploy_quarto(quarto_dir, account, debug_level = debug_level)
+            deploy_quarto(quarto_dir, account, debug_level = debug_level),
+            debug_level
           )
 
-          return(invisible(NULL))
+          invisible(NULL)
         }
       ),
       private = list(
@@ -79,9 +80,10 @@ check_deploy_quarto_python = R6::R6Class(
           python_files = "index.qmd",
           rsconnect_type = "quarto",
           debug_level = debug_level
-        )
+        ),
+        debug_level
       )
-      return(invisible(NULL))
+      invisible(NULL)
     }
   ),
   private = list(
