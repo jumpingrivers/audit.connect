@@ -59,15 +59,15 @@ print_audit_users = function(user_list) {
 print_audit_user_apps = function(client, debug_level) {
   suppress = get_suppress(debug_level)
   content = suppress(connectapi::get_content(client))
-  locked_users = suppress(connectapi::get_users(client)) |>
+  locked_users = suppress(connectapi::get_users(client)) %>%
     dplyr::filter(.data$locked)
   locked_content = dplyr::inner_join(
     content,
     locked_users,
     by = dplyr::join_by("owner_guid" == "guid")
-  ) |>
-    dplyr::group_by(.data$username) |>
-    dplyr::summarise(n = dplyr::n()) |>
+  ) %>%
+    dplyr::group_by(.data$username) %>%
+    dplyr::summarise(n = dplyr::n()) %>%
     dplyr::arrange(dplyr::desc(.data$n))
 
   cli::cli_alert_info(

@@ -1,7 +1,6 @@
 linters: linters_with_defaults(
     assignment_linter = NULL,
     object_length_linter = NULL,
-    pipe_consistency_linter = NULL,
     line_length_linter(100),
     undesirable_operator_linter(
       modify_defaults(
