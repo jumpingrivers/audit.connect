@@ -31,7 +31,7 @@ install.packages("audit.connect")
 For python based deployment, the python package, `rsconnect-python` is required
 
 ```{bash, eval = FALSE}
-pip install rsconnect-python
+uv pip install rsconnect-python
 ```
 
 ## Usage
@@ -40,8 +40,7 @@ Running the test is straightforward
 
 ```{r, eval = FALSE}
 library("audit.connect")
-check(server = "https://www.connect.server.name/",
-      token = "API_TOKEN")
+check(server = "https://www.connect.server.name/", token = "API_TOKEN")
 ```
 Alternatively, you can set environmental variables, `CONNECT_SERVER` and `CONNECT_API_KEY` in your
 `.Renviron` file.

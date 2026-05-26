@@ -1,3 +1,9 @@
+# audit.connect 0.7.9 _2026-05-25_
+  - chore: Update Python requirements
+  - chore: Update manifest files to R 4.4.3
+  - chore: Bump audit.base dependency to >= 0.6.27
+  - docs: Use uv pip in README
+
 # audit.connect 0.7.8 _2026-03-11_
   - fix: Pass debug_level
   - fix: Use magrittr pipe for compatibility with older R versions.
