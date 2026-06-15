@@ -20,4 +20,5 @@ rsconnect/
 ^\.github$
 ^[.]?air[.]toml$
 ^\.vscode$
-^\.venv/$
+.venv/
+.claude

@@ -1,3 +1,15 @@
+# audit.connect 0.8.0
+
+## Breaking changes
+
+* Requires R 4.1.0 or later, as the package now uses the native pipe `|>`.
+
+## Bug fixes and minor improvements
+
+* Requires connectapi 0.12.1 and rsconnect 1.10.0 or later.
+* `check()` passes named arguments to `summarise_users()`.
+* The Plumber test API's manifest checksum matches its `plumber.R`.
+
 # audit.connect 0.7.15
 
 ## Bug fixes and minor improvements
