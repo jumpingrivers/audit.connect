@@ -30,7 +30,7 @@ deploy_python = function(
   title = paste("UAT: Python", rsconnect_type, Sys.Date(), sep = "-")
   has_deployed = suppress(
     processx::run(
-      "rsconnect",
+      get_rsconnect_path(),
       args = c(
         "deploy",
         rsconnect_type,
@@ -48,7 +48,7 @@ deploy_python = function(
   )
 
   content = processx::run(
-    "rsconnect",
+    get_rsconnect_path(),
     args = c(
       "content",
       "search",

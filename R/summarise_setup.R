@@ -64,10 +64,8 @@ check_api_key = function(token) {
 }
 
 check_rsconnect_python = function() {
-  value = set_key(
-    "rsconnect_python",
-    as.logical(nchar(Sys.which("rsconnect")) > 0)
-  )
+  .connect$rsconnect_path = find_rsconnect_python()
+  value = set_key("rsconnect_python", nzchar(.connect$rsconnect_path))
   # fmt: skip
   sym = ifelse( #nolint
     value,
@@ -79,6 +77,30 @@ check_rsconnect_python = function() {
     cli::cli_alert_warning("rsconnect-python not installed")
     cli::cli_alert_warning("All python deploy tests will be skipped")
     cli::cli_alert_warning("Install: pip install rsconnect-python")
+    cli::cli_alert_warning("Or set RSCONNECT_PATH to the location of {.code rsconnect}")
   }
   invisible(value)
+}
+
+# rsconnect-python is often installed in a virtual environment or ~/.local/bin,
+# neither of which need be on R's PATH
+find_rsconnect_python = function() {
+  candidates = c(
+    Sys.getenv("RSCONNECT_PATH"),
+    Sys.which("rsconnect"),
+    path.expand("~/.local/bin/rsconnect")
+  )
+  candidates = candidates[nzchar(candidates) & file.exists(candidates)]
+  if (length(candidates) == 0L) {
+    return("")
+  }
+  unname(candidates[1])
+}
+
+get_rsconnect_path = function() {
+  path = .connect[["rsconnect_path"]]
+  if (is.null(path)) {
+    path = find_rsconnect_python()
+  }
+  path
 }
