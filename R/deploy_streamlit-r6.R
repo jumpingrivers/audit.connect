@@ -36,6 +36,6 @@ check_deploy_python_streamlit = R6::R6Class(
     context = "Deploy streamlit app",
     short = "streamlit",
     group = "deploy_python",
-    long = "Deploy a Python streamlit application"
+    long = "Deploys a Python Streamlit app with rsconnect-python (skipped if it isn't installed)"
   )
 )

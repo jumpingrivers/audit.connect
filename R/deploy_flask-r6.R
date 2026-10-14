@@ -36,6 +36,6 @@ check_deploy_python_flask = R6::R6Class(
     context = "Deploy flask app",
     short = "flask",
     group = "deploy_python",
-    long = "Deploy a Python flask application"
+    long = "Deploys a Python Flask API with rsconnect-python (skipped if it isn't installed)"
   )
 )

@@ -7,11 +7,11 @@
 NULL
 types = c("beamer", "docx", "html", "observable", "pdf", "rsvg_convert")
 longs = paste0(
-  "Checking that quarto can render a document (type: `",
+  "Deploys a Quarto document to Connect and renders it on the server (format: `",
   types,
   "`)"
 )
-longs[6] = "Checking that quarto can render SVG image within a PDF"
+longs[6] = "Deploys a Quarto PDF containing an SVG image, which needs rsvg-convert on Connect"
 for (i in seq_along(types)) {
   assign(
     paste0("check_deploy_quarto_", types[i]),
@@ -90,6 +90,6 @@ check_deploy_quarto_python = R6::R6Class(
     context = "Jupyter engine",
     short = "python",
     group = "render_quarto",
-    long = "Deploy a quarto document that uses a jupyter engine"
+    long = "Deploys a Quarto document that uses the Jupyter engine, with rsconnect-python"
   )
 )

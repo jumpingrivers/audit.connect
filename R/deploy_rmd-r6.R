@@ -31,7 +31,7 @@ for (type in types) {
         short = type,
         group = "render_rmd",
         long = paste0(
-          "Checking that Rmarkdown can render a document (type: `",
+          "Deploys an R Markdown document to Connect and renders it on the server (format: `",
           type,
           "`)"
         )

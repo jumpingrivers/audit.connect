@@ -24,6 +24,6 @@ check_deploy_github = R6::R6Class(
     context = "Old Faithful",
     short = "public-github",
     group = "deploy_git",
-    long = "Deploy a Shiny application via github.com"
+    long = "Deploys a Shiny app from a public GitHub repository, as Git-backed content"
   )
 )

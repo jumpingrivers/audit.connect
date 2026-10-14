@@ -26,7 +26,8 @@ required
 uv pip install rsconnect-python
 ```
 
-If `rsconnect` isn't on R's `PATH`, set `RSCONNECT_PATH` to its location.
+If `rsconnect` isn’t on R’s `PATH`, set `RSCONNECT_PATH` to its
+location.
 
 ## Usage
 
@@ -64,10 +65,32 @@ renv::init(repo = "https://cloud.r-project.org/")
 renv::install("remotes")
 ```
 
+## Checks
+
+`check()` deploys test content to Connect and deletes it afterwards.
+Each check has a group and a name, which are the keys in the config
+file.
+
+| Group            | Check                                         | What it does                                                                          |
+| ---------------- | --------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `deploy_git`     | `public-github`                               | Deploys a Shiny app from a public GitHub repository, as Git-backed content            |
+| `deploy_pins`    | `rds`                                         | Writes `mtcars` as an RDS pin, reads it back unchanged, then deletes it               |
+| `deploy_plumber` | `api`                                         | Deploys a Plumber API and checks that its `/echo` endpoint responds                   |
+| `deploy_python`  | `flask`                                       | Deploys a Python Flask API with rsconnect-python (skipped if it isn’t installed)      |
+| `deploy_python`  | `streamlit`                                   | Deploys a Python Streamlit app with rsconnect-python (skipped if it isn’t installed)  |
+| `deploy_shiny`   | `basic_app`                                   | Deploys a basic Shiny app                                                             |
+| `render_quarto`  | `beamer`, `docx`, `html`, `observable`, `pdf` | Deploys a Quarto document to Connect and renders it on the server in that format      |
+| `render_quarto`  | `python`                                      | Deploys a Quarto document that uses the Jupyter engine, with rsconnect-python         |
+| `render_quarto`  | `rsvg_convert`                                | Deploys a Quarto PDF containing an SVG image, which needs rsvg-convert on Connect     |
+| `render_rmd`     | `html`, `pdf`, `word`                         | Deploys an R Markdown document to Connect and renders it on the server in that format |
+
+`check()` also reports the server details, the Connect version and the
+system libraries R packages need, but these aren’t configurable checks.
+
 ## Config file
 
 Experimental. You can skip deployment tests, by setting the appropriate
-value in `config-uat.yml`. This file can be auto-generated via
+value in `config-uat-rsc.yml`. This file can be auto-generated via
 
 ``` r
 create_config()
@@ -86,7 +109,7 @@ detected and run. Likewise, `create_config()`
 #' @export
 check_example = R6::R6Class(
   "check_example",
-  inherit = uatBase::base_check,
+  inherit = audit.base::base_check,
   # A function is passed to checker()
   # This runs the test, detects errors, and logs the result
   public = list(
@@ -101,7 +124,8 @@ check_example = R6::R6Class(
   private = list(
     context = "Human description",
     short = "config_variable",
-    group = "config_group"
+    group = "config_group",
+    long = "A sentence describing what the check does"
   )
 )
 
