@@ -23,10 +23,10 @@ This checks that a variety of applications can be deployed to a Posit Connect Se
 
 ## Installation
 
-To install the R package, run
+The package isn't on CRAN. Install it from GitHub with
 
 ```{r, eval = FALSE}
-install.packages("audit.connect")
+remotes::install_github("jumpingrivers/audit.connect")
 ```
 For python based deployment, the python package, `rsconnect-python` is required
 
