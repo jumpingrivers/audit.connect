@@ -1,3 +1,9 @@
+# audit.connect 0.7.11
+
+## Bug fixes and minor improvements
+
+* README now installs the package from GitHub, as it isn't on CRAN (#38).
+
 # audit.connect 0.7.10
 
 ## Bug fixes and minor improvements

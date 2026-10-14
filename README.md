@@ -13,17 +13,17 @@ Connect Server.
 
 ## Installation
 
-To install the R package, run
+The package isn’t on CRAN. Install it from GitHub with
 
 ``` r
-install.packages("audit.connect")
+remotes::install_github("jumpingrivers/audit.connect")
 ```
 
 For python based deployment, the python package, `rsconnect-python` is
 required
 
 ``` bash
-pip install rsconnect-python
+uv pip install rsconnect-python
 ```
 
 ## Usage
@@ -32,12 +32,35 @@ Running the test is straightforward
 
 ``` r
 library("audit.connect")
-check(server = "https://www.connect.server.name/",
-      token = "API_TOKEN")
+check(server = "https://www.connect.server.name/", token = "API_TOKEN")
 ```
 
 Alternatively, you can set environmental variables, `CONNECT_SERVER` and
 `CONNECT_API_KEY` in your `.Renviron` file.
+
+## Connect Package Pollution
+
+If you are running this package on a machine you normally use to deploy
+to Connect, then this isn’t an issue - you can skip the next part.
+
+**If** you are using a machine where you are deploying to Connect for
+the first time, then read one\!
+
+Connect package pollution occurs when
+
+  - we use package manager binaries, **and**
+  - the OS on Connect differs to the OS on the deployment machine.
+
+If you aren’t using binaries or the OS is the same, then you won’t have
+any issue. If you want to be sure, we can use {renv}
+
+``` r
+# Ensure we don't use the existing renv cache
+fs::dir_delete(renv::paths$cache())
+# Use the slow installation method
+renv::init(repo = "https://cloud.r-project.org/")
+renv::install("remotes")
+```
 
 ## Config file
 
@@ -66,8 +89,8 @@ check_example = R6::R6Class(
   # This runs the test, detects errors, and logs the result
   public = list(
     #' @description Runs a UAT check
-    check = function(account = NULL) {
-      private$checker(example_test())
+    check = function(debug_level) {
+      private$checker(example_test(), debug_level)
       return(invisible(NULL))
     }
   ),
