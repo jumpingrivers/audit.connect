@@ -20,5 +20,5 @@ rsconnect/
 ^\.github$
 ^[.]?air[.]toml$
 ^\.vscode$
-.venv/
-.claude
+(^|/)\.venv$
+^\.claude$
