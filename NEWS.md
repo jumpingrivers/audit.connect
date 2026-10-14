@@ -1,3 +1,9 @@
+# audit.connect 0.7.13
+
+## Bug fixes and minor improvements
+
+* rsconnect-python is found when it isn't on R's `PATH`. The audit looks at `RSCONNECT_PATH`, then `PATH`, then `~/.local/bin` (#37).
+
 # audit.connect 0.7.12
 
 ## Bug fixes and minor improvements
