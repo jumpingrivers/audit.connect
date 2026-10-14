@@ -1,3 +1,9 @@
+# audit.connect 0.7.10
+
+## Bug fixes and minor improvements
+
+* Issues now use the Jumping Rivers organisation templates.
+
 # audit.connect 0.7.9 _2026-05-25_
   - chore: Update Python requirements
   - chore: Update manifest files to R 4.4.3
