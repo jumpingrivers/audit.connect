@@ -1,3 +1,9 @@
+# audit.connect 0.8.1
+
+## Bug fixes and minor improvements
+
+* The Flask and Streamlit deploy tests install on Python 3.14. Their `requirements.txt` files list only the packages each app imports, with lower bounds instead of exact pins, and the Streamlit app uses `st.cache_data` in place of the removed `st.cache` (#56).
+
 # audit.connect 0.8.0
 
 ## Breaking changes
