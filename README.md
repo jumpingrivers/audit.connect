@@ -26,6 +26,8 @@ required
 uv pip install rsconnect-python
 ```
 
+If `rsconnect` isn't on R's `PATH`, set `RSCONNECT_PATH` to its location.
+
 ## Usage
 
 Running the test is straightforward
