@@ -71,18 +71,19 @@ renv::install("remotes")
 Each check has a group and a name, which are the keys in the config
 file.
 
-| Group            | Check                                         | What it does                                                                          |
-| ---------------- | --------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `deploy_git`     | `public-github`                               | Deploys a Shiny app from a public GitHub repository, as Git-backed content            |
-| `deploy_pins`    | `rds`                                         | Writes `mtcars` as an RDS pin, reads it back unchanged, then deletes it               |
-| `deploy_plumber` | `api`                                         | Deploys a Plumber API and checks that its `/echo` endpoint responds                   |
-| `deploy_python`  | `flask`                                       | Deploys a Python Flask API with rsconnect-python (skipped if it isn’t installed)      |
-| `deploy_python`  | `streamlit`                                   | Deploys a Python Streamlit app with rsconnect-python (skipped if it isn’t installed)  |
-| `deploy_shiny`   | `basic_app`                                   | Deploys a basic Shiny app                                                             |
-| `render_quarto`  | `beamer`, `docx`, `html`, `observable`, `pdf` | Deploys a Quarto document to Connect and renders it on the server in that format      |
-| `render_quarto`  | `python`                                      | Deploys a Quarto document that uses the Jupyter engine, with rsconnect-python         |
-| `render_quarto`  | `rsvg_convert`                                | Deploys a Quarto PDF containing an SVG image, which needs rsvg-convert on Connect     |
-| `render_rmd`     | `html`, `pdf`, `word`                         | Deploys an R Markdown document to Connect and renders it on the server in that format |
+| Group            | Check                                         | What it does                                                                                 |
+| ---------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `deploy_git`     | `public-github`                               | Deploys a Shiny app from a public GitHub repository, as Git-backed content                   |
+| `deploy_pins`    | `rds`                                         | Writes `mtcars` as an RDS pin, reads it back unchanged, then deletes it                      |
+| `deploy_plumber` | `api`                                         | Deploys a Plumber API and checks that its `/echo` endpoint responds                          |
+| `deploy_python`  | `flask`                                       | Deploys a Python Flask API with rsconnect-python (skipped if it isn’t installed)             |
+| `deploy_python`  | `streamlit`                                   | Deploys a Python Streamlit app with rsconnect-python (skipped if it isn’t installed)         |
+| `deploy_python`  | `voila`                                       | Deploys Posit’s Voila example notebook with rsconnect-python (skipped if it isn’t installed) |
+| `deploy_shiny`   | `basic_app`                                   | Deploys a basic Shiny app                                                                    |
+| `render_quarto`  | `beamer`, `docx`, `html`, `observable`, `pdf` | Deploys a Quarto document to Connect and renders it on the server in that format             |
+| `render_quarto`  | `python`                                      | Deploys a Quarto document that uses the Jupyter engine, with rsconnect-python                |
+| `render_quarto`  | `rsvg_convert`                                | Deploys a Quarto PDF containing an SVG image, which needs rsvg-convert on Connect            |
+| `render_rmd`     | `html`, `pdf`, `word`                         | Deploys an R Markdown document to Connect and renders it on the server in that format        |
 
 `check()` also reports the server details, the Connect version and the
 system libraries R packages need, but these aren’t configurable checks.

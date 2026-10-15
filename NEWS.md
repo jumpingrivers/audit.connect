@@ -1,3 +1,13 @@
+# audit.connect 0.8.5
+
+## New features
+
+* `check_deploy_python_voila` deploys Posit's "Secure Hashes with Voilà" example notebook with rsconnect-python (#44).
+
+## Bug fixes and minor improvements
+
+* Python deploys let Connect choose any Python 3.10 or later, instead of asking for the auditor's own version, which the server may not have. Requires audit.base 0.7.2 for the Quarto Python check.
+
 # audit.connect 0.8.4
 
 ## Bug fixes and minor improvements

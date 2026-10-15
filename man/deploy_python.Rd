@@ -6,15 +6,15 @@
 \usage{
 deploy_python(
   python_dir,
-  python_files = c("app.py", "index.qmd"),
-  rsconnect_type = c("api", "streamlit", "quarto"),
+  python_files = c("app.py", "index.qmd", "hash.ipynb"),
+  rsconnect_type = c("api", "streamlit", "quarto", "voila"),
   debug_level = debug_level
 )
 }
 \arguments{
 \item{python_dir}{Location of python deployment files}
 
-\item{python_files}{Either an app or a qmd file}
+\item{python_files}{An app, a qmd file or a notebook}
 
 \item{rsconnect_type}{Type of deployment}
 
@@ -25,13 +25,13 @@ Deploy Python output
 }
 \details{
 Python deploy function
-All python content must have a requirements.txt file and either a app.py or index.qmd.
-\code{index.qmd} is for quarto only. General idea is to
+All python content must have a requirements.txt file and either a app.py, index.qmd or
+hash.ipynb. \code{index.qmd} is for quarto only, and \code{hash.ipynb} for voila only.
+General idea is to
 \itemize{
 \item copy dir of contents to R_TMP_DIR
 \item Use the python interface to deploy
-\item Use the python interface to grab the guid
-\item Clean up.
+\item Clean up, finding the content on Connect by its title.
 @noRd
 }
 }
