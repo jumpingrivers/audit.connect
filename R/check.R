@@ -27,6 +27,7 @@ check = function(server = NULL, token = NULL, dir = ".", debug_level = 0:2) {
     debug_level = debug_level
   )
   check_list$sys_deps = check_sys_deps(debug_level = debug_level)
+  check_list$timezone = check_connect_timezone()
   check_list$versions = summarise_versions(get_server(), get_token())
 
   # check_list$feature_usage = summarise_feature_usage(get_server(), get_token()) #nolint
