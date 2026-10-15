@@ -15,3 +15,21 @@ test_that("Check Manifest files", {
   }
 }
 )
+
+# Connect rejects a bundle whose files don't match the manifest checksums
+test_that("Manifest checksums match their files", {
+  pkg_files = system.file(package = "audit.connect", mustWork = TRUE)
+  manifests = list.files(
+    pkg_files,
+    recursive = TRUE,
+    pattern = "manifest\\.json$",
+    full.names = TRUE
+  )
+  for (manifest_path in manifests) {
+    manifest = jsonlite::read_json(manifest_path)
+    paths = file.path(dirname(manifest_path), names(manifest$files))
+    has_file = file.exists(paths)
+    expected = purrr::map_chr(manifest$files[has_file], "checksum")
+    expect_equal(unname(tools::md5sum(paths[has_file])), unname(expected), label = manifest_path)
+  }
+})

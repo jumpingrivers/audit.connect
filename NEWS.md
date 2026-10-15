@@ -1,3 +1,10 @@
+# audit.connect 0.8.2
+
+## Bug fixes and minor improvements
+
+* The system dependency check reads `/etc/os-release` to detect Red Hat and CentOS, so other Linux distributions are reported as unsupported rather than treated as Red Hat (#55).
+* A test checks that every bundled `manifest.json` checksum matches its file.
+
 # audit.connect 0.8.1
 
 ## Bug fixes and minor improvements

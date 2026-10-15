@@ -10,7 +10,7 @@ function() {
   os_release = readLines("/etc/os-release")
   if (any(grepl("[u|U]buntu", os_release))) {
     libs = system2("apt", args = c("list", "--installed"), stdout = TRUE)
-  } else if (any(grepl("[r|R]ed [h|Hat]", "Red Hat"))) {
+  } else if (any(grepl("red hat|centos", os_release, ignore.case = TRUE))) {
     libs = system2("yum", args = c("list", "installed"), stdout = TRUE)
   } else {
     os_release = libs = NA
