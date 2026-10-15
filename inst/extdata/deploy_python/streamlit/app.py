@@ -11,7 +11,7 @@ import pydeck as pdk
 st.title("California House Prices")
 
 # Load our data
-@st.cache  # cache the data so it isn't reloaded every time
+@st.cache_data  # cache the data so it isn't reloaded every time
 def load_data():
     housing = fetch_california_housing()
     data = pd.DataFrame(housing.data, columns=housing.feature_names)
