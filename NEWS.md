@@ -1,3 +1,9 @@
+# audit.connect 0.8.3
+
+## New features
+
+* `check()` reports whether R on the Connect server can determine its timezone. The system dependency endpoint reads it on Connect, and the report includes the result (#54).
+
 # audit.connect 0.8.2
 
 ## Bug fixes and minor improvements
