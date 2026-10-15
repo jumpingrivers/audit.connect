@@ -21,13 +21,14 @@ deploy_python = function(
   suppress = get_suppress(debug_level)
   rsconnect_type = match.arg(rsconnect_type)
   tmp_dir = file.path(tempdir(), paste0("UAT_python-", rsconnect_type))
-  on.exit(cleanup_python(tmp_dir, debug_level))
+  title = paste("UAT: Python", rsconnect_type, Sys.Date(), sep = "-")
+  # Connect creates the content before the deploy can fail, so clean up by title
+  on.exit(cleanup_python(tmp_dir, debug_level, title = title))
   dir.create(tmp_dir, showWarnings = FALSE)
 
   # All py deploys have req.txt
   python_files = c(match.arg(python_files), "requirements.txt")
   file.copy(file.path(python_dir, python_files), tmp_dir)
-  title = paste("UAT: Python", rsconnect_type, Sys.Date(), sep = "-")
   has_deployed = suppress(
     processx::run(
       get_rsconnect_path(),
@@ -46,29 +47,10 @@ deploy_python = function(
       wd = tmp_dir
     )
   )
-
-  content = processx::run(
-    get_rsconnect_path(),
-    args = c(
-      "content",
-      "search",
-      "--server",
-      get_server(),
-      "--api-key",
-      get_token(),
-      "--title-contains",
-      title
-    ),
-    wd = tmp_dir
-  )
-  guid = jsonlite::fromJSON(content$stdout)$guid
-
-  # Redoing on.exit to clean-up content
-  on.exit(cleanup_python(tmp_dir, debug_level, guid = guid))
   invisible(has_deployed$status == 0)
 }
 
-cleanup_python = function(tmp_dir, debug_level, guid = NULL) {
+cleanup_python = function(tmp_dir, debug_level, title) {
   if (debug_level == 2) {
     return(NULL)
   }
@@ -82,6 +64,8 @@ cleanup_python = function(tmp_dir, debug_level, guid = NULL) {
       api_key = get_token()
     )
   )
+  content = suppress(connectapi::get_content(con))
+  guid = content$guid[content$title %in% title]
   purrr::map(
     guid,
     ~ {
