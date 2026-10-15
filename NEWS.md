@@ -1,3 +1,9 @@
+# audit.connect 0.8.4
+
+## Bug fixes and minor improvements
+
+* A failed Python deploy test no longer leaves empty content on Connect. The cleanup finds the content by title, whether or not the deploy succeeded (#60).
+
 # audit.connect 0.8.3
 
 ## New features
