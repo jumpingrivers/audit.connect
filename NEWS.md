@@ -1,3 +1,9 @@
+# audit.connect 0.7.15
+
+## Bug fixes and minor improvements
+
+* `air.toml` was empty, so air rewrote `=` to `<-`. It now sets `=` assignment and 100-character lines.
+
 # audit.connect 0.7.14
 
 ## Bug fixes and minor improvements
