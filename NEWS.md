@@ -1,3 +1,9 @@
+# audit.connect 0.7.14
+
+## Bug fixes and minor improvements
+
+* Each check's description says what it deploys and when it passes, and the README lists the checks with their config keys (#18).
+
 # audit.connect 0.7.13
 
 ## Bug fixes and minor improvements

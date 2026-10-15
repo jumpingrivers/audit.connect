@@ -17,6 +17,6 @@ check_deploy_pins_rds = R6::R6Class(
     context = "Read, write & delete pins",
     short = "rds",
     group = "deploy_pins",
-    long = "Deploy pin and download pins"
+    long = "Writes `mtcars` as an RDS pin, reads it back unchanged, then deletes it"
   )
 )
