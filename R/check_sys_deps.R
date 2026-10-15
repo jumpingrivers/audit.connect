@@ -6,6 +6,7 @@
 #' @noRd
 check_sys_deps = function(debug_level = 0:2) {
   debug_level = get_debug_level(debug_level)
+  .connect$timezone = NULL
 
   app_dir = file.path(tempdir(), "pkg")
   pkg_dir = system.file(
@@ -34,6 +35,8 @@ check_sys_deps = function(debug_level = 0:2) {
   auth_key = paste0("Key ", get_token())
   resp = httr::GET(url, httr::add_headers(Authorization = auth_key))
   rtn = jsonlite::parse_json(rawToChar(resp$content))
+  # Read by check_connect_timezone(), as the endpoint is the only code that runs on Connect
+  .connect$timezone = unlist(rtn$timezone)
 
   clean_libs = audit.base::clean_libs(rtn$os_release, rtn$libs)
   audit.base::check_sys_deps(rtn$os_release, clean_libs, debug_level)
@@ -63,4 +66,20 @@ get_deploy_url = function(content) {
     stop("Missing deploy url")
   }
   url
+}
+
+# TRUE if the Connect server's timezone is set, FALSE if not, NA if we couldn't find out
+check_connect_timezone = function() {
+  cli::cli_h2("Timezone")
+  timezone = .connect[["timezone"]]
+  if (is.null(timezone)) {
+    cli::cli_alert_info("Couldn't read the Connect server's timezone")
+    return(invisible(NA))
+  }
+  if (nzchar(timezone)) {
+    cli::cli_alert_success("Timezone set: {timezone}")
+    return(invisible(TRUE))
+  }
+  cli::cli_alert_danger("Timezone not set on the Connect server")
+  invisible(FALSE)
 }

@@ -4,7 +4,7 @@
 # Commented out. Don't need plumber to deploy
 library("plumber")
 #* @apiTitle Installed Sys Deps
-#* @apiDescription Returns the OS and the libraries installed on the connect server
+#* @apiDescription Returns the OS, installed libraries and timezone of the connect server
 #* @get /installed
 function() {
   os_release = readLines("/etc/os-release")
@@ -16,6 +16,13 @@ function() {
     os_release = libs = NA
   }
 
-  rtn = list(os_release = os_release, libs = libs)
+  # Sys.timezone() warns when timedatectl fails, but can still find the timezone.
+  # Send "" rather than NA, which doesn't survive the trip through JSON.
+  timezone = suppressWarnings(Sys.timezone())
+  if (is.na(timezone)) {
+    timezone = ""
+  }
+
+  rtn = list(os_release = os_release, libs = libs, timezone = timezone)
   rtn
 }
