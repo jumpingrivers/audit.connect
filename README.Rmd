@@ -84,6 +84,7 @@ a name, which are the keys in the config file.
 | `deploy_plumber` | `api` | Deploys a Plumber API and checks that its `/echo` endpoint responds |
 | `deploy_python` | `flask` | Deploys a Python Flask API with rsconnect-python (skipped if it isn't installed) |
 | `deploy_python` | `streamlit` | Deploys a Python Streamlit app with rsconnect-python (skipped if it isn't installed) |
+| `deploy_python` | `voila` | Deploys Posit's Voila example notebook with rsconnect-python (skipped if it isn't installed) |
 | `deploy_shiny` | `basic_app` | Deploys a basic Shiny app |
 | `render_quarto` | `beamer`, `docx`, `html`, `observable`, `pdf` | Deploys a Quarto document to Connect and renders it on the server in that format |
 | `render_quarto` | `python` | Deploys a Quarto document that uses the Jupyter engine, with rsconnect-python |

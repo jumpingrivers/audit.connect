@@ -1,21 +1,21 @@
 #' Deploy Python output
 #'
 #' @param python_dir Location of python deployment files
-#' @param python_files Either an app or a qmd file
+#' @param python_files An app, a qmd file or a notebook
 #' @param rsconnect_type Type of deployment
 #' @inheritParams check
 #' @details Python deploy function
-#' All python content must have a requirements.txt file and either a app.py or index.qmd.
-#' `index.qmd` is for quarto only. General idea is to
+#' All python content must have a requirements.txt file and either a app.py, index.qmd or
+#' hash.ipynb. `index.qmd` is for quarto only, and `hash.ipynb` for voila only.
+#' General idea is to
 #'  * copy dir of contents to R_TMP_DIR
 #'  * Use the python interface to deploy
-#'  * Use the python interface to grab the guid
-#'  * Clean up.
+#'  * Clean up, finding the content on Connect by its title.
 #'  @noRd
 deploy_python = function(
   python_dir,
-  python_files = c("app.py", "index.qmd"),
-  rsconnect_type = c("api", "streamlit", "quarto"),
+  python_files = c("app.py", "index.qmd", "hash.ipynb"),
+  rsconnect_type = c("api", "streamlit", "quarto", "voila"),
   debug_level = debug_level
 ) {
   suppress = get_suppress(debug_level)
@@ -29,13 +29,20 @@ deploy_python = function(
   # All py deploys have req.txt
   python_files = c(match.arg(python_files), "requirements.txt")
   file.copy(file.path(python_dir, python_files), tmp_dir)
+  # Without a version constraint, rsconnect asks Connect for the auditor's own Python,
+  # which the server may not have. This lets Connect pick any Python 3.10 or later.
+  writeLines(
+    c("[project]", 'name = "uat-python"', 'version = "0.0.0"', 'requires-python = ">=3.10"'),
+    file.path(tmp_dir, "pyproject.toml")
+  )
   has_deployed = suppress(
     processx::run(
       get_rsconnect_path(),
       args = c(
         "deploy",
         rsconnect_type,
-        ifelse("index.qmd" %in% python_files, "index.qmd", "."),
+        # Quarto and Voila deploy a document; the apps deploy the directory
+        if (grepl("\\.(qmd|ipynb)$", python_files[1])) python_files[1] else ".",
         "--server",
         get_server(),
         "--api-key",
