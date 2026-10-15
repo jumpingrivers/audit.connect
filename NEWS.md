@@ -1,3 +1,9 @@
+# audit.connect 0.7.12
+
+## Bug fixes and minor improvements
+
+* The Plumber API and system dependency test deployments are deleted from Connect after a run (#31).
+
 # audit.connect 0.7.11
 
 ## Bug fixes and minor improvements

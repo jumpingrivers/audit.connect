@@ -30,7 +30,9 @@ cleanup_plumber = function(bundle_dir, content, debug_level) {
   if (debug_level == 2) {
     return(NULL)
   }
-  if (exists("content") && "Connect" %in% class(content)) {
+  # content is missing when the deploy failed, and a try-error in check_sys_deps()
+  is_content = tryCatch(inherits(content, "Content"), error = function(e) FALSE)
+  if (is_content) {
     suppress(connectapi::content_delete(content, force = TRUE))
   }
   fs::dir_delete(bundle_dir)
