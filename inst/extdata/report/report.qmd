@@ -54,18 +54,18 @@ Mozilla. Where the heading has not been set, we provide links to documentation.
 ```{r}
 #| echo: false
 headers = audit.base::get_quarto_server_header(out)
-gt::gt(headers) %>%
-  gt::cols_label("header" = "Header", message = "Information") %>%
-  gt::cols_align("left") %>%
-  gt::cols_hide("status") %>%
+gt::gt(headers) |>
+  gt::cols_label("header" = "Header", message = "Information") |>
+  gt::cols_align("left") |>
+  gt::cols_hide("status") |>
   gt::tab_row_group(
     label = "Looks good",
     rows = which(headers$status == "OK")
-  ) %>%
+  ) |>
   gt::tab_row_group(
     label = "To investigate",
     rows = which(headers$status != "OK")
-  ) %>%
+  ) |>
   gtExtras::gt_merge_stack(
     col1 = "message",
     col2 = "value",
@@ -91,9 +91,9 @@ This Connect server is licenced for `r user_list$user_account_limit` users.
 ```{r}
 #| echo: false
 old_users = audit.connect::get_quarto_old_users(out)
-gt::gt(old_users) %>%
-  gt::cols_label("last_log_in" = "Last Log In", "email" = "User Email") %>%
-  gt::cols_align("left") %>%
+gt::gt(old_users) |>
+  gt::cols_label("last_log_in" = "Last Log In", "email" = "User Email") |>
+  gt::cols_align("left") |>
   gt::tab_style(
     style = gt::cell_text(v_align = "top"),
     locations = gt::cells_body(columns = last_log_in)
@@ -136,10 +136,10 @@ There are `r nrow(sys_deps)` R packages that can't be installed, due to
 
 ```{r}
 #| echo: false
-gt::gt(sys_deps) %>%
-  gt::cols_label("sys_libs" = "System Library", "pkg" = "R Package") %>%
-  gt::cols_align("left") %>%
-  gt::cols_hide("n") %>%
+gt::gt(sys_deps) |>
+  gt::cols_label("sys_libs" = "System Library", "pkg" = "R Package") |>
+  gt::cols_align("left") |>
+  gt::cols_hide("n") |>
   gt::tab_style(
     style = gt::cell_text(v_align = "top"),
     locations = gt::cells_body(columns = sys_libs)
@@ -156,23 +156,23 @@ We've highlighted any older versions.
 ```{r}
 #| echo: false
 software = audit.base::get_quarto_software_versions(out)
-gt::gt(software) %>%
+gt::gt(software) |>
   gt::cols_label(
     "version" = "Latest version",
     "installed_version" = "Installed version"
-  ) %>%
-  gt::cols_align("right") %>%
-  gt::cols_hide(c("software", "upgrade")) %>%
+  ) |>
+  gt::cols_align("right") |>
+  gt::cols_hide(c("software", "upgrade")) |>
 
-  gt::tab_row_group(label = "R", rows = which(.data$software == "r")) %>%
+  gt::tab_row_group(label = "R", rows = which(.data$software == "r")) |>
   gt::tab_row_group(
     label = "Python",
     rows = which(.data$software == "python")
-  ) %>%
+  ) |>
   gt::tab_row_group(
     label = "Quarto",
     rows = which(.data$software == "quarto")
-  ) %>%
+  ) |>
 
   gtExtras::gt_highlight_rows(
     rows = which(.data$upgrade),
@@ -189,12 +189,12 @@ The test determines if the application has been successful launched.
 ```{r}
 #| echo: false
 deploy = audit.base::get_quarto_deploy(out)
-gt::gt(deploy) %>%
-  gt::cols_label("context" = "Deployment", "time_taken" = "Time (secs)") %>%
-  gt::cols_align("right", "time_taken") %>%
-  gt::cols_hide(c("passed", "group", "short")) %>%
-  gt::tab_row_group(label = "Failed", rows = which(!deploy$passed)) %>%
-  gt::tab_row_group(label = "Looks good", rows = which(deploy$passed)) %>%
+gt::gt(deploy) |>
+  gt::cols_label("context" = "Deployment", "time_taken" = "Time (secs)") |>
+  gt::cols_align("right", "time_taken") |>
+  gt::cols_hide(c("passed", "group", "short")) |>
+  gt::tab_row_group(label = "Failed", rows = which(!deploy$passed)) |>
+  gt::tab_row_group(label = "Looks good", rows = which(deploy$passed)) |>
   gtExtras::gt_merge_stack(
     col1 = "context",
     col2 = "type",

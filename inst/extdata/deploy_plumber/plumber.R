@@ -38,7 +38,7 @@ function(a, b) {
 # Programmatically alter your API
 #* @plumber
 function(pr) {
-  pr %>%
+  pr |>
     # Overwrite the default serializer to return unboxed JSON
     pr_set_serializer(serializer_unboxed_json())
 }
