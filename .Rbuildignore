@@ -24,3 +24,4 @@ rsconnect/
 ^\.claude$
 ^\.gitattributes$
 ^LICENSE\.md$
+^dev$
