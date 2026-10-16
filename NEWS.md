@@ -1,3 +1,9 @@
+# audit.connect 0.8.6
+
+## Bug fixes and minor improvements
+
+* `check()` says "CONNECT_API_KEY missing" when the key is unset, instead of "missing value where TRUE/FALSE needed" (#71).
+
 # audit.connect 0.8.5
 
 ## New features

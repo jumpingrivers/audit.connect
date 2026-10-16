@@ -1,7 +1,7 @@
 Type: Package
 Package: audit.connect
 Title: Posit Connect Health Check
-Version: 0.8.5
+Version: 0.8.6
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
 Description: Posit Connect Health Check. Deploys various content types to
@@ -32,6 +32,7 @@ Suggests:
     gtExtras,
     htmltools,
     testthat (>= 3.0.0),
+    withr,
     yaml
 Remotes:
     jumpingrivers/audit.base,
