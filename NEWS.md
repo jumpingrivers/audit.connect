@@ -1,3 +1,9 @@
+# audit.connect 0.8.7
+
+## Bug fixes and minor improvements
+
+* The tests that deploy to `CONNECT_SERVER` only run when `AUDIT_CONNECT_LIVE` is `true`, so `devtools::test()` no longer deploys to whichever server is set (#68).
+
 # audit.connect 0.8.6
 
 ## Bug fixes and minor improvements

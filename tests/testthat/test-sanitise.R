@@ -1,8 +1,9 @@
 describe("Checking sanitize function", {
-  testthat::skip_on_ci()
+  skip_if_not_live()
+  dir = withr::local_tempdir()
   # Skip report checks for speed
-  create_config(default = FALSE, type = "force")
-  rtn = suppressMessages(check())
+  create_config(dir = dir, default = FALSE, type = "force")
+  rtn = suppressMessages(check(dir = dir))
   sanitize_rtn = sanitise(rtn)
 
   it(
