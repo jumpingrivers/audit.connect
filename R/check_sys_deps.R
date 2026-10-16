@@ -6,6 +6,7 @@
 #' @noRd
 check_sys_deps = function(debug_level = 0:2) {
   debug_level = get_debug_level(debug_level)
+  suppress = get_suppress(debug_level)
   .connect$timezone = NULL
 
   app_dir = file.path(tempdir(), "pkg")
@@ -21,7 +22,12 @@ check_sys_deps = function(debug_level = 0:2) {
     setup_plumber_sys_deps_endpoint(app_dir, debug_level),
     silent = TRUE
   )
-  if ("try-error" %in% class(content)) {
+  # Poll here, so a failed build still leaves content for cleanup_plumber() to delete
+  built = content
+  if (!inherits(content, "try-error")) {
+    built = try(suppress(connectapi::poll_task(content)), silent = TRUE)
+  }
+  if (inherits(built, "try-error")) {
     cli::cli_alert_info("Can't deploy plumber end point - odd?")
     cli::cli_alert_info("Check the logs on {get_server()}")
     cli::cli_alert_info(
@@ -51,9 +57,7 @@ setup_plumber_sys_deps_endpoint = function(app_dir, debug_level) {
   ))
   bundle = suppress(connectapi::bundle_dir(app_dir))
   name = paste("UAT_check_package-", Sys.Date(), sep = "_")
-  content = suppress(connectapi::deploy(client, bundle, name = name))
-  suppress(connectapi::poll_task(content))
-  content
+  suppress(connectapi::deploy(client, bundle, name = name))
 }
 
 # Extracting the URL differs on first deployment and subsequent deployments
