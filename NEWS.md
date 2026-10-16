@@ -1,3 +1,10 @@
+# audit.connect 0.8.11
+
+## Bug fixes and minor improvements
+
+* `check()` carries on when the system-library check can't run. An error from the endpoint, an unexpected reply or an unsupported OS gives a warning and `sys_deps = NA`, and the deployment checks still run (#63).
+* The sys-deps endpoint lists installed packages on Debian, Rocky Linux and AlmaLinux, as well as Ubuntu and RHEL. Requires audit.base 0.7.6 (#63).
+
 # audit.connect 0.8.10
 
 ## Bug fixes and minor improvements
