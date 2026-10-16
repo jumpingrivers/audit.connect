@@ -25,14 +25,14 @@ Imports:
     rlang,
     rsconnect (>= 1.10.0),
     stringr,
-    tibble
+    tibble,
+    withr
 Suggests:
     glue,
     gt,
     gtExtras,
     htmltools,
     testthat (>= 3.0.0),
-    withr,
     yaml
 Remotes:
     jumpingrivers/audit.base,

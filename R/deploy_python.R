@@ -43,15 +43,13 @@ deploy_python = function(
         rsconnect_type,
         # Quarto and Voila deploy a document; the apps deploy the directory
         if (grepl("\\.(qmd|ipynb)$", python_files[1])) python_files[1] else ".",
-        "--server",
-        get_server(),
-        "--api-key",
-        get_token(),
         "--new",
         "--title",
         title
       ),
-      wd = tmp_dir
+      wd = tmp_dir,
+      # Not as arguments, which other users on the machine can read with ps
+      env = c("current", CONNECT_SERVER = get_server(), CONNECT_API_KEY = get_token())
     )
   )
   invisible(has_deployed$status == 0)
