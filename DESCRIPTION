@@ -10,7 +10,7 @@ License: file LICENSE
 Depends:
     R (>= 4.1.0)
 Imports:
-    audit.base (>= 0.7.2),
+    audit.base (>= 0.7.6),
     cli,
     connectapi (>= 0.12.1),
     dplyr,

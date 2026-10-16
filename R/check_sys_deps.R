@@ -39,13 +39,33 @@ check_sys_deps = function(debug_level = 0:2) {
   # Ping endpoint
   url = paste0(get_deploy_url(content), "installed")
   auth_key = paste0("Key ", get_token())
-  resp = httr::GET(url, httr::add_headers(Authorization = auth_key))
-  rtn = jsonlite::parse_json(rawToChar(resp$content))
-  # Read by check_connect_timezone(), as the endpoint is the only code that runs on Connect
-  .connect$timezone = unlist(rtn$timezone)
-
-  clean_libs = audit.base::clean_libs(rtn$os_release, rtn$libs)
-  audit.base::check_sys_deps(rtn$os_release, clean_libs, debug_level)
+  resp = httr::GET(url, httr::add_headers(Authorization = auth_key), httr::timeout(120))
+  if (httr::http_error(resp)) {
+    cli::cli_warn(
+      "Can't check system libraries: the endpoint returned {httr::http_status(resp)$message}"
+    )
+    return(NA)
+  }
+  # An unsupported OS or an unexpected reply warns, so the deployment checks still run
+  tryCatch(
+    {
+      rtn = jsonlite::parse_json(rawToChar(resp$content))
+      # Read by check_connect_timezone(), as the endpoint is the only code that runs on Connect
+      .connect$timezone = unlist(rtn$timezone)
+      os_release = unlist(rtn$os_release)
+      libs = unlist(rtn$libs)
+      clean_libs = audit.base::clean_libs(os_release, libs)
+      # clean_libs() has warned that it can't read the package list
+      if (anyNA(clean_libs)) {
+        return(NA)
+      }
+      audit.base::check_sys_deps(os_release, clean_libs, debug_level)
+    },
+    error = function(e) {
+      cli::cli_warn(c("Can't check system libraries", "x" = conditionMessage(e)))
+      NA
+    }
+  )
 }
 
 setup_plumber_sys_deps_endpoint = function(app_dir, debug_level) {
