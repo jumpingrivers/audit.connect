@@ -81,3 +81,14 @@ cleanup_python = function(tmp_dir, debug_level, title) {
 
   invisible(NULL)
 }
+
+# Log the check as skipped, so the report lists it, when rsconnect-python is missing
+skip_without_rsconnect_python = function(check) {
+  if (!isFALSE(.connect$rsconnect_python)) {
+    return(FALSE)
+  }
+  cli::cli_alert_info("rsconnect-python missing. Skipping Python test.")
+  check$start_logger()
+  check$stop_logger(NA)
+  TRUE
+}
