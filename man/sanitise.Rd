@@ -10,5 +10,8 @@ sanitise(audit_connect_check)
 \item{audit_connect_check}{An object from \code{audit.connect::check()}}
 }
 \description{
-This function removes user-identifying data from an audit.connect object
+This function removes user-identifying data from an audit.connect object:
+the auditor's name, email, username and GUID, the same fields for every
+user, each user's GUID and URL, and the usernames of locked users who own
+content. Counts, roles and dates are kept, so the report still renders.
 }
