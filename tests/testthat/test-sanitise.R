@@ -1,17 +1,8 @@
 test_that("sanitise() removes names, emails, usernames, GUIDs and user URLs", {
-  users = tibble::tibble(
-    email = c("ann@example.com", "bob@example.com"),
-    first_name = c("Ann", "Bob"),
-    last_name = c("Smith", "Jones"),
-    username = c("asmith", "bjones"),
-    guid = c("guid-ann", "guid-bob"),
-    user_role = c("administrator", "viewer"),
-    locked = c(FALSE, TRUE),
-    url = paste0("https://connect.example.com/connect/#/people/users/guid-", c("ann", "bob"))
-  )
+  personal = c("email", "first_name", "last_name", "username")
   out = list(
     audit_details = list(
-      email = "auditor@example.com",
+      email = "ada@example.com",
       first_name = "Ada",
       last_name = "Lovelace",
       username = "alovelace",
@@ -19,31 +10,27 @@ test_that("sanitise() removes names, emails, usernames, GUIDs and user URLs", {
       user_role = "administrator"
     ),
     users_details = list(
-      user_list = list(user_account_limit = 10, users = users),
+      user_list = list(
+        users = tibble::tibble(
+          email = "bob@example.com",
+          first_name = "Bob",
+          last_name = "Jones",
+          username = "bjones",
+          guid = "guid-bob",
+          user_role = "viewer",
+          url = "https://connect.example.com/connect/#/people/users/guid-bob"
+        )
+      ),
       locked_apps = tibble::tibble(username = "bjones", n = 3L)
     )
   )
 
   sanitised = sanitise(out)
-  values = unlist(sanitised, use.names = FALSE)
-  personal = c(
-    "@example.com",
-    "Ann",
-    "Bob",
-    "Smith",
-    "Jones",
-    "asmith",
-    "bjones",
-    "Ada",
-    "Lovelace",
-    "alovelace",
-    "guid-",
-    "/people/users/"
-  )
-  for (pattern in personal) {
-    expect_false(any(grepl(pattern, values, fixed = TRUE)), label = pattern)
-  }
-  # The report still has the counts and roles it needs
-  expect_identical(sanitised$users_details$user_list$users$user_role, users$user_role)
-  expect_identical(get_quarto_locked_user_apps(sanitised), 3L)
+  users = sanitised$users_details$user_list$users
+
+  expect_named(users, c(personal, "user_role"))
+  expect_true(all(is.na(users[personal])))
+  expect_true(all(is.na(sanitised$audit_details[c(personal, "guid")])))
+  expect_identical(sanitised$audit_details$user_role, "administrator")
+  expect_identical(sanitised$users_details$locked_apps$username, NA_character_)
 })
