@@ -1,3 +1,10 @@
+# audit.connect 0.8.15
+
+## Bug fixes and minor improvements
+
+* `dev/update_manifests.R` regenerates every plumber manifest in one call, under R 4.4.3 with packages built from CRAN source.
+* The plumber manifests list only `plumber.R` and no longer pin R `~=4.4.0`.
+
 # audit.connect 0.8.14
 
 ## Bug fixes and minor improvements
