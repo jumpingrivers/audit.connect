@@ -43,15 +43,13 @@ deploy_python = function(
         rsconnect_type,
         # Quarto and Voila deploy a document; the apps deploy the directory
         if (grepl("\\.(qmd|ipynb)$", python_files[1])) python_files[1] else ".",
-        "--server",
-        get_server(),
-        "--api-key",
-        get_token(),
         "--new",
         "--title",
         title
       ),
-      wd = tmp_dir
+      wd = tmp_dir,
+      # Not as arguments, which other users on the machine can read with ps
+      env = c("current", CONNECT_SERVER = get_server(), CONNECT_API_KEY = get_token())
     )
   )
   invisible(has_deployed$status == 0)
@@ -82,4 +80,15 @@ cleanup_python = function(tmp_dir, debug_level, title) {
   )
 
   invisible(NULL)
+}
+
+# Log the check as skipped, so the report lists it, when rsconnect-python is missing
+skip_without_rsconnect_python = function(check) {
+  if (!isFALSE(.connect$rsconnect_python)) {
+    return(FALSE)
+  }
+  cli::cli_alert_info("rsconnect-python missing. Skipping Python test.")
+  check$start_logger()
+  check$stop_logger(NA)
+  TRUE
 }

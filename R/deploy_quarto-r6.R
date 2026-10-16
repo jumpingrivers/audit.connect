@@ -64,8 +64,8 @@ check_deploy_quarto_python = R6::R6Class(
     #' @param account Connect username
     #' @param debug_level See check() for details
     check = function(debug_level, account = NULL) {
-      if (is.null(account)) {
-        account = get_username()
+      if (skip_without_rsconnect_python(self)) {
+        return(invisible(NULL))
       }
       python_dir = system.file(
         "extdata",

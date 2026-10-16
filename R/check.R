@@ -17,6 +17,8 @@
 #' @export
 check = function(server = NULL, token = NULL, dir = ".", debug_level = 0:2) {
   debug_level = get_debug_level(force(debug_level))
+  # rsconnect saves the account, API key included, in its config folder; use a temporary one
+  withr::local_envvar(R_USER_CONFIG_DIR = withr::local_tempdir())
   check_list = list()
   check_list$setup = summarise_setup(server, token)
   check_list$audit_details = audit_details(get_server(), get_token())

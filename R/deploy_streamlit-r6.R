@@ -9,8 +9,7 @@ check_deploy_python_streamlit = R6::R6Class(
     #' @description Checks deployment of Python Streamlit app
     #' @param debug_level See check() for details
     check = function(debug_level) {
-      if (isFALSE(.connect$rsconnect_python)) {
-        cli::cli_alert_info("rsconnect-python missing. Skipping Python test.")
+      if (skip_without_rsconnect_python(self)) {
         return(invisible(NULL))
       }
       python_dir = system.file(
