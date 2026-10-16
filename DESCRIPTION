@@ -1,12 +1,12 @@
 Type: Package
 Package: audit.connect
 Title: Posit Connect Health Check
-Version: 0.8.12
+Version: 0.8.13
 Authors@R:
     person("Jumping", "Rivers", , "info@jumpingrivers.com", role = c("aut", "cre"))
 Description: Posit Connect Health Check. Deploys various content types to
     assess whether Connect is functioning correctly.
-License: file LICENSE
+License: MIT + file LICENSE
 Depends:
     R (>= 4.1.0)
 Imports:
