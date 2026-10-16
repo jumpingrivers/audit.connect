@@ -1,3 +1,9 @@
+# audit.connect 0.8.13
+
+## Bug fixes and minor improvements
+
+* `sanitise()` also removes the auditor's name, email and username, every user's GUID and URL, and the usernames of locked users who own content (#69).
+
 # audit.connect 0.8.12
 
 ## Bug fixes and minor improvements
