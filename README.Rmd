@@ -139,3 +139,13 @@ example_test = function() {
   return(TRUE)
 }
 ```
+
+## Running the tests
+
+`test-check.R` and `test-sanitise.R` deploy test content to the server in `CONNECT_SERVER`, so they
+are skipped unless `AUDIT_CONNECT_LIVE` is `true`:
+
+```r
+Sys.setenv(AUDIT_CONNECT_LIVE = "true")
+devtools::test()
+```

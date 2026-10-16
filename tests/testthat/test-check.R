@@ -1,9 +1,10 @@
 test_that("High level test", {
-  testthat::skip_on_ci()
-  create_config(default = TRUE)
-  expect_error(check(server = "aaa.bbb"))
+  skip_if_not_live()
+  dir = withr::local_tempdir()
+  create_config(dir = dir, default = TRUE)
+  expect_error(check(server = "aaa.bbb", dir = dir))
   # Run standard check
-  rtn = suppressMessages(check())
+  rtn = suppressMessages(check(dir = dir))
 
   expect_true(is.list(rtn))
   check_names = c(
