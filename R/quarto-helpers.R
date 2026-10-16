@@ -55,15 +55,6 @@ get_quarto_user_roles = function(out) {
 #' @rdname get_quarto_old_users
 #' @export
 get_quarto_locked_user_apps = function(out) {
-  apps = out$users_details$apps
-  if (is.na(apps)) {
-    return(0L)
-  }
-
-  app_creators = purrr::map_df(
-    apps,
-    ~ dplyr::tibble(owner = .x[["owner_username"]], locked = .x$owner_locked)
-  )
-  locked_users = dplyr::filter(app_creators, .data$locked) # nolint: object_usage_linter
-  nrow(locked_users)
+  # NULL on an evaluation licence, which skips the user audit
+  sum(out$users_details$locked_apps$n)
 }

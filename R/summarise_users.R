@@ -16,12 +16,12 @@ summarise_users = function(server, token, debug_level) {
   # XXX: I don't think this is right
   # Evaluation copies should have apps???
   if (is_evaluation(settings)) {
-    apps = NA
+    locked_apps = NULL
   } else {
     print_audit_users(user_list)
-    apps = print_audit_user_apps(client, debug_level)
+    locked_apps = print_audit_user_apps(client, debug_level)
   }
-  list(user_list = user_list, apps = apps)
+  list(user_list = user_list, locked_apps = locked_apps)
 }
 
 is_evaluation = function(settings) {
@@ -80,5 +80,5 @@ print_audit_user_apps = function(client, debug_level) {
       "{row$n} locked application{?s} owned by {cli::style_italic(row$username)}"
     )
   }
-  content
+  locked_content
 }
