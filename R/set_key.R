@@ -1,5 +1,9 @@
+is_missing = function(value) {
+  length(value) != 1L || is.na(value) || !nzchar(value)
+}
+
 set_key = function(name, value) {
-  if (length(value) != 1L || is.na(value) || !nzchar(value)) {
+  if (is_missing(value)) {
     error_msg = paste0("Missing ", name)
     stop(error_msg, call. = FALSE)
   }
