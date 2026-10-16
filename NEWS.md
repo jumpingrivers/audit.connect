@@ -1,3 +1,9 @@
+# audit.connect 0.8.12
+
+## Bug fixes and minor improvements
+
+* `summarise_versions()` compares the server's R, Python and Quarto versions with the latest releases online, as audit.workbench does, not with the list bundled in audit.base.
+
 # audit.connect 0.8.11
 
 ## Bug fixes and minor improvements
