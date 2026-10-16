@@ -1,3 +1,14 @@
+# audit.connect 0.8.9
+
+## Bug fixes and minor improvements
+
+* Any exported class whose name starts with `check_` is run as a check, as the README says. Before, only `check_deploy*` classes were (#72).
+* `check()` prints the user summary once (#72).
+* The Git-backed check deploys with its own title, so its content is deleted afterwards (#72).
+* Python clean-up deletes only content owned by the auditor (#72).
+* The report's old-users table lists users who have never logged in. Users inactive for exactly 6 or 12 months are no longer left out (#72).
+* The README's renv advice uses a temporary cache, instead of deleting the user's whole renv cache (#72).
+
 # audit.connect 0.8.8
 
 ## Bug fixes and minor improvements
