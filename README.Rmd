@@ -149,3 +149,18 @@ are skipped unless `AUDIT_CONNECT_LIVE` is `true`:
 Sys.setenv(AUDIT_CONNECT_LIVE = "true")
 devtools::test()
 ```
+
+## Updating the manifests
+
+The plumber test bundles in `inst/extdata/` each ship a `manifest.json`. After changing a
+bundle, or to pick up newer package versions, regenerate them all at once:
+
+```r
+source("dev/update_manifests.R")
+update_manifests()
+```
+
+This runs `rsconnect::writeManifest()` under the R in `/opt/R/4.4.3`, because the manifest
+records that R version and Connect needs a matching one. Pass `r_version` to use another.
+Packages are built from CRAN source in an empty library, so the manifests never point at
+binaries for a different OS. Expect it to take several minutes.
