@@ -55,10 +55,11 @@ check_server_accessibility = function(server) {
 }
 
 check_api_key = function(token) {
-  value = set_key("connect_api_key", get_value("CONNECT_API_KEY", token))
-  if (is.na(value)) {
+  value = get_value("CONNECT_API_KEY", token)
+  if (is.na(value) || !nzchar(value)) {
     cli::cli_abort("CONNECT_API_KEY missing")
   }
+  set_key("connect_api_key", value)
   cli::cli_alert_info("API KEY: {cli::col_green(cli::symbol$tick)}")
   invisible(TRUE)
 }

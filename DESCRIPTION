@@ -32,6 +32,7 @@ Suggests:
     gtExtras,
     htmltools,
     testthat (>= 3.0.0),
+    withr,
     yaml
 Remotes:
     jumpingrivers/audit.base,
