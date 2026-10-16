@@ -61,7 +61,6 @@ cleanup_python = function(tmp_dir, debug_level, title) {
   }
   suppress = get_suppress(debug_level)
   fs::dir_delete(tmp_dir)
-  # map in case we make multiple mistakes
   # fmt: skip
   con = suppress( # nolint
     connectapi::connect(
@@ -69,9 +68,16 @@ cleanup_python = function(tmp_dir, debug_level, title) {
       api_key = get_token()
     )
   )
+  delete_content_by_title(con, title, suppress)
+  invisible(NULL)
+}
+
+# For deploys that fail before they say what they created
+delete_content_by_title = function(con, title, suppress) {
   # Only the auditor's content, so nobody else's item with the same title is deleted
   content = suppress(connectapi::get_content(con, owner_guid = con$me()$guid))
   guid = content$guid[content$title %in% title]
+  # map in case we make multiple mistakes
   purrr::map(
     guid,
     ~ {
@@ -79,7 +85,6 @@ cleanup_python = function(tmp_dir, debug_level, title) {
       suppress(connectapi::content_delete(item, force = TRUE))
     }
   )
-
   invisible(NULL)
 }
 
