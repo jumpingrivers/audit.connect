@@ -1,3 +1,9 @@
+# audit.connect 0.8.13
+
+## Bug fixes and minor improvements
+
+* The package is MIT licensed (jumpingrivers/audit.base#63).
+
 # audit.connect 0.8.12
 
 ## Bug fixes and minor improvements
