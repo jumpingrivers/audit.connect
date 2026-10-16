@@ -1,3 +1,10 @@
+# audit.connect 0.8.10
+
+## Bug fixes and minor improvements
+
+* A failed build of the system-libraries endpoint no longer leaves it on Connect (#67).
+* A Quarto deploy that fails before Quarto records it is deleted by title, and its temporary folder is always removed (#67).
+
 # audit.connect 0.8.9
 
 ## Bug fixes and minor improvements
