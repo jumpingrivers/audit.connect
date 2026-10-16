@@ -72,3 +72,33 @@ test_that("cleanup_quarto() deletes by title when the deploy left no record", {
   expect_identical(calls$deleted, "a")
   expect_false(dir.exists(tmp_dir))
 })
+
+test_that("A bad endpoint reply or unsupported OS warns instead of stopping check()", {
+  testthat::local_mocked_bindings(
+    get_server = function(...) "https://connect.example.com/",
+    get_token = function(...) "key",
+    get_deploy_url = function(...) "https://connect.example.com/content/1/",
+    cleanup_plumber = function(...) NULL,
+    setup_plumber_sys_deps_endpoint = function(...) structure(list(), class = "Content")
+  )
+  testthat::local_mocked_bindings(poll_task = function(x, ...) x, .package = "connectapi")
+  reply = function(status, body) {
+    structure(
+      list(status_code = status, content = charToRaw(body), headers = list()),
+      class = "response"
+    )
+  }
+  replies = list(
+    reply(500L, "Internal Server Error"),
+    reply(200L, "<html>not JSON</html>"),
+    reply(
+      200L,
+      '{"os_release":["PRETTY_NAME=\\"Arch Linux\\"","ID=arch"],"libs":[null],"timezone":[""]}'
+    )
+  )
+  for (resp in replies) {
+    testthat::local_mocked_bindings(GET = function(...) resp, .package = "httr")
+    expect_warning(sys_deps <- check_sys_deps(debug_level = 0), "system libraries") # nolint
+    expect_identical(sys_deps, NA)
+  }
+})
