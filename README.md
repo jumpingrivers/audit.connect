@@ -58,8 +58,8 @@ If you aren’t using binaries or the OS is the same, then you won’t have
 any issue. If you want to be sure, we can use {renv}
 
 ``` r
-# Ensure we don't use the existing renv cache
-fs::dir_delete(renv::paths$cache())
+# Use a new, empty cache for this project, leaving your own renv cache alone
+Sys.setenv(RENV_PATHS_CACHE = tempfile("renv-cache-"))
 # Use the slow installation method
 renv::init(repo = "https://cloud.r-project.org/")
 renv::install("remotes")

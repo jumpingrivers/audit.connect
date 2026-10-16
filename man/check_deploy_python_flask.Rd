@@ -36,7 +36,7 @@ Check classes
 \if{html}{\out{<a id="method-check_deploy_python_flask-check"></a>}}
 \if{latex}{\out{\hypertarget{method-check_deploy_python_flask-check}{}}}
 \subsection{Method \code{check()}}{
-Checks deployment of Quarto document with HTML output
+Checks deployment of a Python Flask API
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{check_deploy_python_flask$check(debug_level)}\if{html}{\out{</div>}}
 }

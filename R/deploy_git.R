@@ -10,7 +10,7 @@ deploy_git = function(repository, debug_level, title) {
     repository,
     branch = "main",
     subdirectory = ".",
-    title = "UAT"
+    title = title
   ))
 
   # If deploy not successful, content not created

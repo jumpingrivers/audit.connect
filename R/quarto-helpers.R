@@ -19,20 +19,21 @@ get_quarto_old_users = function(out) {
       ) /
         months(1), #nolint
       last_log_in = dplyr::case_when(
+        is.na(last_log_on_diff) ~ "Never logged in",
         last_log_on_diff > 12 ~ "12 months+",
-        last_log_on_diff > 6 & last_log_on_diff < 12 ~ "6 months+",
-        last_log_on_diff > 3 & last_log_on_diff < 6 ~ "3 months+",
+        last_log_on_diff > 6 ~ "6 months+",
+        last_log_on_diff > 3 ~ "3 months+",
         .default = NA
       )
     ) |>
-    dplyr::filter(.data$last_log_on_diff > 3) |>
+    dplyr::filter(!is.na(.data$last_log_in)) |>
 
     dplyr::group_by(.data$last_log_in) |>
     dplyr::reframe(email = paste(.data$email, collapse = ", ")) |>
     dplyr::mutate(
       last_log_in = factor(
         .data$last_log_in,
-        c("12 months+", "6 months+", "3 months+"),
+        c("Never logged in", "12 months+", "6 months+", "3 months+"),
         ordered = TRUE
       )
     ) |>

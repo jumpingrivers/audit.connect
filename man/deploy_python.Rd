@@ -8,7 +8,7 @@ deploy_python(
   python_dir,
   python_files = c("app.py", "index.qmd", "hash.ipynb"),
   rsconnect_type = c("api", "streamlit", "quarto", "voila"),
-  debug_level = debug_level
+  debug_level
 )
 }
 \arguments{

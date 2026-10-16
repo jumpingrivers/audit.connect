@@ -16,7 +16,7 @@ deploy_python = function(
   python_dir,
   python_files = c("app.py", "index.qmd", "hash.ipynb"),
   rsconnect_type = c("api", "streamlit", "quarto", "voila"),
-  debug_level = debug_level
+  debug_level
 ) {
   suppress = get_suppress(debug_level)
   rsconnect_type = match.arg(rsconnect_type)
@@ -69,7 +69,8 @@ cleanup_python = function(tmp_dir, debug_level, title) {
       api_key = get_token()
     )
   )
-  content = suppress(connectapi::get_content(con))
+  # Only the auditor's content, so nobody else's item with the same title is deleted
+  content = suppress(connectapi::get_content(con, owner_guid = con$me()$guid))
   guid = content$guid[content$title %in% title]
   purrr::map(
     guid,

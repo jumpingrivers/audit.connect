@@ -1,7 +1,7 @@
 deploy_quarto = function(
   quarto_dir,
   account = NULL,
-  debug_level = debug_level
+  debug_level
 ) {
   suppress = get_suppress(debug_level)
 
