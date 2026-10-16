@@ -1,3 +1,11 @@
+# audit.connect 0.8.8
+
+## Bug fixes and minor improvements
+
+* `report.qmd` renders on licensed servers. The summary stores how much content each locked user owns, not the full content list (#64).
+* The Python checks are reported as skipped when rsconnect-python is missing, instead of two failing and two being left out (#65).
+* The API key is passed to rsconnect-python through `CONNECT_API_KEY`, not on the command line, and the rsconnect account that holds it is kept in a temporary folder (#66).
+
 # audit.connect 0.8.7
 
 ## Bug fixes and minor improvements
