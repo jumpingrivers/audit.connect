@@ -1,3 +1,9 @@
+# audit.connect 0.8.14
+
+## Bug fixes and minor improvements
+
+* CI uses `actions/checkout@v5` (jumpingrivers/audit.base#64).
+
 # audit.connect 0.8.13
 
 ## Bug fixes and minor improvements
