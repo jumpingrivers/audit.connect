@@ -13,6 +13,7 @@
 #'  * 1: clean-up all files, but display build steps
 #'  * 2: No clean-up (on connect and on disk) and display build steps
 #' @importFrom rlang .data .env
+#' @importFrom R6 R6Class
 #' @import audit.base
 #' @export
 check = function(server = NULL, token = NULL, dir = ".", debug_level = 0:2) {
@@ -33,7 +34,6 @@ check = function(server = NULL, token = NULL, dir = ".", debug_level = 0:2) {
   check_list$versions = summarise_versions(get_server(), get_token())
 
   # check_list$feature_usage = summarise_feature_usage(get_server(), get_token()) #nolint
-  check_list$audit_details = audit_details(get_server(), get_token())
   check_list$users_details = summarise_users(
     server = get_server(),
     token = get_token(),
@@ -44,21 +44,4 @@ check = function(server = NULL, token = NULL, dir = ".", debug_level = 0:2) {
   check_list$results = check_deployments(dir, debug_level)
   cli::cli_h1("All checks complete")
   invisible(check_list)
-}
-
-init_r6_checks = function(dir, file) {
-  exports = getNamespaceExports("audit.connect")
-  check_exports = sort(exports[stringr::str_starts(exports, "check_deploy")])
-  r6_inits = lapply(check_exports, init_r6_check, dir = dir, file = file)
-  r6_inits
-}
-
-init_r6_check = function(export, dir, file) {
-  obj = eval(parse(text = export))
-  if (inherits(obj, "R6ClassGenerator")) {
-    obj = obj$new(dir, file)
-  } else {
-    obj = NULL
-  }
-  obj
 }

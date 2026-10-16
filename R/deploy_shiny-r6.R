@@ -6,7 +6,7 @@ check_deploy_shiny = R6::R6Class(
   "check_deploy_shiny",
   inherit = audit.base::base_check,
   public = list(
-    #' @description  Checks deployment of an R Markdown document with Word Docx output
+    #' @description Checks deployment of a Shiny app
     #' @param debug_level See check() for details
     check = function(debug_level) {
       shiny_dir = system.file(

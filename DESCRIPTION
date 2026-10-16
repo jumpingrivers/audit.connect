@@ -21,11 +21,13 @@ Imports:
     pins (>= 1.1.0),
     processx,
     purrr,
+    R6,
     quarto (>= 1.3),
     rlang,
     rsconnect (>= 1.10.0),
     stringr,
     tibble,
+    utils,
     withr
 Suggests:
     glue,

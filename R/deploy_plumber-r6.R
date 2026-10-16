@@ -3,7 +3,7 @@
 #' Check classes
 #' @export
 check_deploy_plumber_api = R6::R6Class(
-  "check_deploy_pluumber_api",
+  "check_deploy_plumber_api",
   inherit = audit.base::base_check,
   public = list(
     #' @description Checks deployment of a Plumber API

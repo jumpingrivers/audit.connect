@@ -12,13 +12,13 @@ R6 classes
 Check classes
 }
 \section{Super classes}{
-\code{\link[audit.base:logger]{audit.base::logger}} -> \code{\link[audit.base:base_check]{audit.base::base_check}} -> \code{check_deploy_pluumber_api}
+\code{\link[audit.base:logger]{audit.base::logger}} -> \code{\link[audit.base:base_check]{audit.base::base_check}} -> \code{check_deploy_plumber_api}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-check_deploy_pluumber_api-check}{\code{check_deploy_plumber_api$check()}}
-\item \href{#method-check_deploy_pluumber_api-clone}{\code{check_deploy_plumber_api$clone()}}
+\item \href{#method-check_deploy_plumber_api-check}{\code{check_deploy_plumber_api$check()}}
+\item \href{#method-check_deploy_plumber_api-clone}{\code{check_deploy_plumber_api$clone()}}
 }
 }
 \if{html}{\out{
@@ -33,8 +33,8 @@ Check classes
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-check_deploy_pluumber_api-check"></a>}}
-\if{latex}{\out{\hypertarget{method-check_deploy_pluumber_api-check}{}}}
+\if{html}{\out{<a id="method-check_deploy_plumber_api-check"></a>}}
+\if{latex}{\out{\hypertarget{method-check_deploy_plumber_api-check}{}}}
 \subsection{Method \code{check()}}{
 Checks deployment of a Plumber API
 \subsection{Usage}{
@@ -50,8 +50,8 @@ Checks deployment of a Plumber API
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-check_deploy_pluumber_api-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-check_deploy_pluumber_api-clone}{}}}
+\if{html}{\out{<a id="method-check_deploy_plumber_api-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-check_deploy_plumber_api-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

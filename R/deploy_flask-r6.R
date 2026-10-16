@@ -6,7 +6,7 @@ check_deploy_python_flask = R6::R6Class(
   "check_deploy_python_flask",
   inherit = audit.base::base_check,
   public = list(
-    #' @description Checks deployment of Quarto document with HTML output
+    #' @description Checks deployment of a Python Flask API
     #' @param debug_level See check() for details
     check = function(debug_level) {
       if (skip_without_rsconnect_python(self)) {

@@ -36,7 +36,7 @@ Check classes
 \if{html}{\out{<a id="method-check_deploy_shiny-check"></a>}}
 \if{latex}{\out{\hypertarget{method-check_deploy_shiny-check}{}}}
 \subsection{Method \code{check()}}{
-Checks deployment of an R Markdown document with Word Docx output
+Checks deployment of a Shiny app
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{check_deploy_shiny$check(debug_level)}\if{html}{\out{</div>}}
 }
